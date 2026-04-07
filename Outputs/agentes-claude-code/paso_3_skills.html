@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Paso 3 — Skills</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; }
+  body {
+    background: #F5F2ED;
+    background-image:
+      linear-gradient(#E8E4DD 1px, transparent 1px),
+      linear-gradient(90deg, #E8E4DD 1px, transparent 1px);
+    background-size: 40px 40px;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #0E0E0E;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: space-between;
+    padding: 80px 80px 90px;
+    position: relative;
+  }
+  .username { font-size: 26px; font-weight: 500; color: #8A8780; }
+  .center-block {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 38px; flex: 1; justify-content: center; width: 100%;
+  }
+  .text-stack { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .step-label {
+    font-size: 24px; font-weight: 600; color: #8A8780;
+    text-transform: uppercase; letter-spacing: 0.18em;
+  }
+  .headline {
+    font-size: 58px; font-weight: 800; line-height: 1.18;
+    text-align: center; max-width: 880px; letter-spacing: -0.02em;
+  }
+  .accent-coral { color: #E85D3C; }
+  .subtitle {
+    font-size: 24px; font-weight: 500; color: #3A3A38;
+    line-height: 1.45; text-align: center; max-width: 760px;
+    margin-top: 4px;
+  }
+  .swipe { font-size: 26px; font-weight: 700; }
+  .footer { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  .indicator { display: flex; gap: 12px; align-items: center; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: #D5D0C8; }
+  .dot.active { width: 13px; height: 13px; background: #E85D3C; }
+
+  .filetree {
+    width: 700px;
+    background: #FFFFFF;
+    border-radius: 18px;
+    box-shadow:
+      0 14px 40px rgba(14,14,14,0.10),
+      0 30px 80px rgba(14,14,14,0.06);
+    padding: 32px 38px;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 21px;
+    line-height: 1.95;
+    color: #1A1A1A;
+  }
+  .ft-row { display: flex; align-items: center; gap: 12px; }
+  .ft-icon {
+    width: 22px; height: 22px;
+    display: inline-flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .folder svg { fill: #E85D3C; }
+  .file svg { fill: #8A8780; }
+  .file.highlight svg { fill: #1A1A1A; }
+  .indent-1 { padding-left: 0; }
+  .indent-2 { padding-left: 28px; }
+  .indent-3 { padding-left: 56px; }
+  .indent-4 { padding-left: 84px; }
+  .ft-name { color: #1A1A1A; }
+  .ft-name.muted { color: #8A8780; }
+  .ft-name.highlight {
+    color: #1A1A1A;
+    font-weight: 700;
+    background: #FFE45C;
+    padding: 2px 8px;
+    border-radius: 5px;
+  }
+  .ft-comment { color: #8A8780; font-style: italic; margin-left: 8px; }
+
+  .chev {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 44px; height: 44px; border-radius: 50%;
+    background: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(14,14,14,0.08);
+    display: flex; align-items: center; justify-content: center;
+    color: #1A1A1A; font-size: 28px; font-weight: 400; line-height: 1;
+  }
+  .chev.left { left: 30px; }
+  .chev.right { right: 30px; }
+</style>
+</head>
+<body>
+  <div class="username">@lucianomusellaa</div>
+
+  <div class="center-block">
+    <div class="text-stack">
+      <div class="step-label">Paso 3</div>
+      <h1 class="headline">Convierte tus tareas<br>repetitivas en <span class="accent-coral">Skills</span></h1>
+      <p class="subtitle">Cada proceso que repites (un reporte, una auditoría, un brief) se guarda como un Skill y el agente lo ejecuta solo cuando lo necesita.</p>
+    </div>
+
+    <div class="filetree">
+      <div class="ft-row indent-1 folder">
+        <span class="ft-icon"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6z"/></svg></span>
+        <span class="ft-name">mi-agente/</span>
+      </div>
+      <div class="ft-row indent-2 file">
+        <span class="ft-icon"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/></svg></span>
+        <span class="ft-name">CLAUDE.md</span>
+      </div>
+      <div class="ft-row indent-2 folder">
+        <span class="ft-icon"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6z"/></svg></span>
+        <span class="ft-name">.claude/</span>
+      </div>
+      <div class="ft-row indent-3 folder">
+        <span class="ft-icon"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6z"/></svg></span>
+        <span class="ft-name highlight">skills/</span>
+      </div>
+      <div class="ft-row indent-4 folder">
+        <span class="ft-icon"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6z"/></svg></span>
+        <span class="ft-name">brief-seo/</span>
+      </div>
+      <div class="ft-row indent-4 folder">
+        <span class="ft-icon"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6z"/></svg></span>
+        <span class="ft-name">reporte-semanal/</span>
+      </div>
+      <div class="ft-row indent-4 folder">
+        <span class="ft-icon"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6z"/></svg></span>
+        <span class="ft-name">auditar-pagina/</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="indicator">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+    <div class="swipe">Desliza →</div>
+  </div>
+
+  <div class="chev left">‹</div>
+  <div class="chev right">›</div>
+</body>
+</html>
