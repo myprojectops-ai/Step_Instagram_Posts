@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bash render.sh PostTypes/news/Outputs/amazon-200b-ia-capex/news_v5_orange_explosion.html)",
+      "Bash(bash render.sh PostTypes/news/Outputs/amazon-200b-ia-capex/news_v6_big_number_bold.html)",
+      "Bash(bash render.sh PostTypes/news/Outputs/amazon-200b-ia-capex/news_v7_quote_editorial.html)",
+      "Bash(bash render.sh PostTypes/news/Outputs/amazon-200b-ia-capex/news_v8_stats_magazine.html)"
+    ]
+  }
+}

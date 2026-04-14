@@ -45,17 +45,33 @@ render_one() {
     win_path="${BASH_REMATCH[1]}:/${BASH_REMATCH[2]}"
   fi
 
+  local win_png="$png"
+  if [[ "$png" =~ ^/([a-zA-Z])/(.*) ]]; then
+    win_png="${BASH_REMATCH[1]}:/${BASH_REMATCH[2]}"
+  fi
+
+  # Render at a slightly larger viewport (1098x1368) to avoid Chrome's
+  # black-border artifact on Windows, then crop to exact 1080x1350.
   "$CHROME" \
     --headless=new \
     --disable-gpu \
     --hide-scrollbars \
     --force-device-scale-factor=1 \
-    --window-size=1080,1350 \
+    --window-size=1098,1368 \
     --virtual-time-budget=5000 \
-    --screenshot="$png" \
+    --screenshot="$win_png" \
     "file:///$win_path" 2>/dev/null
 
   if [ -f "$png" ]; then
+    # Crop to exact Instagram 4:5 dimensions (1080x1350)
+    python -c "
+from PIL import Image
+img = Image.open('$win_png')
+if img.size != (1080, 1350):
+    cropped = img.crop((0, 0, 1080, 1350))
+    cropped.save('$win_png')
+" 2>/dev/null
+
     local size
     size="$(wc -c < "$png" | tr -d ' ')"
     printf "  ✅ %-40s → %s bytes\n" "$name" "$size"

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; }
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #FFFFFF;
+    position: relative;
+    background: #0A0A0A;
+  }
+
+  .photo-bg {
+    position: absolute; top: 0; left: 0;
+    width: 1080px; height: 1350px;
+    object-fit: cover; object-position: center 10%;
+    z-index: 0;
+  }
+
+  .brand-bg {
+    position: absolute;
+    top: 14%; right: -40px;
+    width: 540px; height: auto;
+    opacity: 0.20;
+    mix-blend-mode: screen;
+    z-index: 1;
+  }
+
+  .overlay {
+    position: absolute; top: 0; left: 0;
+    width: 1080px; height: 1350px;
+    background: linear-gradient(to bottom,
+      rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.03) 20%,
+      rgba(0,0,0,0.45) 55%, rgba(0,0,0,0.92) 100%);
+    z-index: 2;
+  }
+  .vignette {
+    position: absolute; top: 0; left: 0;
+    width: 1080px; height: 1350px;
+    background: radial-gradient(ellipse 75% 70% at 40% 30%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.50) 100%);
+    z-index: 2;
+  }
+  /* Subtle coral glow bottom */
+  .glow-coral {
+    position: absolute; bottom: 0; left: 0;
+    width: 1080px; height: 550px;
+    background: radial-gradient(ellipse 100% 100% at 40% 100%,
+      rgba(232,93,60,0.12) 0%, transparent 55%);
+    z-index: 2;
+  }
+
+  .content {
+    position: relative; z-index: 3;
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+    padding: 55px 60px 55px;
+  }
+
+  .top-bar {
+    display: flex; align-items: center;
+    justify-content: space-between; width: 100%;
+  }
+  .badge {
+    background: #E85D3C; color: #FFFFFF;
+    font-size: 18px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    padding: 10px 22px; border-radius: 8px;
+  }
+  .username {
+    font-size: 22px; font-weight: 500;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .bottom-block {
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  /* Stats row using brand palette */
+  .stats-row {
+    display: flex; gap: 14px;
+  }
+  .stat-pill {
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 17px; font-weight: 800;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  .stat-pill.coral {
+    background: rgba(232,93,60,0.20);
+    border: 1.5px solid rgba(232,93,60,0.45);
+    color: #E85D3C;
+  }
+  .stat-pill.yellow {
+    background: rgba(255,228,92,0.12);
+    border: 1.5px solid rgba(255,228,92,0.35);
+    color: #FFE45C;
+  }
+  .headline {
+    font-size: 54px; font-weight: 800;
+    line-height: 1.15; letter-spacing: -0.02em;
+    max-width: 940px;
+  }
+  .accent-coral { color: #E85D3C; }
+  .accent-yellow {
+    background: #FFE45C; color: #0E0E0E;
+    padding: 2px 12px; border-radius: 6px;
+    display: inline-block; line-height: 1.1;
+  }
+  .source {
+    font-size: 18px; font-weight: 500;
+    color: rgba(255,255,255,0.4);
+  }
+  .bottom-bar {
+    display: flex; justify-content: flex-end;
+    align-items: center; margin-top: 10px;
+  }
+  .watermark {
+    width: 40px; height: auto;
+    opacity: 0.4;
+    filter: brightness(3) grayscale(0.3);
+  }
+</style>
+</head>
+<body>
+  <img class="photo-bg" src="../../../../Assets/Personas/Andy_Jassy.jpg" alt="">
+  <img class="brand-bg" src="../../../../Logos/Amazon_logo_02.png" alt="">
+  <div class="overlay"></div>
+  <div class="vignette"></div>
+  <div class="glow-coral"></div>
+
+  <div class="content">
+    <div class="top-bar">
+      <div class="badge">AI News</div>
+      <div class="username">@lucianomusellaa</div>
+    </div>
+
+    <div class="bottom-block">
+      <div class="stats-row">
+        <div class="stat-pill coral">$200B CAPEX</div>
+        <div class="stat-pill yellow">$15B IA REVENUE</div>
+        <div class="stat-pill coral">$50B CHIPS</div>
+      </div>
+      <h1 class="headline">
+        Amazon revela sus primeras cifras de <span class="accent-yellow">IA</span> y defiende su mega inversión
+      </h1>
+      <div class="source">Fuente: Carta anual de Andy Jassy a accionistas 2025</div>
+      <div class="bottom-bar">
+        <img class="watermark" src="../../../../Logos/Alta_Studio_Logo_fondoneutro.png" alt="Alta Studio">
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; }
+  body {
+    background: #F5F2ED;
+    background-image:
+      linear-gradient(#E8E4DD 1px, transparent 1px),
+      linear-gradient(90deg, #E8E4DD 1px, transparent 1px);
+    background-size: 40px 40px;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #0E0E0E;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: space-between;
+    padding: 80px 80px 90px;
+  }
+  .username { font-size: 26px; font-weight: 500; color: #8A8780; }
+  .center-block {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 26px; flex: 1; justify-content: center; width: 100%;
+  }
+
+  /* Mascot: stylized Claude agent icon */
+  .mascot {
+    width: 140px; height: 140px;
+    position: relative;
+  }
+  .mascot-body {
+    width: 100%; height: 100%;
+    background: #E85D3C;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 12px 36px rgba(232,93,60,0.25);
+  }
+  .mascot-spark {
+    position: absolute;
+    width: 16px; height: 16px;
+  }
+  .mascot-spark.ms1 { top: -6px; right: 8px; }
+  .mascot-spark.ms2 { bottom: 4px; left: -4px; }
+
+  .big-text {
+    font-size: 60px; font-weight: 800; line-height: 1.05;
+    text-align: center; letter-spacing: -0.025em;
+    margin-top: 12px;
+  }
+  .divider {
+    width: 80px; height: 1.5px; background: #1A1A1A;
+    margin: 6px 0;
+  }
+  .label {
+    font-size: 22px; font-weight: 500; color: #8A8780;
+  }
+  .cta-pill {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 22px 56px;
+    font-size: 42px; font-weight: 800;
+    color: #0E0E0E;
+    letter-spacing: 0.02em;
+    box-shadow:
+      0 12px 32px rgba(14,14,14,0.10),
+      0 24px 60px rgba(14,14,14,0.06);
+  }
+  .caption {
+    font-size: 22px; font-weight: 500; color: #8A8780;
+    margin-top: 4px;
+  }
+  .indicator {
+    display: flex; gap: 12px; align-items: center;
+    margin-top: 18px;
+  }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: #D5D0C8; }
+  .dot.active { width: 13px; height: 13px; background: #E85D3C; }
+</style>
+</head>
+<body>
+  <div class="username">@lucianomusellaa</div>
+  <div class="center-block">
+    <div class="mascot">
+      <div class="mascot-body">
+        <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="4" y="4" width="16" height="16" rx="3"/>
+          <path d="M9 9h6M9 12h4M9 15h5"/>
+          <circle cx="18" cy="6" r="2.5" fill="#FFE45C" stroke="none"/>
+        </svg>
+      </div>
+      <svg class="mascot-spark ms1" viewBox="0 0 16 16"><polygon points="8,0 10,6 16,8 10,10 8,16 6,10 0,8 6,6" fill="#FFE45C"/></svg>
+      <svg class="mascot-spark ms2" viewBox="0 0 16 16"><polygon points="8,0 10,6 16,8 10,10 8,16 6,10 0,8 6,6" fill="#FFE45C"/></svg>
+    </div>
+    <div class="big-text">¿quieres armar el tuyo?</div>
+    <div class="divider"></div>
+    <div class="label">comenta</div>
+    <div class="cta-pill">"AGENTES"</div>
+    <div class="caption">y te envío el setup completo</div>
+    <div class="indicator">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot active"></div>
+    </div>
+  </div>
+</body>
+</html>

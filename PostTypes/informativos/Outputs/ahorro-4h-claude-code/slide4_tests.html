@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; }
+  body {
+    background: #F5F2ED;
+    background-image:
+      linear-gradient(#E8E4DD 1px, transparent 1px),
+      linear-gradient(90deg, #E8E4DD 1px, transparent 1px);
+    background-size: 40px 40px;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #0E0E0E;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: space-between;
+    padding: 70px 80px 80px;
+    position: relative;
+  }
+  .username { font-size: 26px; font-weight: 500; color: #8A8780; }
+  .center-block {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 40px; flex: 1; justify-content: center; width: 100%;
+  }
+  .text-stack { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .number-badge {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: #E85D3C; color: #FFFFFF;
+    font-size: 24px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .headline {
+    font-size: 52px; font-weight: 800; line-height: 1.15;
+    text-align: center; max-width: 880px; letter-spacing: -0.02em;
+  }
+  .accent-coral { color: #E85D3C; }
+  .subtitle {
+    font-size: 26px; font-weight: 500; color: #3A3A38;
+    line-height: 1.45; text-align: center; max-width: 800px;
+    margin-top: 4px;
+  }
+
+  /* Terminal mockup */
+  .mockup {
+    background: #1A1A1A;
+    border-radius: 22px;
+    box-shadow:
+      0 12px 40px rgba(14,14,14,0.12),
+      0 30px 80px rgba(14,14,14,0.06);
+    width: 780px;
+    overflow: hidden;
+  }
+  .terminal-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 16px 20px;
+    background: #2A2A2A;
+    border-bottom: 1px solid #333;
+  }
+  .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
+  .terminal-dot.red { background: #FF5F56; }
+  .terminal-dot.yellow { background: #FFBD2E; }
+  .terminal-dot.green { background: #27CA40; }
+  .terminal-tab {
+    margin-left: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; color: #999; font-weight: 500;
+  }
+  .terminal-body {
+    padding: 24px 28px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+  .t-line { white-space: pre-wrap; }
+  .t-prompt { color: #61AFEF; }
+  .t-success { color: #98C379; }
+  .t-dim { color: #5C6370; }
+  .t-file { color: #E5C07B; }
+  .t-path { color: #ABB2BF; }
+
+  .section-divider {
+    border: none; border-top: 1px dashed #444;
+    margin: 12px 0;
+  }
+
+  /* CTA section */
+  .cta-section {
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    margin-top: 8px;
+  }
+  .cta-text {
+    font-size: 28px; font-weight: 700; color: #E85D3C;
+    text-align: center;
+  }
+  .cta-sub {
+    font-size: 22px; font-weight: 500; color: #8A8780;
+    text-align: center;
+  }
+
+  .footer { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .indicator { display: flex; gap: 12px; align-items: center; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: #D5D0C8; }
+  .dot.active { width: 13px; height: 13px; background: #E85D3C; }
+
+  .chev {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 44px; height: 44px; border-radius: 50%;
+    background: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(14,14,14,0.08);
+    display: flex; align-items: center; justify-content: center;
+    color: #1A1A1A; font-size: 26px; font-weight: 400;
+  }
+  .chev.left { left: 30px; }
+  .chev.right { right: 30px; }
+</style>
+</head>
+<body>
+  <div class="username">@lucianomusellaa</div>
+
+  <div class="center-block">
+    <div class="text-stack">
+      <div class="number-badge">3</div>
+      <h1 class="headline">
+        Genera tests y docs<br>en <span class="accent-coral">automático</span>
+      </h1>
+      <p class="subtitle">Tú construyes el producto, Claude lo documenta.</p>
+    </div>
+
+    <div class="mockup">
+      <div class="terminal-bar">
+        <div class="terminal-dot red"></div>
+        <div class="terminal-dot yellow"></div>
+        <div class="terminal-dot green"></div>
+        <span class="terminal-tab">Terminal</span>
+      </div>
+      <div class="terminal-body">
+        <div class="t-line"><span class="t-prompt">$ claude</span> <span class="t-dim">"genera tests para auth.py"</span></div>
+        <div class="t-line" style="margin-top: 8px;"><span class="t-success">✓ Creados 8 test cases:</span></div>
+        <div class="t-line"><span class="t-file">  test_login_success</span></div>
+        <div class="t-line"><span class="t-file">  test_login_invalid_password</span></div>
+        <div class="t-line"><span class="t-file">  test_token_expiration</span></div>
+        <div class="t-line"><span class="t-file">  test_refresh_token</span></div>
+        <div class="t-line"><span class="t-dim">  ... +4 más</span></div>
+
+        <hr class="section-divider">
+
+        <div class="t-line"><span class="t-success">✓ Documentación generada:</span></div>
+        <div class="t-line"><span class="t-file">  README.md</span> <span class="t-dim">actualizado</span></div>
+        <div class="t-line"><span class="t-file">  auth.py</span> <span class="t-dim">docstrings añadidos</span></div>
+        <div class="t-line" style="margin-top: 8px;"><span class="t-success">✓ 8/8 tests passing</span></div>
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <div class="cta-text">Guarda este post</div>
+      <div class="cta-sub">para cuando quieras optimizar tu flujo</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="indicator">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot active"></div>
+    </div>
+  </div>
+
+  <div class="chev left">‹</div>
+  <div class="chev right">›</div>
+</body>
+</html>

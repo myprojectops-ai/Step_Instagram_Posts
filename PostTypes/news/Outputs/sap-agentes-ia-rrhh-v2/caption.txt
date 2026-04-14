@@ -1,0 +1,15 @@
+SAP acaba de integrar agentes de inteligencia artificial en su plataforma de gestión de talento humano, SuccessFactors.
+
+La actualización 1H 2026 introduce agentes de IA que operan de forma autónoma en reclutamiento, nómina, administración de personal y desarrollo de talento.
+
+Estos agentes monitorean los sistemas en tiempo real, detectan anomalías y sugieren soluciones basadas en el contexto sin intervención humana.
+
+Una de las funciones clave es la resolución automática de errores: si faltan datos de un empleado, la IA los identifica y solicita la corrección directamente.
+
+También integra SmartRecruiters con SAP SuccessFactors, permitiendo que evaluaciones de candidatos y verificaciones de antecedentes fluyan automáticamente al sistema central de recursos humanos.
+
+Para cumplir con las nuevas directivas de transparencia salarial de la Unión Europea, la plataforma ahora incluye análisis automatizado de compensación.
+
+SAP también agregó herramientas de gobernanza de habilidades que estandarizan las definiciones de competencias entre departamentos.
+
+Es una señal clara de que la IA empresarial está dejando de ser asistencial para convertirse en operacional: ya no solo ayuda, ejecuta.

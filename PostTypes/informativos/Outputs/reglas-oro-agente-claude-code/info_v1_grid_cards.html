@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; }
+  body {
+    background: #F5F2ED;
+    background-image:
+      linear-gradient(#E8E4DD 1px, transparent 1px),
+      linear-gradient(90deg, #E8E4DD 1px, transparent 1px);
+    background-size: 40px 40px;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #0E0E0E;
+    display: flex; flex-direction: column;
+    align-items: center;
+    padding: 44px 50px 40px;
+  }
+
+  .username { font-size: 22px; font-weight: 500; color: #8A8780; margin-bottom: 24px; }
+
+  .title-block { text-align: center; margin-bottom: 32px; }
+  .main-title {
+    font-size: 52px; font-weight: 900; line-height: 1.12;
+    letter-spacing: -0.03em; max-width: 920px;
+  }
+  .accent-coral { color: #E85D3C; }
+  .accent-yellow {
+    background: #FFE45C; padding: 2px 14px; border-radius: 7px;
+    box-decoration-break: clone; -webkit-box-decoration-break: clone;
+    display: inline; line-height: 1.35;
+  }
+  .subtitle {
+    font-size: 21px; font-weight: 500; color: #8A8780;
+    margin-top: 12px;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    width: 100%; max-width: 980px;
+    flex: 1;
+  }
+  .card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 22px 20px 20px;
+    box-shadow: 0 3px 14px rgba(14,14,14,0.05);
+    display: flex; flex-direction: column; gap: 10px;
+    border-top: 4.5px solid var(--card-color);
+  }
+  .card-header {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .card-num {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--card-color); color: #FFFFFF;
+    font-size: 17px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .card-title {
+    font-size: 21px; font-weight: 700; line-height: 1.2;
+  }
+  .card-body {
+    font-size: 16.5px; font-weight: 400; color: #6B6860;
+    line-height: 1.42;
+  }
+  .card-body strong { font-weight: 600; color: #3A3A38; }
+
+  .footer-bar {
+    padding-top: 18px;
+    font-size: 18px; font-weight: 500; color: #8A8780;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+  <div class="username">@lucianomusellaa</div>
+
+  <div class="title-block">
+    <h1 class="main-title">
+      <span class="accent-coral">9</span> reglas de oro para crear<br>un agente con <span class="accent-yellow">Claude Code</span>
+    </h1>
+    <p class="subtitle">Lo que separa a un usuario promedio de un power user</p>
+  </div>
+
+  <div class="card-grid">
+    <!-- Card 1 — Coral -->
+    <div class="card" style="--card-color: #E85D3C;">
+      <div class="card-header">
+        <div class="card-num">1</div>
+        <div class="card-title">Empieza por el CLAUDE.md</div>
+      </div>
+      <div class="card-body">Es el <strong>cerebro</strong> de tu agente. Define contexto, reglas y personalidad ahí antes de cualquier otra cosa.</div>
+    </div>
+
+    <!-- Card 2 — Orange -->
+    <div class="card" style="--card-color: #F49D37;">
+      <div class="card-header">
+        <div class="card-num">2</div>
+        <div class="card-title">Sé específico, no genérico</div>
+      </div>
+      <div class="card-body">"Refactoriza el auth" falla. <strong>"Mueve JWT a middleware/"</strong> funciona. El agente necesita instrucciones claras.</div>
+    </div>
+
+    <!-- Card 3 — Green -->
+    <div class="card" style="--card-color: #5B8C5A;">
+      <div class="card-header">
+        <div class="card-num">3</div>
+        <div class="card-title">Usa subagentes en paralelo</div>
+      </div>
+      <div class="card-body">Divide tareas complejas en <strong>agentes especializados</strong> que trabajen al mismo tiempo. Multiplica velocidad.</div>
+    </div>
+
+    <!-- Card 4 — Blue -->
+    <div class="card" style="--card-color: #4A90D9;">
+      <div class="card-header">
+        <div class="card-num">4</div>
+        <div class="card-title">Configura los hooks</div>
+      </div>
+      <div class="card-body">Scripts automáticos que se ejecutan <strong>antes/después</strong> de cada herramienta. Validan sin intervención tuya.</div>
+    </div>
+
+    <!-- Card 5 — Purple -->
+    <div class="card" style="--card-color: #8B6CC1;">
+      <div class="card-header">
+        <div class="card-num">5</div>
+        <div class="card-title">Activa Extended Thinking</div>
+      </div>
+      <div class="card-body">Para tareas que requieren planificación. <strong>Fuerza al modelo a pensar</strong> antes de actuar. Menos errores.</div>
+    </div>
+
+    <!-- Card 6 — Coral -->
+    <div class="card" style="--card-color: #E85D3C;">
+      <div class="card-header">
+        <div class="card-num">6</div>
+        <div class="card-title">Estructura tus carpetas</div>
+      </div>
+      <div class="card-body">El agente necesita <strong>encontrar lo que busca</strong>. Carpetas claras con convenciones > archivos sueltos.</div>
+    </div>
+
+    <!-- Card 7 — Orange -->
+    <div class="card" style="--card-color: #F49D37;">
+      <div class="card-header">
+        <div class="card-num">7</div>
+        <div class="card-title">Itera, no pidas todo</div>
+      </div>
+      <div class="card-body">Una tarea, revisa, ajusta, siguiente. <strong>No pidas "hazme toda la app"</strong>. El contexto se pierde.</div>
+    </div>
+
+    <!-- Card 8 — Green -->
+    <div class="card" style="--card-color: #5B8C5A;">
+      <div class="card-header">
+        <div class="card-num">8</div>
+        <div class="card-title">Controla los permisos</div>
+      </div>
+      <div class="card-body">Decide qué herramientas puede usar <strong>sin preguntar</strong> y cuáles requieren tu aprobación manual.</div>
+    </div>
+
+    <!-- Card 9 — Blue -->
+    <div class="card" style="--card-color: #4A90D9;">
+      <div class="card-header">
+        <div class="card-num">9</div>
+        <div class="card-title">Mantén el contexto limpio</div>
+      </div>
+      <div class="card-body"><strong>Edita mensajes</strong> en vez de enviar nuevos. Cada follow-up consume tokens y diluye el foco.</div>
+    </div>
+  </div>
+
+  <div class="footer-bar">Guarda este post para cuando lo necesites</div>
+</body>
+</html>

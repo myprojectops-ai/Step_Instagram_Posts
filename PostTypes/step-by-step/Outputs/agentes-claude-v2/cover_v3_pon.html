@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; }
+  body {
+    background: #F5F2ED;
+    background-image:
+      linear-gradient(#E8E4DD 1px, transparent 1px),
+      linear-gradient(90deg, #E8E4DD 1px, transparent 1px);
+    background-size: 40px 40px;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #0E0E0E;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: space-between;
+    padding: 80px 80px 90px;
+  }
+  .username { font-size: 26px; font-weight: 500; color: #8A8780; }
+  .center-block {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 60px; flex: 1; justify-content: center; width: 100%;
+  }
+  .headline {
+    font-size: 64px; font-weight: 800; line-height: 1.18;
+    text-align: center; max-width: 920px; letter-spacing: -0.02em;
+  }
+  .accent-coral { color: #E85D3C; }
+  .accent-yellow {
+    background: #FFE45C; padding: 4px 16px; border-radius: 8px;
+    box-decoration-break: clone; -webkit-box-decoration-break: clone;
+    display: inline-block; line-height: 1.05;
+  }
+  .footer { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  .indicator { display: flex; gap: 12px; align-items: center; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: #D5D0C8; }
+  .dot.active { width: 13px; height: 13px; background: #E85D3C; }
+  .swipe { font-size: 26px; font-weight: 700; }
+
+  /* Visual: terminal window with agent running */
+  .terminal {
+    width: 740px;
+    background: #1A1A1A;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(14,14,14,0.18), 0 40px 100px rgba(14,14,14,0.08);
+  }
+  .terminal-bar {
+    height: 48px; background: #2A2A2A;
+    display: flex; align-items: center; padding: 0 20px; gap: 10px;
+  }
+  .terminal-dot { width: 14px; height: 14px; border-radius: 50%; }
+  .terminal-dot.red { background: #FF5F57; }
+  .terminal-dot.yellow { background: #FFBD2E; }
+  .terminal-dot.green { background: #28CA41; }
+  .terminal-title {
+    flex: 1; text-align: center; font-size: 14px;
+    color: #8A8780; font-weight: 500;
+  }
+  .terminal-body {
+    padding: 28px 28px 32px;
+    font-family: 'Courier New', monospace;
+    font-size: 17px; line-height: 1.7;
+    color: #A0A0A0;
+  }
+  .terminal-body .prompt { color: #E85D3C; }
+  .terminal-body .cmd { color: #FFFFFF; }
+  .terminal-body .output { color: #28CA41; }
+  .terminal-body .dim { color: #666; }
+  .terminal-body .yellow { color: #FFE45C; }
+
+  /* Floating accent badge */
+  .badge {
+    position: absolute;
+    background: #E85D3C; color: #FFFFFF;
+    font-size: 16px; font-weight: 700;
+    padding: 10px 20px; border-radius: 30px;
+    box-shadow: 0 8px 24px rgba(232,93,60,0.3);
+    right: 100px; top: 580px;
+    letter-spacing: 0.04em;
+  }
+</style>
+</head>
+<body>
+  <div class="username">@lucianomusellaa</div>
+  <div class="center-block">
+    <h1 class="headline">
+      Pon un <span class="accent-coral">agente</span> de<br><span class="accent-yellow">Claude</span> a trabajar por ti
+    </h1>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="terminal-dot red"></div>
+        <div class="terminal-dot yellow"></div>
+        <div class="terminal-dot green"></div>
+        <div class="terminal-title">Terminal — agente</div>
+      </div>
+      <div class="terminal-body">
+        <div><span class="prompt">$</span> <span class="cmd">claude-agent start</span></div>
+        <div class="dim">── Iniciando agente...</div>
+        <div><span class="yellow">→</span> Modelo: claude-sonnet-4-6</div>
+        <div><span class="yellow">→</span> Herramientas: 4 conectadas</div>
+        <div><span class="yellow">→</span> Entorno: sandbox-cloud</div>
+        <div class="output" style="margin-top: 10px;">✓ Agente listo. Esperando tareas...</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="indicator">
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+    <div class="swipe">Desliza →</div>
+  </div>
+</body>
+</html>

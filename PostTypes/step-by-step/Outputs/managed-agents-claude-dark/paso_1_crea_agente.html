@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; }
+  body {
+    background: #17140F;
+    background-image:
+      linear-gradient(#26221C 1px, transparent 1px),
+      linear-gradient(90deg, #26221C 1px, transparent 1px);
+    background-size: 40px 40px;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #F5F2ED;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: space-between;
+    padding: 80px 80px 90px;
+    position: relative;
+  }
+  .username { font-size: 26px; font-weight: 500; color: #9F9C94; }
+  .center-block {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 40px; flex: 1; justify-content: center; width: 100%;
+  }
+  .text-stack { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  .step-label {
+    font-size: 24px; font-weight: 600; color: #9F9C94;
+    text-transform: uppercase; letter-spacing: 0.18em;
+  }
+  .headline {
+    font-size: 56px; font-weight: 800; line-height: 1.18;
+    text-align: center; max-width: 880px; letter-spacing: -0.02em;
+  }
+  .accent-coral { color: #E85D3C; }
+  .subtitle {
+    font-size: 28px; font-weight: 500; color: #C8C5BD;
+    line-height: 1.45; text-align: center; max-width: 800px;
+    margin-top: 8px;
+  }
+  .mockup {
+    background: #252220;
+    border-radius: 22px;
+    border: 1px solid rgba(245,242,237,0.08);
+    width: 700px;
+    padding: 36px 40px;
+    display: flex; flex-direction: column; gap: 22px;
+  }
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-label {
+    font-size: 16px; font-weight: 600; color: #9F9C94;
+    text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .form-input {
+    background: #1A1612; border-radius: 12px; padding: 16px 20px;
+    font-family: 'JetBrains Mono', monospace; font-size: 18px; color: #F5F2ED;
+    border: 1.5px solid #332F28;
+  }
+  .form-select {
+    background: #1A1612; border-radius: 12px; padding: 16px 20px;
+    font-family: 'Inter', sans-serif; font-size: 18px; color: #F5F2ED;
+    border: 1.5px solid #332F28;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .form-select .chevron { color: #9F9C94; font-size: 14px; }
+  .form-textarea {
+    background: #1A1612; border-radius: 12px; padding: 16px 20px;
+    font-family: 'JetBrains Mono', monospace; font-size: 16px; color: #9F9C94;
+    border: 1.5px solid #332F28; line-height: 1.5;
+  }
+  .btn-create {
+    background: #E85D3C; color: #FFFFFF; border: none; border-radius: 14px;
+    padding: 18px 40px; font-family: 'Inter', sans-serif;
+    font-size: 20px; font-weight: 700; text-align: center;
+    margin-top: 6px; letter-spacing: 0.02em;
+  }
+  .footer { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  .indicator { display: flex; gap: 12px; align-items: center; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: #3F3B34; }
+  .dot.active { width: 13px; height: 13px; background: #E85D3C; }
+  .swipe { font-size: 26px; font-weight: 700; }
+
+  .chev {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 44px; height: 44px; border-radius: 50%;
+    background: #252220;
+    border: 1px solid rgba(245,242,237,0.08);
+    display: flex; align-items: center; justify-content: center;
+    color: #F5F2ED; font-size: 26px; font-weight: 400;
+  }
+  .chev.left { left: 30px; }
+  .chev.right { right: 30px; }
+</style>
+</head>
+<body>
+  <div class="username">@lucianomusellaa</div>
+
+  <div class="center-block">
+    <div class="text-stack">
+      <div class="step-label">Paso 1</div>
+      <h1 class="headline">
+        Crea tu <span class="accent-coral">agente</span><br>en la consola
+      </h1>
+      <p class="subtitle">Define el modelo, escribe el prompt del sistema y selecciona las herramientas que puede usar.</p>
+    </div>
+
+    <div class="mockup">
+      <div class="form-group">
+        <div class="form-label">Nombre</div>
+        <div class="form-input">Coding Assistant</div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">Modelo</div>
+        <div class="form-select">
+          <span>claude-sonnet-4-6</span>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">System Prompt</div>
+        <div class="form-textarea">Eres un asistente de código.<br>Escribe código limpio y documentado.</div>
+      </div>
+      <div class="btn-create">Crear agente</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="indicator">
+      <div class="dot"></div>
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+    <div class="swipe">Desliza →</div>
+  </div>
+
+  <div class="chev left">‹</div>
+  <div class="chev right">›</div>
+</body>
+</html>

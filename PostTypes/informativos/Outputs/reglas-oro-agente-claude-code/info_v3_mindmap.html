@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; }
+  body {
+    background: #F5F2ED;
+    background-image:
+      linear-gradient(#E8E4DD 1px, transparent 1px),
+      linear-gradient(90deg, #E8E4DD 1px, transparent 1px);
+    background-size: 40px 40px;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #0E0E0E;
+    position: relative;
+  }
+
+  .username {
+    position: absolute; top: 38px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 22px; font-weight: 500; color: #8A8780;
+    z-index: 10;
+  }
+
+  /* === HUB at (540, 620) === */
+  .hub {
+    position: absolute;
+    top: 620px; left: 540px;
+    transform: translate(-50%, -50%);
+    width: 290px; height: 290px;
+    border-radius: 50%;
+    background: #E85D3C;
+    color: #FFFFFF;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    box-shadow:
+      0 0 0 10px rgba(232,93,60,0.10),
+      0 0 0 24px rgba(232,93,60,0.05),
+      0 14px 50px rgba(232,93,60,0.28);
+    z-index: 5;
+  }
+  .hub-icon { width: 40px; height: 40px; margin-bottom: 6px; opacity: 0.85; }
+  .hub-number { font-size: 48px; font-weight: 900; line-height: 1; }
+  .hub-title { font-size: 21px; font-weight: 700; line-height: 1.18; padding: 0 28px; margin-top: 5px; }
+  .hub-sub { font-size: 14px; font-weight: 600; opacity: 0.7; margin-top: 3px; letter-spacing: 0.06em; }
+
+  /* === LINES === */
+  .connections {
+    position: absolute; top: 0; left: 0;
+    width: 1080px; height: 1350px;
+    z-index: 1;
+  }
+
+  /* === NODES — 240px wide, larger text === */
+  .node {
+    position: absolute;
+    width: 240px;
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 18px 16px 14px;
+    box-shadow: 0 5px 20px rgba(14,14,14,0.07);
+    z-index: 4;
+    border-top: 4.5px solid var(--nc, #E85D3C);
+  }
+  .node-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 6px;
+  }
+  .node-num {
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--nc, #E85D3C); color: #FFFFFF;
+    font-size: 15px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .node-title { font-size: 17.5px; font-weight: 700; line-height: 1.15; }
+  .node-desc { font-size: 14.5px; font-weight: 400; color: #5E5B54; line-height: 1.40; }
+
+  /*  Ellipse rx=380, ry=430 → 9 nodes at 40° intervals from 20°
+      Centers: n1(670,216) n2(869,405) n3(914,695) n4(784,949)
+               n5(540,1050) n6(296,949) n7(166,695) n8(211,405) n9(410,216)
+      Top-left = center − (120, 57)  */
+
+  .node.n1 { top: 159px; left: 550px;  --nc: #E85D3C; }
+  .node.n2 { top: 348px; left: 749px;  --nc: #F49D37; }
+  .node.n3 { top: 638px; left: 794px;  --nc: #5B8C5A; }
+  .node.n4 { top: 863px; left: 710px;  --nc: #4A90D9; }
+  .node.n5 { top: 1053px; left: 420px;  --nc: #8B6CC1; }
+  .node.n6 { top: 863px; left: 130px;  --nc: #E85D3C; }
+  .node.n7 { top: 638px; left: 46px;   --nc: #F49D37; }
+  .node.n8 { top: 348px; left: 91px;   --nc: #5B8C5A; }
+  .node.n9 { top: 159px; left: 290px;  --nc: #4A90D9; }
+
+  .footer-text {
+    position: absolute; bottom: 34px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 17px; font-weight: 500; color: #8A8780;
+    z-index: 10;
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+  <div class="username">@lucianomusellaa</div>
+
+  <!-- Lines from hub (540,620) to each node center -->
+  <svg class="connections" viewBox="0 0 1080 1350" fill="none">
+    <line x1="540" y1="620" x2="670" y2="216" stroke="#D5D0C8" stroke-width="2" stroke-dasharray="7 5"/>
+    <line x1="540" y1="620" x2="869" y2="405" stroke="#D5D0C8" stroke-width="2" stroke-dasharray="7 5"/>
+    <line x1="540" y1="620" x2="914" y2="695" stroke="#D5D0C8" stroke-width="2" stroke-dasharray="7 5"/>
+    <line x1="540" y1="620" x2="830" y2="920" stroke="#D5D0C8" stroke-width="2" stroke-dasharray="7 5"/>
+    <line x1="540" y1="620" x2="540" y2="1110" stroke="#D5D0C8" stroke-width="2" stroke-dasharray="7 5"/>
+    <line x1="540" y1="620" x2="250" y2="920" stroke="#D5D0C8" stroke-width="2" stroke-dasharray="7 5"/>
+    <line x1="540" y1="620" x2="166" y2="695" stroke="#D5D0C8" stroke-width="2" stroke-dasharray="7 5"/>
+    <line x1="540" y1="620" x2="211" y2="405" stroke="#D5D0C8" stroke-width="2" stroke-dasharray="7 5"/>
+    <line x1="540" y1="620" x2="410" y2="216" stroke="#D5D0C8" stroke-width="2" stroke-dasharray="7 5"/>
+  </svg>
+
+  <!-- Hub -->
+  <div class="hub">
+    <svg class="hub-icon" viewBox="0 0 1200 1200" fill="white">
+      <path d="M 233.96 800.21 L 468.64 668.54 L 472.59 657.1 L 468.64 650.74 L 457.21 650.74 L 417.99 648.32 L 283.89 644.7 L 167.6 639.87 L 54.93 633.83 L 26.58 627.79 L 0 592.75 L 2.74 575.28 L 26.58 559.25 L 60.72 562.23 L 136.19 567.38 L 249.42 575.19 L 331.57 580.03 L 453.26 592.67 L 472.59 592.67 L 475.33 584.86 L 468.72 580.03 L 463.57 575.19 L 346.39 495.79 L 219.54 411.87 L 153.1 363.54 L 117.18 339.06 L 99.06 316.11 L 91.25 266.01 L 123.87 230.09 L 167.68 233.07 L 178.87 236.05 L 223.25 270.2 L 318.04 343.57 L 441.83 434.74 L 459.95 449.8 L 467.19 444.64 L 468.08 441.02 L 459.95 427.41 L 392.62 305.72 L 320.78 181.93 L 288.81 130.63 L 280.35 99.87 C 277.37 87.22 275.19 76.59 275.19 63.62 L 312.32 13.21 L 332.86 6.6 L 382.39 13.21 L 403.25 31.33 L 434.01 101.72 L 483.87 212.54 L 561.18 363.22 L 583.81 407.92 L 595.89 449.32 L 600.4 461.96 L 608.21 461.96 L 608.21 454.71 L 614.58 369.83 L 626.34 265.61 L 637.77 131.52 L 641.72 93.75 L 660.4 48.48 L 697.53 24 L 726.52 37.85 L 750.36 72 L 747.06 94.07 L 732.89 186.2 L 705.1 330.52 L 686.98 427.17 L 697.53 427.17 L 709.61 415.09 L 758.5 350.17 L 840.64 247.49 L 876.89 206.74 L 919.17 161.72 L 946.31 140.3 L 997.61 140.3 L 1035.38 196.43 L 1018.47 254.42 L 965.64 321.42 L 921.83 378.2 L 859.01 462.77 L 819.79 530.42 L 823.41 535.81 L 832.75 534.93 L 974.66 504.72 L 1051.33 490.87 L 1142.82 475.17 L 1184.21 494.5 L 1188.72 514.15 L 1172.46 554.34 L 1074.6 578.5 L 959.84 601.45 L 788.94 641.88 L 786.85 643.41 L 789.26 646.39 L 866.26 653.64 L 899.19 655.41 L 979.81 655.41 L 1129.93 666.6 L 1169.15 692.54 L 1192.67 724.27 L 1188.72 748.43 L 1128.32 779.19 L 1046.82 759.87 L 856.59 714.6 L 791.36 698.34 L 782.34 698.34 L 782.34 703.73 L 836.7 756.89 L 936.32 846.85 L 1061.07 962.82 L 1067.44 991.49 L 1051.41 1014.12 L 1034.5 1011.7 L 924.89 929.23 L 882.6 892.11 L 786.85 811.49 L 780.48 811.49 L 780.48 819.95 L 802.55 852.24 L 919.09 1027.41 L 925.13 1081.13 L 916.67 1098.6 L 886.47 1109.15 L 853.29 1103.11 L 785.07 1007.36 L 714.68 899.52 L 657.91 802.87 L 650.98 806.82 L 617.48 1167.7 L 601.77 1186.15 L 565.53 1200 L 535.33 1177.05 L 519.3 1139.92 L 535.33 1066.55 L 554.66 970.79 L 570.36 894.68 L 584.54 800.13 L 592.99 768.72 L 592.43 766.63 L 585.5 767.52 L 514.23 865.37 L 405.83 1011.87 L 320.05 1103.68 L 299.52 1111.81 L 263.92 1093.37 L 267.22 1060.43 L 287.11 1031.11 L 405.83 880.11 L 477.42 786.52 L 523.65 732.48 L 523.33 724.67 L 520.59 724.67 L 205.29 929.4 L 149.15 936.64 L 124.99 914.01 L 127.97 876.89 L 139.41 864.81 L 234.2 799.57 Z"/>
+    </svg>
+    <div class="hub-number">9</div>
+    <div class="hub-title">Reglas para crear un Agente</div>
+    <div class="hub-sub">CLAUDE CODE</div>
+  </div>
+
+  <!-- ===== 9 NODES ===== -->
+
+  <!-- n1 — 20° upper-right -->
+  <div class="node n1">
+    <div class="node-header">
+      <div class="node-num">1</div>
+      <div class="node-title">Empieza por el CLAUDE.md</div>
+    </div>
+    <div class="node-desc">Es el cerebro del agente. Define contexto, reglas y personalidad antes de todo.</div>
+  </div>
+
+  <!-- n2 — 60° right-upper -->
+  <div class="node n2">
+    <div class="node-header">
+      <div class="node-num">2</div>
+      <div class="node-title">Sé específico, no genérico</div>
+    </div>
+    <div class="node-desc">"Refactoriza auth" falla. "Mueve JWT a middleware/" funciona.</div>
+  </div>
+
+  <!-- n3 — 100° right -->
+  <div class="node n3">
+    <div class="node-header">
+      <div class="node-num">3</div>
+      <div class="node-title">Subagentes en paralelo</div>
+    </div>
+    <div class="node-desc">Divide tareas complejas en agentes especializados simultáneos.</div>
+  </div>
+
+  <!-- n4 — 140° lower-right -->
+  <div class="node n4">
+    <div class="node-header">
+      <div class="node-num">4</div>
+      <div class="node-title">Configura los hooks</div>
+    </div>
+    <div class="node-desc">Scripts que validan automáticamente antes y después de cada herramienta.</div>
+  </div>
+
+  <!-- n5 — 180° bottom -->
+  <div class="node n5">
+    <div class="node-header">
+      <div class="node-num">5</div>
+      <div class="node-title">Activa Extended Thinking</div>
+    </div>
+    <div class="node-desc">Fuerza al modelo a pensar antes de actuar. Menos errores, mejor plan.</div>
+  </div>
+
+  <!-- n6 — 220° lower-left -->
+  <div class="node n6">
+    <div class="node-header">
+      <div class="node-num">6</div>
+      <div class="node-title">Estructura tus carpetas</div>
+    </div>
+    <div class="node-desc">El agente necesita encontrar lo que busca. Convenciones claras > caos.</div>
+  </div>
+
+  <!-- n7 — 260° left -->
+  <div class="node n7">
+    <div class="node-header">
+      <div class="node-num">7</div>
+      <div class="node-title">Itera, no pidas todo</div>
+    </div>
+    <div class="node-desc">Una tarea, revisa, ajusta, siguiente. No pidas "hazme toda la app".</div>
+  </div>
+
+  <!-- n8 — 300° upper-left -->
+  <div class="node n8">
+    <div class="node-header">
+      <div class="node-num">8</div>
+      <div class="node-title">Controla los permisos</div>
+    </div>
+    <div class="node-desc">Decide qué puede hacer sin preguntar y qué necesita tu aprobación.</div>
+  </div>
+
+  <!-- n9 — 340° upper-left-center -->
+  <div class="node n9">
+    <div class="node-header">
+      <div class="node-num">9</div>
+      <div class="node-title">Mantén el contexto limpio</div>
+    </div>
+    <div class="node-desc">Edita mensajes en vez de enviar nuevos. Menos tokens, más foco.</div>
+  </div>
+
+  <div class="footer-text">Guarda este post para cuando lo necesites</div>
+</body>
+</html>

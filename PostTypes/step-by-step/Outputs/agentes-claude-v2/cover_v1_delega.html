@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; }
+  body {
+    background: #F5F2ED;
+    background-image:
+      linear-gradient(#E8E4DD 1px, transparent 1px),
+      linear-gradient(90deg, #E8E4DD 1px, transparent 1px);
+    background-size: 40px 40px;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #0E0E0E;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: space-between;
+    padding: 80px 80px 90px;
+  }
+  .username { font-size: 26px; font-weight: 500; color: #8A8780; }
+  .center-block {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 60px; flex: 1; justify-content: center; width: 100%;
+  }
+  .headline {
+    font-size: 64px; font-weight: 800; line-height: 1.18;
+    text-align: center; max-width: 920px; letter-spacing: -0.02em;
+  }
+  .accent-coral { color: #E85D3C; }
+  .accent-yellow {
+    background: #FFE45C; padding: 4px 16px; border-radius: 8px;
+    box-decoration-break: clone; -webkit-box-decoration-break: clone;
+    display: inline-block; line-height: 1.05;
+  }
+  .footer { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  .indicator { display: flex; gap: 12px; align-items: center; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: #D5D0C8; }
+  .dot.active { width: 13px; height: 13px; background: #E85D3C; }
+  .swipe { font-size: 26px; font-weight: 700; }
+
+  /* Agent illustration */
+  .agent-scene {
+    position: relative;
+    width: 500px; height: 340px;
+  }
+  .agent-body {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: 160px; height: 160px;
+    background: #E85D3C;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 20px 60px rgba(232,93,60,0.25);
+    z-index: 2;
+  }
+  .agent-body svg { width: 80px; height: 80px; }
+
+  /* Floating task cards around the agent */
+  .task-card {
+    position: absolute;
+    background: #FFFFFF;
+    border-radius: 14px;
+    padding: 14px 20px;
+    font-size: 16px; font-weight: 600;
+    color: #0E0E0E;
+    box-shadow: 0 8px 28px rgba(14,14,14,0.08);
+    z-index: 1;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .task-card .icon {
+    width: 28px; height: 28px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; flex-shrink: 0;
+  }
+  .task-card .icon.green { background: #D4F5D4; color: #2D8A2D; }
+  .task-card .icon.blue { background: #D4E5F5; color: #2D5A8A; }
+  .task-card .icon.orange { background: #FFE8D4; color: #8A5A2D; }
+  .task-card .icon.purple { background: #E8D4F5; color: #5A2D8A; }
+
+  .task-card.t1 { top: 10px; left: 0; }
+  .task-card.t2 { top: 0; right: 0; }
+  .task-card.t3 { bottom: 20px; left: 10px; }
+  .task-card.t4 { bottom: 10px; right: 10px; }
+
+  /* Connector lines */
+  .connector-line {
+    position: absolute;
+    background: #D5D0C8;
+    z-index: 0;
+  }
+  .cl1 { width: 2px; height: 50px; top: 60px; left: 110px; transform: rotate(-20deg); }
+  .cl2 { width: 2px; height: 50px; top: 50px; right: 140px; transform: rotate(20deg); }
+  .cl3 { width: 2px; height: 50px; bottom: 70px; left: 130px; transform: rotate(15deg); }
+  .cl4 { width: 2px; height: 50px; bottom: 60px; right: 130px; transform: rotate(-15deg); }
+
+  /* Sparkle accents */
+  .sparkle {
+    position: absolute;
+    width: 12px; height: 12px;
+    z-index: 3;
+  }
+  .sparkle.s1 { top: 70px; left: 180px; }
+  .sparkle.s2 { top: 90px; right: 160px; }
+  .sparkle.s3 { bottom: 90px; right: 200px; }
+</style>
+</head>
+<body>
+  <div class="username">@lucianomusellaa</div>
+  <div class="center-block">
+    <h1 class="headline">
+      Delega tus tareas<br>a un <span class="accent-coral">agente</span> de <span class="accent-yellow">Claude</span>
+    </h1>
+
+    <div class="agent-scene">
+      <!-- Connector lines -->
+      <div class="connector-line cl1"></div>
+      <div class="connector-line cl2"></div>
+      <div class="connector-line cl3"></div>
+      <div class="connector-line cl4"></div>
+
+      <!-- Central agent -->
+      <div class="agent-body">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="4" y="4" width="16" height="16" rx="3"/>
+          <path d="M9 9h6M9 12h4M9 15h5"/>
+          <circle cx="18" cy="6" r="3" fill="#FFE45C" stroke="none"/>
+        </svg>
+      </div>
+
+      <!-- Floating tasks -->
+      <div class="task-card t1">
+        <div class="icon green">✓</div>
+        <span>Escribir código</span>
+      </div>
+      <div class="task-card t2">
+        <div class="icon blue">⟨/⟩</div>
+        <span>Revisar PRs</span>
+      </div>
+      <div class="task-card t3">
+        <div class="icon orange">◎</div>
+        <span>Analizar datos</span>
+      </div>
+      <div class="task-card t4">
+        <div class="icon purple">⚙</div>
+        <span>Automatizar</span>
+      </div>
+
+      <!-- Sparkles -->
+      <svg class="sparkle s1" viewBox="0 0 12 12"><polygon points="6,0 7.5,4.5 12,6 7.5,7.5 6,12 4.5,7.5 0,6 4.5,4.5" fill="#FFE45C"/></svg>
+      <svg class="sparkle s2" viewBox="0 0 12 12"><polygon points="6,0 7.5,4.5 12,6 7.5,7.5 6,12 4.5,7.5 0,6 4.5,4.5" fill="#E85D3C"/></svg>
+      <svg class="sparkle s3" viewBox="0 0 12 12"><polygon points="6,0 7.5,4.5 12,6 7.5,7.5 6,12 4.5,7.5 0,6 4.5,4.5" fill="#FFE45C"/></svg>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="indicator">
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+    <div class="swipe">Desliza →</div>
+  </div>
+</body>
+</html>

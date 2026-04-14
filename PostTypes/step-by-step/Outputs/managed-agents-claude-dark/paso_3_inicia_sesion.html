@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; }
+  body {
+    background: #17140F;
+    background-image:
+      linear-gradient(#26221C 1px, transparent 1px),
+      linear-gradient(90deg, #26221C 1px, transparent 1px);
+    background-size: 40px 40px;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #F5F2ED;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: space-between;
+    padding: 80px 80px 90px;
+    position: relative;
+  }
+  .username { font-size: 26px; font-weight: 500; color: #9F9C94; }
+  .center-block {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 40px; flex: 1; justify-content: center; width: 100%;
+  }
+  .text-stack { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  .step-label {
+    font-size: 24px; font-weight: 600; color: #9F9C94;
+    text-transform: uppercase; letter-spacing: 0.18em;
+  }
+  .headline {
+    font-size: 56px; font-weight: 800; line-height: 1.18;
+    text-align: center; max-width: 880px; letter-spacing: -0.02em;
+  }
+  .accent-coral { color: #E85D3C; }
+  .subtitle {
+    font-size: 28px; font-weight: 500; color: #C8C5BD;
+    line-height: 1.45; text-align: center; max-width: 800px;
+    margin-top: 8px;
+  }
+  .mockup {
+    background: #252220;
+    border-radius: 22px;
+    border: 1px solid rgba(245,242,237,0.08);
+    width: 700px;
+    padding: 40px;
+    display: flex; flex-direction: column; gap: 28px;
+  }
+  .mockup-title {
+    font-size: 22px; font-weight: 700; color: #F5F2ED;
+    padding-bottom: 16px; border-bottom: 1.5px solid #332F28;
+  }
+  .config-item {
+    display: flex; align-items: center; gap: 18px;
+    padding: 16px 20px;
+    background: #1A1612; border-radius: 14px;
+  }
+  .config-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .config-icon.agent { background: #E85D3C; }
+  .config-icon.env { background: #FFE45C; }
+  .config-icon.title-icon { background: #F5F2ED; }
+  .config-text { display: flex; flex-direction: column; gap: 2px; }
+  .config-label { font-size: 14px; font-weight: 600; color: #9F9C94; text-transform: uppercase; letter-spacing: 0.06em; }
+  .config-value { font-size: 20px; font-weight: 700; color: #F5F2ED; }
+  .btn-start {
+    background: #E85D3C; color: #FFFFFF; border: none; border-radius: 14px;
+    padding: 20px 40px; font-family: 'Inter', sans-serif;
+    font-size: 22px; font-weight: 700; text-align: center;
+    letter-spacing: 0.02em; margin-top: 4px;
+  }
+  .footer { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  .indicator { display: flex; gap: 12px; align-items: center; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: #3F3B34; }
+  .dot.active { width: 13px; height: 13px; background: #E85D3C; }
+  .swipe { font-size: 26px; font-weight: 700; }
+  .chev {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 44px; height: 44px; border-radius: 50%;
+    background: #252220;
+    border: 1px solid rgba(245,242,237,0.08);
+    display: flex; align-items: center; justify-content: center;
+    color: #F5F2ED; font-size: 26px; font-weight: 400;
+  }
+  .chev.left { left: 30px; }
+  .chev.right { right: 30px; }
+</style>
+</head>
+<body>
+  <div class="username">@lucianomusellaa</div>
+
+  <div class="center-block">
+    <div class="text-stack">
+      <div class="step-label">Paso 3</div>
+      <h1 class="headline">
+        Inicia una <span class="accent-coral">sesión</span><br>con tu agente
+      </h1>
+      <p class="subtitle">Conecta tu agente al entorno y lánzalo. Cada sesión es una instancia independiente.</p>
+    </div>
+
+    <div class="mockup">
+      <div class="mockup-title">Nueva sesión</div>
+      <div class="config-item">
+        <div class="config-icon agent">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+        </div>
+        <div class="config-text">
+          <div class="config-label">Agente</div>
+          <div class="config-value">Coding Assistant</div>
+        </div>
+      </div>
+      <div class="config-item">
+        <div class="config-icon env">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0E0E0E" stroke-width="2" stroke-linecap="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01"/></svg>
+        </div>
+        <div class="config-text">
+          <div class="config-label">Entorno</div>
+          <div class="config-value">quickstart-env</div>
+        </div>
+      </div>
+      <div class="config-item">
+        <div class="config-icon title-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0E0E0E" stroke-width="2" stroke-linecap="round"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+        </div>
+        <div class="config-text">
+          <div class="config-label">Título</div>
+          <div class="config-value">Quickstart session</div>
+        </div>
+      </div>
+      <div class="btn-start">Iniciar sesión</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="indicator">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+    <div class="swipe">Desliza →</div>
+  </div>
+
+  <div class="chev left">‹</div>
+  <div class="chev right">›</div>
+</body>
+</html>

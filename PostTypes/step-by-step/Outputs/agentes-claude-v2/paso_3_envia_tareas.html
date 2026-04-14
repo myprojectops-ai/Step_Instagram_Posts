@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; }
+  body {
+    background: #F5F2ED;
+    background-image:
+      linear-gradient(#E8E4DD 1px, transparent 1px),
+      linear-gradient(90deg, #E8E4DD 1px, transparent 1px);
+    background-size: 40px 40px;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #0E0E0E;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: space-between;
+    padding: 80px 80px 90px;
+    position: relative;
+  }
+  .username { font-size: 26px; font-weight: 500; color: #8A8780; }
+  .center-block {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 44px; flex: 1; justify-content: center; width: 100%;
+  }
+  .text-stack { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  .step-label {
+    font-size: 24px; font-weight: 600; color: #8A8780;
+    text-transform: uppercase; letter-spacing: 0.18em;
+  }
+  .headline {
+    font-size: 56px; font-weight: 800; line-height: 1.18;
+    text-align: center; max-width: 880px; letter-spacing: -0.02em;
+  }
+  .accent-coral { color: #E85D3C; }
+  .footer { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  .indicator { display: flex; gap: 12px; align-items: center; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: #D5D0C8; }
+  .dot.active { width: 13px; height: 13px; background: #E85D3C; }
+  .swipe { font-size: 26px; font-weight: 700; }
+  .chev {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 44px; height: 44px; border-radius: 50%;
+    background: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(14,14,14,0.08);
+    display: flex; align-items: center; justify-content: center;
+    color: #1A1A1A; font-size: 26px; font-weight: 400;
+  }
+  .chev.left { left: 30px; }
+  .chev.right { right: 30px; }
+
+  /* Parallel agents diagram */
+  .diagram {
+    width: 720px;
+    display: flex; flex-direction: column; align-items: center; gap: 24px;
+  }
+
+  /* "You" box at top */
+  .you-box {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 18px 44px;
+    font-size: 22px; font-weight: 700;
+    box-shadow: 0 8px 28px rgba(14,14,14,0.08);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .you-avatar {
+    width: 36px; height: 36px; background: #0E0E0E; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #FFFFFF; font-size: 18px; font-weight: 800;
+  }
+
+  /* Fan-out lines */
+  .fan-lines {
+    width: 600px; height: 50px; position: relative;
+  }
+  .fan-line {
+    position: absolute; top: 0;
+    width: 2px; background: #D5D0C8;
+    transform-origin: top center;
+  }
+  .fan-line.l1 { left: 110px; height: 55px; transform: rotate(0deg); }
+  .fan-line.l2 { left: 300px; height: 50px; }
+  .fan-line.l3 { left: 490px; height: 55px; transform: rotate(0deg); }
+
+  /* Agent task cards */
+  .agents-row {
+    display: flex; gap: 20px; width: 100%;
+    justify-content: center;
+  }
+  .agent-card {
+    width: 210px;
+    background: #FFFFFF;
+    border-radius: 18px;
+    padding: 24px 20px;
+    box-shadow: 0 8px 28px rgba(14,14,14,0.06);
+    display: flex; flex-direction: column; align-items: center; gap: 14px;
+    text-align: center;
+  }
+  .agent-icon {
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+  }
+  .agent-icon.a1 { background: #FFE8D4; }
+  .agent-icon.a2 { background: #D4E5F5; }
+  .agent-icon.a3 { background: #D4F5D4; }
+  .agent-name { font-size: 18px; font-weight: 700; }
+  .agent-task { font-size: 15px; font-weight: 500; color: #8A8780; line-height: 1.4; }
+  .agent-status {
+    font-size: 14px; font-weight: 600;
+    padding: 6px 16px; border-radius: 20px;
+  }
+  .agent-status.running { background: #FFE45C; color: #0E0E0E; }
+  .agent-status.done { background: #D4F5D4; color: #2D8A2D; }
+
+  /* Result arrow back */
+  .merge-section {
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    width: 100%;
+  }
+  .merge-lines {
+    width: 600px; height: 40px; position: relative;
+  }
+  .merge-line {
+    position: absolute; bottom: 0;
+    width: 2px; background: #D5D0C8;
+  }
+  .merge-line.m1 { left: 110px; height: 45px; }
+  .merge-line.m2 { left: 300px; height: 40px; }
+  .merge-line.m3 { left: 490px; height: 45px; }
+
+  .result-box {
+    background: #E85D3C; color: #FFFFFF;
+    border-radius: 14px;
+    padding: 16px 36px;
+    font-size: 20px; font-weight: 700;
+    box-shadow: 0 8px 28px rgba(232,93,60,0.2);
+    display: flex; align-items: center; gap: 10px;
+  }
+</style>
+</head>
+<body>
+  <div class="username">@lucianomusellaa</div>
+
+  <div class="center-block">
+    <div class="text-stack">
+      <div class="step-label">Paso 3</div>
+      <h1 class="headline">
+        Envía <span class="accent-coral">tareas</span> y<br>espera resultados
+      </h1>
+    </div>
+
+    <div class="diagram">
+      <div class="you-box">
+        <div class="you-avatar">T</div>
+        <span>Tú envías 3 tareas</span>
+      </div>
+
+      <div class="fan-lines">
+        <div class="fan-line l1"></div>
+        <div class="fan-line l2"></div>
+        <div class="fan-line l3"></div>
+      </div>
+
+      <div class="agents-row">
+        <div class="agent-card">
+          <div class="agent-icon a1">⚙️</div>
+          <div class="agent-name">Agente 1</div>
+          <div class="agent-task">Refactoriza el módulo de auth</div>
+          <div class="agent-status running">en progreso</div>
+        </div>
+        <div class="agent-card">
+          <div class="agent-icon a2">📊</div>
+          <div class="agent-name">Agente 2</div>
+          <div class="agent-task">Genera reporte de métricas</div>
+          <div class="agent-status done">✓ listo</div>
+        </div>
+        <div class="agent-card">
+          <div class="agent-icon a3">🧪</div>
+          <div class="agent-name">Agente 3</div>
+          <div class="agent-task">Escribe tests para la API</div>
+          <div class="agent-status running">en progreso</div>
+        </div>
+      </div>
+
+      <div class="merge-section">
+        <div class="merge-lines">
+          <div class="merge-line m1"></div>
+          <div class="merge-line m2"></div>
+          <div class="merge-line m3"></div>
+        </div>
+        <div class="result-box">
+          <span>→</span>
+          <span>Resultados consolidados</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="indicator">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+    <div class="swipe">Desliza →</div>
+  </div>
+
+  <div class="chev left">‹</div>
+  <div class="chev right">›</div>
+</body>
+</html>
