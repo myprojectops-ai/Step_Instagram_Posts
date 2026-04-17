@@ -1,31 +1,30 @@
 ---
 name: news-post-design
-description: Visual system for AI news Instagram posts — dark editorial style with real person photos, bold white headlines, and brand-consistent Inter typography. The primary post type for breaking AI announcements, model releases, and industry events.
+description: Visual system for AI news Instagram posts — 5-slide carousel with Nano Banana photo compositions, HTML text overlays, and tweet slides. Covers, text+photo slides, and white-card slides on black editorial background.
 type: skill
 ---
 
 # News Post Design Skill
 
-> **Project root:** `c:/Visual_posts/`. The autoloaded **[`CLAUDE.md`](../../../CLAUDE.md)** at the project root contains the trigger phrases and routes to per-type workflows. The news workflow lives in [`../README.md`](../README.md). Read those for the *process*; read this skill for the *visual system*.
+> **Project root:** `c:/Trabajo_AI/Visual_posts/`. The autoloaded **[`CLAUDE.md`](../../../CLAUDE.md)** at the project root contains the trigger phrases and routes to per-type workflows. The news workflow lives in [`../README.md`](../README.md). Read those for the *process*; read this skill for the *visual system*.
 
-This skill defines the complete visual language for **AI news posts** — single-image posts (not carousels) that announce breaking AI news with a bold, editorial feel. The style is inspired by the references in [`../Inspiracion/`](../Inspiracion/).
+This skill defines the visual language for **AI news posts** — 5-slide Instagram carousels with a dark editorial feel, inspired by the references in [`../Inspiracion/`](../Inspiracion/) (Bridgemind-style accounts). The previous single-image + long-caption system is **deprecated** — news posts are now carousels.
 
 ---
 
-## 0. Relationship to the step-by-step visual system
+## 0. What changed (and why)
 
-News posts share the **brand-wide typography** (Inter family) and brand elements (`@lucianomusellaa`, Alta Studio logo) with step-by-step posts — this keeps the Instagram feed feeling cohesive. However, the **layout and color system are fundamentally different**:
-
-| Property | Step-by-step | News |
+| | Old system (deprecated) | New system |
 |---|---|---|
-| Background | Cream `#F5F2ED` with grid | **Dark** — photo + gradient overlay |
-| Text color | Dark `#0E0E0E` | **White `#FFFFFF`** |
-| Visual | SVG illustrations, UI mockups | **Real photos of people/products** |
-| Format | Multi-slide carousel | **Single image** (standalone post) |
-| Accent | Coral + yellow highlights | **Coral `#E85D3C`** for badge/accents only |
-| Mood | Clean, editorial, tutorial | **Bold, urgent, newsworthy** |
+| Format | Single image + long caption (6–10 paragraphs) | **5-slide carousel** (scalable to 7) + short caption (1–3 lines) |
+| Cover render | Nano Banana photo + PIL text overlay | Nano Banana photo + **HTML overlay via render.sh** |
+| Body content | All in the caption | **Distributed across slides** (tweet + text + photo) |
+| Alta Studio logo | Top-right (fixed position) | **One corner only** (top-left or top-right, composition-dependent) |
+| Pipeline | PIL for text, render.sh for HTML | **Unified: render.sh for all slides, Nano Banana for all photos** |
 
-The shared thread is Inter typography + the brand handle + the Alta Studio watermark. This creates *sinergia visual* without making everything look the same.
+**Why:** the carousel format is what AI news creators actually use on Instagram (see inspo). It's more visually engaging, each slide "earns its swipe", and people actually read digestible chunks instead of skipping long captions.
+
+> **Viewport bug fix (2026-04-16):** Chrome headless on Windows subtracts ~96px from the `--window-size` height for window chrome decorations. The old `--window-size=1098,1368` caused content below y≈1272 to not render (pills, taglines were invisible). `render.sh` now uses `--window-size=1098,1550` and crops to 1080×1350 via PIL. If elements near the bottom of a slide appear missing in renders, this is the first thing to check.
 
 ---
 
@@ -34,569 +33,683 @@ The shared thread is Inter typography + the brand handle + the Alta Studio water
 | Property | Value |
 |---|---|
 | Aspect ratio | **4:5 portrait** (Instagram feed optimal) |
-| Resolution | **1080 × 1350 px** |
-| Format | **Single image** — news posts are NOT carousels. One slide, one headline, one visual. |
-| Safe margins | ~60 px on all sides; keep text within the safe zone |
+| Resolution | **1080 × 1350 px** per slide |
+| Format | **Carousel** — 5 slides default, 4–7 allowed |
+| Safe margins | ~60 px on all sides for text |
+| Background | **Pure black `#000000`** on all body slides (distinct from step-by-step cream) |
 
 ---
 
 ## 2. Color palette
 
-News posts use a **dark palette** — the opposite of the cream step-by-step system. The photo is the background; everything else layers on top.
+News posts are **dark-first**. The photo is the hero on covers; black space is the hero on body slides.
 
 | Role | Value | Use |
 |---|---|---|
-| Photo overlay gradient | `linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.75) 100%)` | Always on top of the person photo — darker at bottom for text legibility |
-| Primary text | `#FFFFFF` | Headlines, main text |
-| Secondary text | `rgba(255,255,255,0.7)` | Badge text, captions, subtle labels |
-| Accent coral | `#E85D3C` | "AI NEWS" badge background, optional keyword accent |
-| Highlight yellow | `#FFE45C` | Sparingly — only for an extremely important keyword (rare on news) |
-| Dark fallback | `#0A0A0A` | If no photo is available, use a solid dark background |
+| Slide background | `#000000` | All body slides (tweet, text-with-photo, white-card) |
+| Primary text (on dark) | `#FFFFFF` | Headlines, body copy on covers and dark body slides |
+| Primary text (on card) | `#0E0E0E` | Body copy inside white cards |
+| White card | `#FFFFFF` | Template B card, tweet card background |
+| Accent coral | `#E85D3C` | Keyword highlight in headlines; small labels |
+| Highlight yellow | `#FFE45C` | Yellow marker on keyword (rounded rect, dark text inside) |
+| Muted white | `rgba(255,255,255,0.55)` | Taglines, source attributions |
+| Gradient overlay (cover) | `linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.88) 8%, rgba(0,0,0,0.72) 22%, rgba(0,0,0,0.35) 42%, transparent 62%)` | Bottom of cover — full-bleed photo with gradient for headline readability |
 
-**Key rule:** the gradient overlay must be strong enough that white text is **always readable** against the photo. If in doubt, make the gradient heavier. Readability > aesthetics.
+**Key rule:** white text must always sit over either (a) the dark portion of the cover gradient, (b) pure black body-slide background, or (c) inside a white card (in which case text is dark). Never white-on-photo without a gradient shield.
 
 ---
 
 ## 3. Typography
 
-**Same family as step-by-step** for brand consistency across the feed.
+**Same family as all other post types** for brand consistency.
 
 - **Family:** `'Inter', system-ui, -apple-system, sans-serif`
-- **Import:** `https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap`
-- **Code font (if needed):** `'JetBrains Mono', monospace`
+- **Import:** `https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap`
+- **Code/data font:** `'JetBrains Mono', monospace` (for stat cards, numbers)
 
-### Hierarchy for news posts (1080×1350 canvas)
+### Hierarchy
 
-| Element | Size | Weight | Color | Notes |
+| Element | Font | Size | Weight | Color |
 |---|---|---|---|---|
-| "AI NEWS" badge text | 18–20 px | 700 | `#FFFFFF` | Inside coral pill, uppercase, letter-spacing +0.12em |
-| Alta Studio logo (top-right) | 36 px tall | — | `opacity: 0.5; filter: brightness(3)` | Top-right corner — replaces `@lucianomusellaa` on news posts |
-| **Headline** | 62–70 px | 800 | `#FFFFFF` | Bottom third of the image, left-aligned, 2–4 lines max, line-height 1.12–1.15. Go BIG — the text should fill the width and feel impactful. |
-| Source/attribution | 18–20 px | 500 | `rgba(255,255,255,0.5)` | Optional — "Fuente: Bloomberg" style, below headline |
-| Alta Studio logo | 36–44 px wide | — | White or `rgba(255,255,255,0.4)` | Bottom-right corner, subtle watermark |
+| **Cover headline** | Inter | 58–70 px | 800 | White + coral + yellow-marker spans |
+| **Cover tagline** | Inter | 17–19 px | 600 | `rgba(255,255,255,0.75)`, ALL CAPS, letter-spacing 0.08em |
+| **Body slide label** | Inter | 15 px | 700 | Coral `#E85D3C`, ALL CAPS, letter-spacing 0.14em |
+| **Body slide text** | Inter | 34–42 px | 600 | White on dark, dark `#0E0E0E` on white card |
+| **Tweet name** | Inter | 24 px | 700 | `#0F1419` |
+| **Tweet handle** | Inter | 20 px | 400 | `#536471` |
+| **Tweet body** | Inter | 30 px | 400 | `#0F1419`, line-height 1.4 |
+| **Stat card number** | Inter | 180–240 px | 900 | Dark |
+| **SWIPE pill** | Inter | 13 px | 700 | White on `rgba(255,255,255,0.12)`, letter-spacing 0.12em |
 
 ---
 
-## 4. The visual composition layer (CRITICAL — Nano Banana 2 full composition)
+## 4. Slide taxonomy — the 5-slide default
 
-> **Core change (April 2026):** news posts no longer compose photos + logos in HTML/CSS. Instead, **Nano Banana 2 generates the complete visual composition** as a single image — person, brand logo, atmosphere, lighting, gradient — all baked together. HTML is used ONLY for text overlays (badge, headline, source, watermark).
+Every news post follows this skeleton (deviations require user approval):
 
-### Why this approach
+| # | Slide type | Purpose | Template |
+|---|---|---|---|
+| **1** | **Cover** | Hook: photo + killer headline | §5 |
+| **2** | **Tweet / oficial** | Source of truth: reproduces the company or CEO's public announcement | §6 |
+| **3** | **Text + photo** (Template A) | What happened — context in 2–3 short lines + supporting Nano Banana photo | §7 |
+| **4** | **Text + photo** or **White card** | Why it matters — explanation with photo, OR punchline stat with white card | §7 or §8 |
+| **5** | **Closer** | Reaction tweet (invented handle) OR stat card OR CTA | §6 or §8 |
 
-The previous approach (person photo as CSS background + logo as CSS overlay with `mix-blend-mode`) produced images that looked "pasted together" — the logo never felt integrated into the lighting, the blend modes were limited, and it took 12–18 HTML variations to get something passable. Nano Banana can generate a cohesive composition where the logo naturally belongs in the scene.
+### When to deviate
 
-### What Nano Banana generates (the "composition image")
+- **4 slides** — simple news (one fact, one consequence). Skip slide 4.
+- **6 slides** — news with 2 distinct consequences. Add a second text+photo between 3 and 4.
+- **7 slides** — complex news (announcement + reactions + data). Rare.
+- **Never less than 4** — a 3-slide news post feels thin.
 
-A single 4:5 image that contains:
-- **The person** — recognizable, editorial photography style, occupying the upper 2/3 of the canvas
-- **The brand logo** — large, semi-transparent, naturally integrated into the scene's lighting (behind or beside the person, as part of the atmosphere)
-- **Dark editorial atmosphere** — moody lighting, dark tones, gradient that gets darker toward the bottom (where text will go)
-- **The bottom ~35% should be very dark** — this is where the HTML headline will sit, so it needs to be dark enough for white text readability
+### Global elements across all body slides (not cover)
 
-### What Nano Banana does NOT generate
+- **Alta Studio logo** top-left corner, **100px tall** (uniform across all 5 slides — cover, body, closer), opacity 0.98, with drop-shadow filter `drop-shadow(0 2px 14px rgba(0,0,0,.55))`. Position: `top:44px; left:50px`
+- **No `@lucianomusellaa` handle** on news posts (editorial feel — replaced by Alta Studio logo)
+- **Content positioning** — labels/cards/text blocks must start at `top: ≥170px` to clear the 100px-tall logo (which extends to y≈144 plus margin)
 
-- Text of any kind (no headlines, no badges, no attributions)
-- The "AI NEWS" badge
-- The Alta Studio logo (top-right)
-- Any text overlay — all text is composited onto the image via **Python/PIL**, NOT HTML/Chrome (Chrome introduces border artifacts on Windows)
+### What the cover does NOT have
 
-### Composition prompting guidelines
-
-The prompt to Nano Banana should follow this structure:
-
-```
-Professional editorial photograph of [PERSON NAME], [ROLE/TITLE] of [COMPANY].
-[PERSON DESCRIPTION: clothing, expression, pose].
-The [COMPANY] logo appears large and semi-transparent in the background,
-naturally integrated into the scene lighting.
-Dark, moody editorial atmosphere. The bottom third of the image fades to
-near-black darkness (for text overlay). 4:5 portrait format.
-High-quality magazine cover / news editorial style.
-No text, no typography, no words anywhere in the image.
-```
-
-**Key prompt rules:**
-- **Always end with "No text, no typography, no words anywhere in the image"** — Nano Banana tends to add text if not explicitly told not to
-- **Describe the logo integration** — "semi-transparent in the background", "subtly visible behind the person", "glowing softly in the upper-right"
-- **Emphasize the dark bottom** — "bottom third fades to near-black" is critical for text readability
-- **Use `--aspect-ratio 4:5`** to match the Instagram canvas
-- **Use `--model gemini-3-pro-image-preview`** for maximum quality (news compositions are the flagship product)
-
-### Example prompts (based on validated favorites)
-
-**Amazon-style (person in business setting, logo in background):**
-```
-Professional editorial photograph of Andy Jassy, CEO of Amazon.
-He wears a blue blazer over a light shirt, speaking at a conference with a serious expression.
-The Amazon logo appears large and semi-transparent behind him, softly glowing in the dark background.
-Dark, moody editorial atmosphere with deep shadows. The bottom third fades to near-black darkness.
-4:5 portrait format. High-quality news editorial photography.
-No text, no typography, no words anywhere in the image.
-```
-
-**Perplexity-style (tech founder, geometric logo integrated):**
-```
-Professional editorial photograph of Aravind Srinivas, CEO of Perplexity AI.
-He wears glasses and a dark t-shirt, intense expression, fist slightly raised.
-The Perplexity logo (geometric asterisk shape) appears large and semi-transparent in the upper-right background, naturally blended into the dark scene.
-Dark, moody editorial atmosphere. The bottom third fades to near-black.
-4:5 portrait format. Magazine cover quality.
-No text, no typography, no words anywhere in the image.
-```
-
-### Workflow for generating the composition
-
-> **IMPORTANT: Generate ONE composition only.** The user trusts the prompt crafting to produce a good result on the first try. Do NOT generate 2–3 variants — that wastes API calls and money. Only generate a second composition if the user explicitly rejects the first one.
-
-1. **Check `Assets/Personas/`** — if a reference photo exists, use `--reference` mode for better likeness
-2. **Craft the best possible prompt** using the guidelines above and the user's validated favorites as reference
-3. **Generate ONE composition:**
-   ```bash
-   python generate-image.py \
-     --prompt "[composition prompt]" \
-     --reference Assets/Personas/person_name.png \
-     --output PostTypes/news/Outputs/{topic-slug}/composition.png \
-     --model gemini-3-pro-image-preview \
-     --aspect-ratio 4:5
-   ```
-4. **Resize to exact canvas dimensions** (Nano Banana may output smaller):
-   ```python
-   from PIL import Image
-   img = Image.open("composition.png")
-   if img.size != (1080, 1350):
-       img = img.resize((1080, 1350), Image.LANCZOS)
-       img.save("composition.png")
-   ```
-5. **Present to user for review** — only regenerate if they reject it
-6. Once approved, proceed to the **PIL text compositing step** (NOT HTML/Chrome)
-
-### Quality checklist for compositions
-- Person is recognizable and well-lit
-- Brand logo is visible but not overwhelming (semi-transparent, part of the atmosphere)
-- Bottom ~35% is dark enough for white text to be readable
-- No AI-generated text or artifacts in the image
-- Overall feel: professional magazine cover, not "AI-generated collage"
-- The composition looks like ONE cohesive image, not separate elements pasted together
+- No Alta Studio in both corners — **only one**
+- Instead: **SWIPE pill** bottom-right to signal carousel
 
 ---
 
-## 5. Layout structure (new: composition image + HTML text overlay)
+## 5. Template: Cover slide
 
-> **The layout is now two layers:**
-> 1. **Nano Banana composition** — the full visual (person + logo + atmosphere) as a single background image
-> 2. **HTML text overlay** — badge, headline, source, watermark rendered with precise typography
-
-### Vertical structure
+### Layout (full-bleed photo + CSS gradient overlay)
 
 ```
-┌─────────────────────────────────┐
-│  [AI NEWS badge]  [Alta Studio] │  ← HTML: top bar, ~60px from top
-│                                 │
-│     ┌───────────────────────┐   │
-│     │  NANO BANANA          │   │
-│     │  COMPOSITION IMAGE    │   │  ← Generated image: person + brand logo
-│     │  (person + logo +     │   │     + dark atmosphere, all baked together
-│     │   dark atmosphere)    │   │
-│     │                       │   │
-│     │   (bottom fades to    │   │
-│     │    near-black)        │   │
-│     └───────────────────────┘   │
-│                                 │
-│  Headline text in bold white    │  ← PIL: bottom area (over dark zone)
-│  spanning 2-4 lines max         │
-│                                 │
-│  [Source attribution]           │  ← PIL: below headline
-└─────────────────────────────────┘
+┌─────────────────────────────────────┐
+│ [Alta]                              │  ← top-left, overlaps photo
+│                                     │
+│                                     │
+│    NANO BANANA PHOTO (4:5)          │  ← 1080 × 1350 px FULL BLEED
+│    (shoe, scene, person, etc.)      │    fills entire canvas
+│    editorial, cinematic,            │    subject in upper 60%
+│    background-size: cover           │
+│                                     │
+│ ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄ │  ← CSS gradient starts fading ~62%
+│                                     │
+│  TITULAR EN BOLD                    │  ← headline at top:860px (absolute)
+│  CON PALABRAS RESALTADAS            │    over gradient-darkened zone
+│  EN CORAL Y AMARILLO                │
+│                                     │
+│  TAGLINE          [SWIPE →]         │  ← bottom-row at top:1268px (absolute)
+└─────────────────────────────────────┘
 ```
 
-### Brand logo — handled by Nano Banana, NOT CSS/PIL
+> **NOTE:** Headline and bottom-row are SEPARATE `position:absolute` elements on `<body>`, NOT nested inside each other. Chrome headless clips child content that extends beyond its parent's rendered height — nesting the bottom-row inside the headline block caused the SWIPE pill to be invisible. Independent positioning avoids this.
 
-The brand logo is **part of the generated composition image**. It's described in the Nano Banana prompt and gets naturally integrated into the scene's lighting and atmosphere.
+### Nano Banana prompt structure (cover photo)
 
-### Text compositing — Python/PIL, NOT HTML/Chrome
+```
+Editorial cinematic photograph, vertical portrait composition, 4:5 aspect ratio.
+[SCENE/PERSON description — position subject in the UPPER portion of the frame, leave lower 40% as open/dark space for text overlay].
+Dramatic lighting, subtle film grain, slightly desaturated editorial tones.
+Portrait format, magazine cover quality, vertical framing.
+No text, no typography, no logos, no words, no watermarks anywhere in the image.
+```
 
-> **CRITICAL:** News posts do NOT use HTML or Chrome for rendering. Chrome on Windows introduces black border artifacts that are visible on Instagram. Instead, all text is composited directly onto the composition image using **Python/PIL**.
+**Prompt rules:**
+- **Always end with** "No text, no typography, no logos, no words anywhere" — Nano Banana loves to add text
+- Use `--aspect-ratio 4:5` (outputs ~1080×1350). Cover photos are **full-bleed** — they fill the entire canvas edge to edge. A CSS gradient overlay darkens the bottom for text readability
+- **Position the subject in the upper portion** of the frame — the bottom 40% will be darkened by the gradient, so important details should sit above ~y=540
+- Describe the scene, not the frame: avoid "cover photo", "Instagram post", etc.
+- Include **"film grain"** or "editorial photography" — avoids the plastic AI look
+- For real public figures (Altman, Amodei, Pichai, Zuck) — describe by features, not names, to avoid policy issues: "a bearded tech CEO in a grey t-shirt at a Senate hearing" rather than "Sam Altman"
+- For invented roles (researchers, analysts, workers) — describe demographics + context naturally
 
-#### Elements composited with PIL:
-- **"AI NEWS" badge:** coral pill (`#E85D3C`, border-radius 8) with white Inter Bold text, top-left (~55px from top, ~55px from left)
-- **Alta Studio logo:** top-right corner, 140px tall, opacity 0.75. **News posts do NOT show `@lucianomusellaa`** — the Alta Studio logo replaces the handle for an editorial feel.
-- **Headline:** Inter Black, 80px, white, bottom area. 0–1 keyword in coral. Left-aligned, ~60px from left edge.
-- **Source attribution:** Inter, 17px, white at 40% opacity, below headline.
-- **Light gradient overlay:** subtle darkening on bottom 40% for text readability (numpy alpha gradient, max alpha ~140).
-- **NO bottom-right watermark** — the user removed it. Only the top-right Alta Studio logo.
+**Generate ONE cover photo.** Present to user. Only regenerate if rejected.
 
-#### Text positioning rules:
-- **Bottom margin:** ~50px from bottom edge to the "Fuente:" line
-- **Headline sits above the source** with ~10px gap
-- The text block should feel integrated with the image, not floating in empty space
-- **No padding so large that it creates a visible "black strip"** at the bottom — this is the #1 visual bug to avoid
+### Cover HTML scaffold
 
-#### Font requirement:
-- Inter font files must exist in `Assets/Fonts/` — at minimum `Inter-Black.ttf` (used for headlines and badges)
-- Download from Google Fonts if missing
+Save as `slide1_cover.html` in the post's output folder. The `composition.png` (Nano Banana 4:5 output) must be in the same folder.
 
----
+```html
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{width:1080px;height:1350px;font-family:'Inter',system-ui,sans-serif;overflow:hidden;position:relative;background:#000}
+  .photo{position:absolute;top:0;left:0;right:0;bottom:0;background-image:url('composition.png');background-size:cover;background-position:center center}
+  .gradient{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.88) 8%, rgba(0,0,0,0.72) 22%, rgba(0,0,0,0.35) 42%, transparent 62%);z-index:2}
+  .alta{position:absolute;top:44px;left:50px;height:100px;opacity:.98;z-index:10;filter:drop-shadow(0 2px 14px rgba(0,0,0,.55))}
+  /* IMPORTANT: headline and bottom-row are SEPARATE absolute elements, NOT nested.
+     Chrome headless clips children that extend beyond parent's rendered height. */
+  .headline{position:absolute;top:860px;left:60px;right:60px;z-index:10;font-size:64px;font-weight:800;line-height:1.1;color:#fff;letter-spacing:-.012em;text-transform:uppercase}
+  .headline .coral{color:#E85D3C}
+  .headline .yellow{background:#FFE45C;color:#0E0E0E;padding:0 12px 5px 12px;border-radius:6px;display:inline-block;line-height:1}
+  .bottom-row{position:absolute;top:1268px;left:60px;right:60px;z-index:10;display:flex;justify-content:space-between;align-items:center;gap:24px}
+  .tagline{font-size:16px;font-weight:600;color:rgba(255,255,255,.72);text-transform:uppercase;letter-spacing:.1em;line-height:1.4;flex:1}
+  .swipe{background:#fff;padding:13px 24px;border-radius:999px;color:#0E0E0E;font-size:14px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap;box-shadow:0 4px 18px rgba(0,0,0,.55)}
+</style></head>
+<body>
+  <div class="photo"></div>
+  <div class="gradient"></div>
+  <img class="alta" src="../../../../Logos/Alta_Studio_logo_white.png">
+  <div class="headline">
+    ANTHROPIC CONSULTA A<br>
+    <span class="coral">LÍDERES RELIGIOSOS</span> PARA<br>
+    DEFINIR LA <span class="yellow">BRÚJULA ÉTICA</span><br>
+    DE SU IA
+  </div>
+  <div class="bottom-row">
+    <div class="tagline">EL AVANCE DE LA IA ABRE PREGUNTAS ÉTICAS INESPERADAS</div>
+    <div class="swipe">DESLIZA →</div>
+  </div>
+</body></html>
+```
 
-## 6. Headline writing rules for news posts
+### Cover rules
 
-News headlines are **NOT tutorial headlines**. They need to feel like a news ticker — urgent, factual, punchy.
-
-| Rule | News post |
-|---|---|
-| Word count | **8–20 words** (longer than covers because there's no "swipe" — this is the whole message) |
-| Line count | 2–4 lines |
-| Font size | 52–64 px (adjust to fit — shorter headlines get bigger) |
-| Alignment | Left-aligned (default) or centered |
-| Tone | **Factual, third-person** — reporting a fact, not giving instructions |
-| Language | **Colombian Spanish, tú form** when addressing the viewer; neutral for reporting |
-| Highlighted words | **0–1 keyword** in coral. News headlines are factual — highlighting is optional and rare |
-
-### Headline style guide
-
-**Good news headlines:**
-- "Anthropic planea fabricar sus propios chips de IA"
-- "El CEO de Amazon confirma una inversión de $2,000M en inteligencia artificial"
-- "Perplexity ahora puede rastrear y analizar tus finanzas personales"
-- "Investigadores crearon una IA que predice fallas cardíacas con 5 años de anticipación"
-
-**Bad news headlines:**
-- "¡INCREÍBLE noticia de Anthropic!" (clickbait, exclamation marks)
-- "Crea tus propios chips con Anthropic" (this is a tutorial headline, not news)
-- "Anthropic." (too vague, no information)
-- "Anthropic reportedly considers building its own AI chips" (English — write in Colombian Spanish)
-
-### Translation notes
-- When the source is in English, translate to natural Colombian Spanish — don't do literal word-by-word translation.
-- Adapt currency and units: "$2,000 this year" → "$2,000M este año" or "US$2.000 millones"
-- Keep brand names in their original form: "Perplexity", "Anthropic", "OpenAI" — never translate these.
-
----
-
-## 7. Accent highlighting on news posts — TWO versions every time
-
-News posts **always produce two headline versions** so the user can pick the visual intensity:
-
-### Version A — coral only (clean)
-- 0–1 keyword in coral `#E85D3C`, everything else white. Classic news editorial feel.
-- Example: "La IA de <span style='color:#E85D3C'>Scotiabank</span> ya resuelve el 40% de las consultas de sus clientes"
-
-### Version B — double highlight (bold, step-by-step cover style)
-- One keyword in **coral text** `#E85D3C` (typically a brand name)
-- Another keyword on a **yellow marker** background `#FFE45C` with dark text `#0E0E0E` (typically a number or strong noun)
-- The yellow marker is a rounded rectangle (8px radius) with tight padding (~10px horizontal, ~6px vertical), sized to the actual glyph bounds so it feels natural and proportional
-- This brings the step-by-step cover energy to news posts for a bolder, more eye-catching result
-
-### Which keywords to highlight
-- **Coral:** brand names (Scotiabank, Anthropic, OpenAI), strong nouns (chips, agentes)
-- **Yellow marker:** numbers (40%, $2,000M, 5 años), short impactful words (gratis, ahora)
+- **Photo** is a 4:5 full-bleed image filling the ENTIRE 1080×1350 canvas. A CSS gradient overlay darkens the bottom ~40% for text readability. **No solid black text zone** — the old "photo top + black bottom" split layout is deprecated
+- **CSS gradient** `linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.88) 8%, rgba(0,0,0,0.72) 22%, rgba(0,0,0,0.35) 42%, transparent 62%)` is applied via a separate `<div class="gradient">` overlay. PIL baked fade-to-black is NOT needed for full-bleed covers
+- **Headline and bottom-row are SEPARATE absolute-positioned elements** — headline at `top:860px`, bottom-row at `top:1268px`. They must NOT be nested inside a shared parent container. Chrome headless clips child content that extends beyond its parent's rendered height, which causes the SWIPE pill to be invisible when nested
+- **Headline** 6–10 words, all-caps, Inter 800 at **62–68px**. 2–3 keywords highlighted (mix of coral + yellow marker). Line-height 1.1
+- **SWIPE pill** ("DESLIZA →") — solid white bg `#fff`, dark text `#0E0E0E`, bold, letter-spacing 0.18em, with soft drop-shadow. Must be unmistakably visible — not semi-transparent (18% white bg rendered as invisible in previous tests)
+- **Alta Studio logo** top-left overlaid on the photo. **100px tall, uniform across ALL slides** (cover + body + closer). Drop-shadow filter for contrast
+- **Never** use `backdrop-filter: blur` on any element (render.sh / headless Chrome strip it)
+- **Never** use the old split layout (4:3 photo top + solid black text zone bottom) — creates a visible "marco negro" artifact
+- **Never** nest the bottom-row inside the headline block — use independent absolute positioning
 
 ---
 
-## 8. Anti-patterns (news-specific)
+## 6. Template: Tweet slide
 
-In addition to the brand-wide anti-patterns in the base system:
+The tweet is the "source of truth" slide. It reproduces either (a) a real public announcement by the company/CEO, or (b) a plausible reaction tweet from an invented commentator handle. **See §11 for the ethics rules.**
 
-- ❌ Cream/light background (news posts are ALWAYS dark)
-- ❌ Grid pattern overlay (that's the step-by-step identity)
-- ❌ SVG illustrations replacing real photos (the photo IS the visual — don't substitute it)
-- ❌ Carousel format (news = single image, not a carousel)
-- ❌ "PASO X" labels (that's tutorial language)
-- ❌ "Desliza →" footer (there's nothing to swipe)
-- ❌ Slide indicator dots (single image, not a carousel)
-- ❌ Clickbait exclamation marks ("¡INCREÍBLE!", "¡NO VAS A CREER!")
-- ❌ English headlines (always Colombian Spanish)
-- ❌ Composing person photos + logos in HTML/CSS (use Nano Banana for the full visual composition — logos in CSS look "pasted")
-- ❌ Using HTML/Chrome to render news posts (Chrome on Windows creates black border artifacts — use PIL for text compositing)
-- ❌ Generating multiple COMPOSITION variants (waste of API money — generate ONE, only redo if user rejects it). Note: two TEXT versions (clean + highlight) are mandatory, not optional.
-- ❌ Adding a bottom-right watermark (removed per user preference — only the top-right Alta Studio logo)
-- ❌ CSS `mix-blend-mode` or `opacity` hacks for logo integration (the logo should be baked into the Nano Banana composition)
-- ❌ Logo bubbles or connector lines (that's the step-by-step cover identity)
-- ❌ Alta Studio logo bigger than ~44px or at full opacity (it's a SUBTLE watermark)
-- ❌ Headline in the top half of the image (it belongs in the bottom third, over the dark area)
-- ❌ White text without dark background beneath it (if composition bottom isn't dark enough, add a safety gradient)
+### Layout
+
+```
+┌─────────────────────────────────────┐
+│  [Alta Studio]                      │  ← top-left, small
+│                                     │
+│     ┌──────────────────────────┐    │
+│     │  [avatar] Name ✓         │    │  ← white card
+│     │          @handle         │    │    with Twitter UI
+│     │                          │    │
+│     │  Tweet body text goes    │    │
+│     │  here, in two or three   │    │
+│     │  short paragraphs.       │    │
+│     │                          │    │
+│     │  12:30 PM · Apr 15, 2026 │    │
+│     └──────────────────────────┘    │
+│                                     │
+└─────────────────────────────────────┘
+```
+
+### HTML scaffold (key parts)
+
+```html
+<style>
+  body{background:#000;color:#fff}
+  .alta{position:absolute;top:40px;left:48px;height:44px;opacity:.95}
+  .tweet-card{position:absolute;top:130px;left:60px;right:60px;background:#fff;border-radius:24px;padding:36px 40px;color:#0F1419}
+  .tweet-header{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+  .avatar{width:56px;height:56px;border-radius:50%;background-size:cover;background-position:center}
+  .name{font-size:24px;font-weight:700;display:flex;align-items:center;gap:6px}
+  .verified{width:22px;height:22px;fill:#1D9BF0}
+  .handle{font-size:20px;color:#536471;font-weight:400;margin-top:2px}
+  .tweet-body{font-size:30px;line-height:1.42;font-weight:400}
+  .tweet-body p{margin-bottom:18px}
+  .tweet-time{font-size:18px;color:#536471;margin-top:26px}
+</style>
+<body>
+  <img class="alta" src="../../../../Logos/Alta_Studio_logo.png">
+  <div class="tweet-card">
+    <div class="tweet-header">
+      <div class="avatar" style="background-image:url('tweet_avatar.png')"></div>
+      <div>
+        <div class="name">Anthropic <svg class="verified" viewBox="0 0 24 24"><path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-4-3.818-4-.47 0-.92.084-1.336.25C14.818 2.415 13.51 1.5 12 1.5s-2.816.917-3.437 2.25c-.415-.165-.866-.25-1.336-.25-2.11 0-3.818 1.79-3.818 4 0 .494.083.964.237 1.4-1.272.65-2.147 2.018-2.147 3.6 0 1.495.782 2.798 1.942 3.486-.02.17-.032.34-.032.514 0 2.21 1.708 4 3.818 4 .47 0 .92-.086 1.335-.25.62 1.334 1.926 2.25 3.437 2.25 1.512 0 2.818-.916 3.437-2.25.415.163.865.248 1.336.248 2.11 0 3.818-1.79 3.818-4 0-.174-.012-.344-.033-.513 1.158-.687 1.943-1.99 1.943-3.484zm-6.616-3.334l-4.334 6.5c-.145.217-.382.354-.643.371h-.05c-.24 0-.47-.09-.644-.26l-2.5-2.5c-.33-.33-.33-.866 0-1.195.33-.33.866-.33 1.196 0l2.064 2.064 3.71-5.566c.245-.367.78-.26.986-.16.366.245.466.76.22 1.126z"/></svg></div>
+        <div class="handle">@AnthropicAI</div>
+      </div>
+    </div>
+    <div class="tweet-body">
+      <p>Publicamos hoy un nuevo documento sobre cómo pensamos el alineamiento de Claude con valores humanos.</p>
+      <p>Consultamos a líderes religiosos, filósofos y eticistas de diversas tradiciones.</p>
+    </div>
+    <div class="tweet-time">10:12 AM · Apr 15, 2026</div>
+  </div>
+</body>
+```
+
+### Avatar handling
+
+- **Avatar image = Nano Banana generated.** For known brands, generate a logo-style avatar: *"Official [brand] logo avatar, circular format, solid background"*. Save to `Logos/` so it's reusable.
+- **For invented commentator tweets**, generate a plausible portrait avatar: *"Professional headshot of a 30s Latin American AI researcher, neutral background, editorial photography"*. Do NOT save these to `Assets/Personas/` — they're post-specific.
+
+### Tweet writing rules
+
+- Length: 2–4 short lines
+- Match the actual X/Twitter style (no emojis unless the real account uses them, casual but clean)
+- Timestamps: use today's date or the actual announcement date if researched
+- **Official tweets are the primary use** — reaction tweets only when the news benefits from commentary
 
 ---
 
-## 9. Workflow when the user asks for a news post
+## 7. Template A: Text + photo slide (default body slide)
 
-1. **Read this skill** + the base system rules from [`CLAUDE.md`](../../../CLAUDE.md).
-2. **Mandatory visual re-anchoring:** review `Inspiracion/` AND `Favoritos_Claude_Generated/` (see CLAUDE.md section 1.5).
-3. **Understand the news:** read the headline, URL, or context the user provided. Identify:
-   - What happened (the fact)
-   - Which **people** appear in the story (CEOs, founders, researchers)
-   - Which **brands/companies** are involved
-4. **Check existing assets** — list `Assets/Personas/` and `Logos/` to see if a reference photo of the person exists (useful for `--reference` mode in Nano Banana).
-5. **Propose 2–3 headline variations** in Colombian Spanish. Wait for approval.
-6. **Research the full story.** If the user only gave a title/topic, use WebSearch to find the complete news article. Extract: who, what, when, how, numbers, impact, differentiator. Never invent data.
-7. **Draft the caption** following the structure in section 13. Generate it directly (no approval needed — see memory: captions don't need approval).
-8. **Generate ONE visual composition with Nano Banana 2.** This is the key step:
-   - Craft the best possible prompt: person + brand logo integrated + dark editorial atmosphere + dark bottom for text (see section 4)
-   - Use `--reference` with an existing persona photo if available (preserves likeness)
-   - Use `--model gemini-3-pro-image-preview` for maximum quality
-   - Use `--aspect-ratio 4:5` for Instagram canvas
-   - **Generate ONE composition only** — don't waste API calls on variants. The user trusts the prompt crafting.
-   - Resize to 1080×1350 if needed (Nano Banana may output smaller)
-   - **Present to user for review** — only regenerate if rejected
-9. **Composite text with Python/PIL — generate TWO versions** (NOT HTML/Chrome — Chrome creates border artifacts on Windows):
-   After the user approves the composition, **always generate two headline variants** so the user can choose the visual intensity:
-   - **Version A (`news_v1_clean.png`) — coral only:** 0–1 keyword in coral `#E85D3C`, no yellow marker. Classic news style, cleaner.
-   - **Version B (`news_v2_highlight.png`) — double highlight (step-by-step cover style):** one keyword in coral + another keyword on a **yellow marker** background `#FFE45C` (rounded rect, 8px radius, tight padding: ~10px horizontal, ~6px vertical). Text on the marker is dark `#0E0E0E`. This is the bolder, more eye-catching variant.
-   
-   Both versions share these elements:
-   - Load composition as base image
-   - Add light gradient overlay on bottom 40% (numpy, max alpha ~140)
-   - Draw "AI NEWS" badge (coral pill + white text, top-left)
-   - Paste Alta Studio logo (top-right, 140px, opacity 0.75)
-   - Draw headline (Inter Black 76–80px, white, left-aligned at x=60)
-   - Draw source attribution (Inter 17px, white 40% opacity, below headline)
-   - Bottom margin: ~50px. **No bottom-right watermark.**
-   
-   **Yellow marker sizing rules (version B):**
-   - Use `font.getbbox()` to measure the actual glyph bounds of the marker keyword
-   - Horizontal padding: ~10px (tight — must NOT touch adjacent characters)
-   - Vertical padding: ~6px
-   - Align the rect to the actual glyph top/bottom (use `getbbox()[1]` for top offset), not the text origin
-   - Border radius: 8px
-   - The marker must feel natural and proportional, not oversized
-   
-   Present both versions side by side and let the user choose.
-10. **MANDATORY visual verification.** Open and inspect BOTH PNGs. Check: text readable, no artifacts, image fills 1080×1350 edge-to-edge with zero borders, yellow marker (v2) fully contains the text without cutting it.
-11. **Save the caption** as `caption.txt` in the same output folder.
-12. **Present the complete deliverable:** rendered image + caption text, together. Offer iterations.
-13. **Ask which images are favorites** for `Favoritos_Claude_Generated/` (see CLAUDE.md section 1.6).
+This is the **workhorse** of the carousel. Used for slides 3 and often 4. Dark background, text in the top ~55%, Nano Banana photo (16:9 rectangle) in the bottom ~45%.
 
-### Naming convention for news output files
+### Layout
+
+```
+┌─────────────────────────────────────┐
+│  [Alta Studio]                      │  ← top-left, 46px
+│                                     │
+│   LABEL CORAL OPCIONAL              │  ← e.g. "LO QUE PASÓ"
+│                                     │
+│   Frase corta en blanco,            │  ← Inter 600, 38–42px
+│   cada oración en línea propia.     │    2–4 líneas total
+│   Tercera línea si hace falta.      │
+│                                     │
+│                                     │  ← editorial whitespace
+│                                     │
+├─────────────────────────────────────┤  ← hard edge at y=742
+│                                     │
+│   NANO BANANA PHOTO (16:9)          │  ← 1080 × 608 px
+│   concept-reinforcing,              │    natively horizontal, fully visible
+│   editorial photography             │    NOT cropped
+│                                     │
+└─────────────────────────────────────┘
+```
+
+### Nano Banana prompt structure (body slide photo)
+
+```
+Editorial cinematic photograph, horizontal widescreen composition.
+[SCENE description — concept-reinforcing, NOT person-centric].
+[lighting / mood / color grading keywords].
+16:9 widescreen format, wide horizontal framing.
+No text, no logos, no words, no watermarks anywhere in the image.
+```
+
+**Use `--aspect-ratio 16:9`** → outputs ~1080×608. This matches the photo region in the HTML exactly, so the full composition is visible with NO cropping.
+
+### HTML scaffold
+
+```html
+<style>
+  body{background:#000;color:#fff;font-family:'Inter',sans-serif}
+  .alta{position:absolute;top:42px;left:48px;height:46px;opacity:.95}
+  .label{position:absolute;top:148px;left:60px;font-size:15px;font-weight:700;color:#E85D3C;text-transform:uppercase;letter-spacing:.14em;z-index:10}
+  .text-block{position:absolute;top:210px;left:60px;right:60px;font-size:40px;font-weight:600;line-height:1.28;color:#fff;letter-spacing:-.008em;z-index:10}
+  .text-block p{margin-bottom:22px}
+  .text-block p:last-child{margin-bottom:0}
+  .text-block .accent{color:#FFE45C}
+  .text-block strong{font-weight:700}
+  .photo{position:absolute;bottom:0;left:0;right:0;height:608px;background-image:url('slide3_photo.png');background-size:cover;background-position:center center}
+  .photo-fade-top{position:absolute;bottom:608px;left:0;right:0;height:30px;background:linear-gradient(to top,rgba(0,0,0,.5) 0%,transparent 100%);pointer-events:none;z-index:4}
+</style>
+<body>
+  <img class="alta" src="../../../../Logos/Alta_Studio_logo_white.png">
+  <div class="label">LO QUE PASÓ</div>
+  <div class="text-block">
+    <p>Anthropic consultó a <strong>rabinos, imames, pastores y teólogos</strong>.</p>
+    <p>Buscan respuestas a preguntas éticas que no vienen en manuales técnicos.</p>
+    <p>El objetivo: guiar cómo Claude razona sobre <span class="accent">dilemas morales</span>.</p>
+  </div>
+  <div class="photo"></div>
+</body>
+```
+
+### Photo prompt for body slides (different from cover)
+
+Body slide photos are **concept-reinforcing**, not person-centric. They evoke the idea, not dramatize a face.
+
+Good prompts (all at `--aspect-ratio 16:9`):
+- *"University campus with medieval architecture in autumn light, editorial photography, cinematic, 16:9 widescreen"* (for a research paper slide)
+- *"Factory floor with robotic arms assembling electronics, blue industrial lighting, realistic, 16:9 widescreen"* (for an automation slide)
+- *"Aerial night view of a dense city with glowing streets, film grain, editorial, 16:9 widescreen"* (for an economy slide)
+- *"Interfaith gathering — diverse religious leaders in a conference room, soft natural light, 16:9 widescreen"* (for the Anthropic/religion example)
+
+**Rules:**
+- No text, no logos in the image
+- Always `--aspect-ratio 16:9` (never 4:5 — that would crop)
+- Match the emotional temperature of the text (warm for human stories, cold/industrial for tech)
+- Same film grain / editorial treatment as cover for visual consistency
+
+### Variant: swap which half is which
+
+Sometimes the photo works better on top and text on bottom (e.g., when the photo is a horizon/landscape). That's fine — flip the `bottom:0` on the photo to `top:0` and adjust text/label positions. Photo aspect ratio stays 16:9.
+
+---
+
+## 8. Template B: White-card slide (punchline / stat / quote)
+
+Used when a slide needs to **slam a single fact** without dilution. No photo. Big number or short quote on a white card over black.
+
+### Layout
+
+```
+┌─────────────────────────────────────┐
+│  [Alta Studio]                      │
+│                                     │
+│     ┌──────────────────────────┐    │
+│     │                          │    │
+│     │  EL DATO                 │    │  ← coral label top
+│     │                          │    │
+│     │                          │    │
+│     │      40%                 │    │  ← huge stat (180px+)
+│     │                          │    │
+│     │                          │    │
+│     │  de las consultas ya     │    │  ← explanation
+│     │  las resuelve IA.        │    │
+│     │                          │    │
+│     │  Fuente: Scotiabank      │    │  ← small source line
+│     │                          │    │
+│     └──────────────────────────┘    │
+│                                     │
+└─────────────────────────────────────┘
+```
+
+### HTML scaffold
+
+```html
+<style>
+  body{background:#000;font-family:'Inter',sans-serif}
+  .alta{position:absolute;top:40px;left:48px;height:44px;opacity:.95}
+  .card{position:absolute;top:130px;left:60px;right:60px;bottom:100px;background:#fff;border-radius:28px;padding:60px 56px;color:#0E0E0E;display:flex;flex-direction:column;justify-content:space-between}
+  .card-label{font-size:16px;font-weight:700;color:#E85D3C;text-transform:uppercase;letter-spacing:.14em}
+  .stat{font-size:220px;font-weight:900;line-height:.95;letter-spacing:-.04em;margin-top:auto;margin-bottom:20px}
+  .stat-body{font-size:36px;font-weight:600;line-height:1.25;letter-spacing:-.01em}
+  .source{font-size:18px;font-weight:500;color:#6B6B6B;margin-top:34px}
+</style>
+<body>
+  <img class="alta" src="../../../../Logos/Alta_Studio_logo.png">
+  <div class="card">
+    <div class="card-label">EL DATO</div>
+    <div>
+      <div class="stat">40%</div>
+      <div class="stat-body">de las consultas de clientes de Scotiabank ya las resuelve su IA interna.</div>
+      <div class="source">Fuente: Artificial Intelligence News</div>
+    </div>
+  </div>
+</body>
+```
+
+### When to use Template B
+
+- Slide carries a **single killer stat** (percentage, dollar figure, multiplier)
+- Slide is a **short pull quote** from the source
+- Slide is the **closer** and needs max impact
+- **Never** use Template B back-to-back — needs a text+photo or tweet slide adjacent for rhythm
+
+---
+
+## 9. Closer slide (slide 5)
+
+Three valid closer formats (pick based on the news):
+
+1. **Reaction tweet** — invented commentator handle reacts to the news. Uses Template from §6 with an invented `@handle`.
+2. **Stat card** — Template B with the most impactful number of the story.
+3. **Key takeaway** — Template A with a one-line insight + photo (e.g., foto conceptual de "el futuro de la IA").
+
+### When to use which
+
+- **Reaction tweet:** news that benefits from a "outside voice" (policy news, controversy, launch receptions)
+- **Stat card:** news with one killer number
+- **Key takeaway:** news where the synthesis/meaning is the hook
+
+---
+
+## 10. Nano Banana — photo generation
+
+### Aspect ratios by slide type (non-negotiable)
+
+News photos use **rectangular aspect ratios** that match their designated region on the slide — **NOT** the full 4:5 Instagram canvas. Generating at 4:5 results in the subject being cropped or covered by text.
+
+| Slide type | `--aspect-ratio` | Output | Purpose |
+|---|---|---|---|
+| **Cover (slide 1)** | `4:5` | 1080 × 1350 | Full-bleed photo fills entire canvas; CSS gradient overlay darkens bottom for text |
+| **Body text+photo (Template A)** | `16:9` | 1080 × 608 | Photo occupies bottom ~45% of canvas; text + label occupy top ~55% |
+| **Tweet avatar** | `1:1` | 1024 × 1024 | Square for circular crop in tweet UI |
+| **Closer photo (slide 5 Template A variant)** | `16:9` | 1080 × 608 | Same as body photos |
+
+### Default command
+
+```bash
+python generate-image.py \
+  --prompt "[detailed prompt]" \
+  --output PostTypes/news/Outputs/{topic-slug}/{filename}.png \
+  --model gemini-3-pro-image-preview \
+  --aspect-ratio {4:5 | 16:9 | 1:1 — per table above}
+```
+
+### Naming convention for photo files
 
 ```
 PostTypes/news/Outputs/{topic-slug}/
-├── composition.png           ← Nano Banana full composition (person + logo + atmosphere)
-├── news_v1_clean.png         ← Version A: coral-only headline (classic news style)
-├── news_v2_highlight.png     ← Version B: double highlight with yellow marker (bolder style)
-└── caption.txt               ← Caption for Instagram
+├── composition.png       ← cover photo
+├── slide3_photo.png      ← text+photo slide 3
+├── slide4_photo.png      ← (if slide 4 is Template A)
+├── slide5_photo.png      ← (if closer is Template A)
+└── tweet_avatar.png      ← tweet slide avatar (if invented commentator)
 ```
 
-- `{topic-slug}`: kebab-case, descriptive. E.g. `anthropic-chips-ia`, `amazon-inversion-ia`, `perplexity-finanzas`.
-- **TWO text versions per post** — one clean (coral only) and one with yellow marker highlight. The user picks which to publish.
+### Rules
+
+- **Generate ONE photo per slide.** Do not generate variants. The prompt is the craft — if the output is wrong, iterate on the prompt, not on the count.
+- **Resize to 1080×1350 if needed** (Nano Banana may output smaller). Use `Image.open(x).resize((1080,1350), Image.LANCZOS).save(x)`.
+- **Never use `--reference`** — per user preference, all news photos are 100% Nano Banana generative. Do not composite real person photos.
+- **Never embed text** in Nano Banana prompts. Text = HTML overlay, always.
+
+### Prompt checklist (before submitting to API)
+
+- [ ] Describes the scene, not the frame
+- [ ] Includes "editorial photography" or "film grain" or "cinematic"
+- [ ] For covers: positions subject in upper portion, leaves lower area for gradient overlay
+- [ ] Ends with "No text, no typography, no logos, no words anywhere in the image"
+- [ ] Correct aspect ratio flag set (4:5 for covers, 16:9 for body slides)
+- [ ] `gemini-3-pro-image-preview` model (not the flash default)
 
 ---
 
-## 10. PIL text compositing — reference code
+## 11. Tweet ethics — MANDATORY rules
 
-> **News posts use Python/PIL for text compositing, NOT HTML/Chrome.** This eliminates the black border artifacts Chrome produces on Windows and guarantees the image fills 1080×1350 edge-to-edge.
+News posts include tweets. **Approved rules (user-locked):**
 
-```python
-from PIL import Image, ImageDraw, ImageFont
-import numpy as np
-
-# === Load assets ===
-composition = Image.open("composition.png").convert("RGBA")
-alta_logo = Image.open("Logos/Alta_Studio_logo_white.png").convert("RGBA")
-font_headline = ImageFont.truetype("Assets/Fonts/Inter-Black.ttf", 80)
-font_badge = ImageFont.truetype("Assets/Fonts/Inter-Black.ttf", 18)
-font_source = ImageFont.truetype("Assets/Fonts/Inter-Black.ttf", 17)
-
-# === Resize composition to exact canvas if needed ===
-if composition.size != (1080, 1350):
-    composition = composition.resize((1080, 1350), Image.LANCZOS)
-
-canvas = composition.copy()
-
-# === Light gradient overlay (bottom 40%, max alpha 140) ===
-gradient = Image.new("RGBA", (1080, 1350), (0, 0, 0, 0))
-grad_arr = np.array(gradient)
-for y in range(810, 1350):
-    grad_arr[y, :, 3] = int(140 * ((y - 810) / 540))
-canvas = Image.alpha_composite(canvas, Image.fromarray(grad_arr))
-draw = ImageDraw.Draw(canvas)
-
-# === "AI NEWS" badge (top-left, ~55px from edges) ===
-badge_text, bx, by, px, py = "AI NEWS", 55, 50, 22, 10
-bbox = font_badge.getbbox(badge_text)
-draw.rounded_rectangle(
-    [bx, by, bx + bbox[2]-bbox[0] + px*2, by + bbox[3]-bbox[1] + py*2],
-    radius=8, fill=(232, 93, 60, 255))
-draw.text((bx + px, by + py), badge_text, font=font_badge, fill=(255, 255, 255))
-
-# === Alta Studio logo (top-right, 140px, opacity 0.75) ===
-logo_h = 140
-logo_w = int(logo_h * alta_logo.width / alta_logo.height)
-logo_sm = alta_logo.resize((logo_w, logo_h), Image.LANCZOS)
-logo_arr = np.array(logo_sm)
-logo_arr[:, :, 3] = (logo_arr[:, :, 3] * 0.75).astype(np.uint8)
-canvas.paste(Image.fromarray(logo_arr), (1080 - 55 - logo_w, 30), Image.fromarray(logo_arr))
-draw = ImageDraw.Draw(canvas)
-
-# === Headline (Inter Black 80px, left-aligned at x=60) ===
-# Break into lines with optional coral keyword
-lines = [
-    [("HEADLINE LINE 1", (255, 255, 255))],
-    [("KEYWORD", (232, 93, 60)), (" rest of line 2", (255, 255, 255))],
-    [("line 3", (255, 255, 255))],
-]
-line_h, bottom_margin, source_h, gap = 86, 50, 22, 10
-headline_y = 1350 - bottom_margin - source_h - gap - (len(lines) * line_h)
-for i, parts in enumerate(lines):
-    x = 60
-    for text, color in parts:
-        draw.text((x, headline_y + i * line_h), text, font=font_headline, fill=color)
-        x += font_headline.getbbox(text)[2] - font_headline.getbbox(text)[0]
-
-# === Source (below headline, ~50px from bottom edge) ===
-draw.text((60, 1350 - bottom_margin - source_h),
-          "Fuente: ...", font=font_source, fill=(255, 255, 255, 102))
-
-# === Save (NO bottom-right watermark) ===
-canvas.convert("RGB").save("news_final.png", quality=95)
-```
-
-### Key specs for PIL compositing
-
-| Element | Font | Size | Position | Color/Opacity |
-|---|---|---|---|---|
-| "AI NEWS" badge | Inter Black | 18px | top-left (55, 50) | White on coral `#E85D3C` pill |
-| Alta Studio logo | — | 140px tall | top-right (55px from edge) | 75% opacity |
-| Headline | Inter Black | 80px | bottom area, x=60 | White, 0–1 keyword in coral |
-| Source | Inter Black | 17px | below headline, x=60 | White 40% opacity |
-| Bottom margin | — | ~50px | from bottom edge to source text | — |
-| Gradient | numpy | bottom 40% | max alpha 140 | Black, transparent to semi-opaque |
-| Bottom-right watermark | — | — | **NONE** | Removed per user preference |
-
----
-
-## 11. Alta Studio logo rules (NEWS posts ONLY)
-
-The Alta Studio logo appears **in the top-right corner** of every news post (composited via PIL). This is exclusive to news posts — step-by-step and informativos use `@lucianomusellaa` instead.
-
-| Property | Value |
+| Case | What I do |
 |---|---|
-| File | `Logos/Alta_Studio_logo_white.png` |
-| Position | Top-right corner, ~55px from right edge, ~30px from top |
-| Size | 140px tall (auto width) |
-| Opacity | 0.75 |
+| **Official company announcement** (ej: "Perplexity anunció X") | Research the actual tweet via WebSearch. Reproduce the real tweet faithfully — author, handle, text. **Cite, never invent.** |
+| **Public CEO statement** (ej: Altman in Senate hearing, Amodei in a conference) | Paraphrase from documented public record only. Attribute to real handle. **If the quote can't be verified, do NOT attribute to a real person.** |
+| **Reaction / analysis tweet** (journalist, researcher commentary) | Use **invented plausible handle** (e.g., `@sofia_reyes_ai`) with Nano Banana avatar. Clearly fictional persona. **Never attribute an invented quote to a real person.** |
+| **Editorial quote card** (fallback) | If no real source and no need for commentary, use a quote card styled differently from a tweet — no Twitter UI, just typographic quote + source citation. |
 
-**Non-negotiable:** the watermark must NEVER be the focal point. If someone has to squint to see it, that's perfect. It's a brand signature, not a feature.
+### Why this matters
+
+Fabricated quotes attributed to real people are **misinformation** — screenshots get shared, the user takes the reputational hit when it's debunked. These rules keep the pipeline automatic while protecting the brand.
+
+### When researching real tweets
+
+- Use WebSearch with queries like `"[company name] twitter announcement [topic] [year]"`
+- Verify the tweet exists on a reputable source before reproducing
+- If the original tweet isn't findable, shift to the editorial quote card option
 
 ---
 
-## 13. Caption del post — el complemento informativo (OBLIGATORIO)
+## 12. Headline writing rules
 
-Cada news post es una **imagen única** + un **caption** en texto. La imagen atrapa la atención; el caption entrega la información. Los dos son parte del entregable — nunca presentes solo la imagen sin el caption.
+### Language
 
-### Investigación de la noticia
+- **Colombian Spanish, `tú` form.** Never voseo ("creá", "usá"). Use "crea", "usa", "mira", "descubre".
+- Brand names stay in English: "Anthropic", "Perplexity", "Claude", "OpenAI"
+- Numbers: prefer digits over words ("40%", "US$2.000 millones", "5 años")
+- Currency: adapt to LATAM reading ("$2B" → "US$2.000 millones")
 
-Cuando el usuario da la noticia, pueden pasar dos cosas:
+### Cover headline style
 
-1. **El usuario da un titular o tema suelto** (ej: "la noticia de que Oxford creó una IA que predice fallas cardíacas") → **buscar en internet** la noticia completa usando WebSearch. Extraer los datos clave: quién, qué, cuándo, cómo, cifras, impacto, diferencial.
-2. **El usuario da una URL o un texto largo** → extraer la información directamente de ahí.
-
-En ambos casos, el caption se redacta **después de tener los datos completos**. Nunca inventar cifras, porcentajes o afirmaciones que no estén en la fuente.
-
-### Estructura del caption
-
-El caption sigue un formato de **párrafos cortos y separados** (cada uno de 1–2 oraciones). NO es un párrafo largo ni un bloque de texto corrido. La estructura es:
-
-1. **Hook** (1 línea) — la afirmación más impactante de la noticia, en presente. Captura la atención como un titular expandido.
-2. **Contexto** (1–2 líneas) — quién hizo qué, cuándo, dónde. El "lead" periodístico.
-3. **Dato clave 1** (1–2 líneas) — el cómo funciona, la tecnología, el método.
-4. **Dato clave 2** (1–2 líneas) — la escala, los números, la muestra.
-5. **Dato clave 3** (1–2 líneas) — el resultado, la precisión, el impacto medido.
-6. **Dato de impacto** (1–2 líneas) — la consecuencia práctica para personas/industria.
-7. **Siguiente paso / futuro** (1–2 líneas) — qué sigue (regulación, despliegue, fechas).
-8. **Diferencial** (1–2 líneas) — qué hace diferente a esta noticia vs. lo que ya existía. Cierra con perspectiva.
-
-No todos los puntos son obligatorios — adaptar según la noticia. Algunas noticias tienen 5 párrafos, otras 8. La clave es que cada párrafo agrega información nueva y ninguno es relleno.
-
-### Ejemplo de caption (español colombiano)
-
-```
-Una herramienta de IA desarrollada en Oxford puede predecir fallas cardíacas años antes de que ocurran.
-
-Investigadores de la Universidad de Oxford crearon una IA capaz de predecir el riesgo de insuficiencia cardíaca de una persona con hasta cinco años de anticipación.
-
-Funciona analizando tomografías de rutina y detectando señales sutiles de inflamación en la grasa que rodea el corazón, señales que los médicos no pueden ver a simple vista.
-
-El sistema fue entrenado con datos de 72,000 pacientes en hospitales del NHS en Inglaterra.
-
-Luego asigna a cada paciente un puntaje de riesgo personalizado para desarrollar insuficiencia cardíaca en los próximos cinco años.
-
-En las pruebas, alcanzó una precisión del 86%.
-
-Los pacientes identificados como alto riesgo tenían 20 veces más probabilidades de desarrollar la condición.
-
-Los investigadores buscan integrar la herramienta en los flujos hospitalarios estándar, pendiente de aprobación regulatoria, para permitir diagnósticos más tempranos y atención preventiva.
-
-A diferencia de métodos anteriores que dependían de imágenes especializadas o conjuntos de datos clínicos complejos, la IA de Oxford usa tomografías de rutina para detectar inflamación oculta alrededor del corazón, probada en 72,000 pacientes y ahora en camino a implementación real.
-```
-
-### Reglas de redacción del caption
-
-| Regla | Detalle |
+| Rule | Detail |
 |---|---|
-| Idioma | **Español colombiano, tú form** — mismo estándar que toda la marca |
-| Tono | Informativo, directo, sin opinión personal. Como un periodista tech que explica claro |
-| Párrafos | Cortos (1–2 oraciones cada uno), separados por línea en blanco |
-| Números | Usar cifras, no palabras: "72,000 pacientes", "86% de precisión", "$2,000M" |
-| Jerga técnica | Explicarla en la misma oración si el público general no la conoce |
-| Fuentes | No inventar datos. Si no encuentras un dato, no lo incluyas |
-| Emojis | NO usar emojis en el caption |
-| Hashtags | NO incluir hashtags — el usuario los agrega después si quiere |
-| Longitud | 6–10 párrafos cortos (típicamente 150–300 palabras) |
-| CTA | NO incluir call-to-action ("sígueme", "guarda", "comenta") — solo información |
+| Word count | **6–10 words** (tight, punchy, one breath) |
+| Case | **ALL CAPS** |
+| Font weight | 800 |
+| Line count | 2–3 lines |
+| Keyword highlight | **2–3 keywords** in coral and/or yellow marker |
+| Tone | Factual, newsworthy — **not clickbait**. No exclamation marks, no "¡INCREÍBLE!", no "NO VAS A CREER" |
 
-### Dónde se entrega el caption
+### Highlight pattern — which keyword gets which color
 
-El caption se presenta como **texto plano** en la respuesta, debajo de la imagen renderizada, listo para copiar y pegar en Instagram. También se guarda como archivo `.txt` en la carpeta de outputs del post:
+| Color | What it marks |
+|---|---|
+| **Coral text** `#E85D3C` | Brand name (Anthropic, OpenAI), strong noun (CHIPS, AGENTES), verb (ATACARON, FILTRAN) |
+| **Yellow marker** `#FFE45C` (dark text inside) | Number/stat (40%, US$2.000M), short impactful noun (GRATIS, AHORA, HOY) |
+
+### Good headlines
+
+- *"ANTHROPIC CONSULTA A **LÍDERES RELIGIOSOS** PARA DEFINIR LA **BRÚJULA ÉTICA** DE SU IA"*
+- *"LA **CASA DE SAM ALTMAN** FUE ATACADA **DOS VECES** EN POCOS DÍAS"*
+- *"INVESTIGADORES DEMOSTRARON QUE LOS **DESPIDOS POR IA** PUEDEN **ROMPER LA ECONOMÍA**"*
+
+### Bad headlines
+
+- *"¡INCREÍBLE lo que hizo Anthropic!"* — clickbait
+- *"Anthropic"* — vacío
+- *"Anthropic reportedly consults religious leaders..."* — está en inglés
+- *"Crea tu propia IA ética"* — es un titular de tutorial, no de news
+
+### Tagline (below headline)
+
+- 1 line, all caps, Inter 600, 75% opacity
+- Expands the "why this matters" in plain language
+- Examples: *"EL AVANCE DE LA IA ABRE PREGUNTAS ÉTICAS INESPERADAS"*, *"LO QUE VIENE ESTA SEMANA"*, *"CUANDO LA SEGURIDAD Y LA VISIBILIDAD TIENEN UN COSTO PERSONAL"*
+
+---
+
+## 13. Caption — ahora es corto
+
+Porque el contenido vive en los slides, el caption pasa a ser **breve y utilitario** (no informativo largo).
+
+### Formato del caption
+
+- **1–3 líneas** máximo
+- **Objetivo:** dar contexto mínimo para el feed + facilitar búsqueda
+- **Sin hashtags** (el user los agrega si quiere)
+- **Sin emojis**
+- **Sin CTA** ("sígueme", "guarda")
+
+### Ejemplos
+
+```
+Anthropic está consultando a líderes religiosos y filósofos para definir los valores con los que entrena a Claude.
+```
+
+```
+La casa de Sam Altman ha sido atacada dos veces en menos de una semana.
+Seguridad personal y figura pública, el costo del liderazgo en IA.
+```
+
+### Workflow del caption
+
+- Generar en el paso final del workflow, después de aprobar todos los slides
+- Guardar en `caption.txt` en la carpeta del post
+- Presentar junto con los slides al cierre
+
+---
+
+## 14. Workflow when the user asks for a news post
+
+1. **Read this skill** + base rules from [`CLAUDE.md`](../../../CLAUDE.md) + [`news/README.md`](../README.md).
+2. **Mandatory visual re-anchoring:** review [`Inspiracion/`](../Inspiracion/) AND [`Favoritos_Claude_Generated/`](../Favoritos_Claude_Generated/) (CLAUDE.md §1.5). **Look at the carousel patterns, not just covers.**
+3. **Understand the news:** what happened, who's involved, what's the data. If the user gave only a title, WebSearch for the full story.
+4. **Draft the slide outline** — propose the 5-slide breakdown (headline, tweet angle, body slide 1, body slide 2, closer). Wait for approval.
+5. **Propose 2–3 cover headline variations** (Colombian Spanish, with keyword highlights marked). Wait for approval.
+6. **Research real tweets** if slide 2 is an official announcement (see §11). If the source announcement exists, capture the exact tweet text.
+7. **Generate photos with Nano Banana** — ONE per slide that needs one (cover + 1–2 body slides). Use `gemini-3-pro-image-preview`. Cover at `--aspect-ratio 4:5` (full-bleed), body slides at `--aspect-ratio 16:9`. Resize if needed.
+8. **Present photos to user for review.** Only regenerate if rejected.
+9. **Build the HTML for all slides** — cover, tweet, text+photo, (optional) white card, closer. Save each as `slide{N}_{descriptor}.html` in the output folder.
+10. **Render via `./render.sh PostTypes/news/Outputs/{topic-slug}`** — renders all slides at once.
+11. **MANDATORY Visual QA** (see [`Skills/visual-qa.md`](../../../Skills/visual-qa.md)) — open every PNG, verify no artifacts, text readable, photos correctly positioned, no page dots on any slide, Alta Studio logo visible, SWIPE pill only on cover.
+12. **Draft the short caption** (1–3 lines), save as `caption.txt`.
+13. **Present the complete carousel** — all 5 PNGs in order + caption, ready to upload to Instagram.
+14. **Ask which slides are favorites** → copy selected PNGs to `Favoritos_Claude_Generated/` (CLAUDE.md §1.6).
+
+### Naming convention for news carousel outputs
 
 ```
 PostTypes/news/Outputs/{topic-slug}/
-├── news_v1_{descriptor}.html
-├── news_v1_{descriptor}.png
-├── caption.txt                  ← el caption listo para copiar
-└── ...
+├── composition.png              ← cover photo (Nano Banana)
+├── slide3_photo.png             ← text+photo slide 3 photo
+├── slide4_photo.png             ← (optional) text+photo slide 4 photo
+├── slide5_photo.png             ← (optional) closer photo
+├── tweet_avatar.png             ← (optional) invented commentator avatar
+├── slide1_cover.html            ← cover HTML
+├── slide1_cover.png             ← rendered cover
+├── slide2_tweet.html
+├── slide2_tweet.png
+├── slide3_text.html
+├── slide3_text.png
+├── slide4_{text|card}.html
+├── slide4_{text|card}.png
+├── slide5_closer.html
+├── slide5_closer.png
+└── caption.txt
 ```
 
-### Caption en el workflow
-
-El caption se genera como **paso 6** del workflow (después de aprobar los headlines, antes de generar el HTML de la imagen). El flujo es:
-
-1. (...pasos 1–4 del workflow: skill, re-anchoring, entender noticia, asset check...)
-2. Proponer headlines → usuario aprueba
-3. **Investigar la noticia a fondo** (si solo dio un titular, buscar en internet)
-4. **Redactar el caption** y presentarlo al usuario para aprobación
-5. Generar la imagen HTML + renderizar
-6. Presentar imagen + caption juntos como entregable completo
+- `{topic-slug}`: kebab-case, descriptive. E.g. `anthropic-lideres-religiosos`, `altman-ataques-casa`, `perplexity-billion-build`.
 
 ---
 
-## 14. Quick reference checklist (run before exporting any news post)
+## 15. Anti-patterns (news-specific)
 
-### Composition (Nano Banana)
-- [ ] Composition generated with `gemini-3-pro-image-preview` at 4:5 aspect ratio
-- [ ] Person is recognizable and well-lit in the composition
-- [ ] Brand logo is visible and naturally integrated (not pasted-looking)
-- [ ] Bottom ~35% of composition is dark enough for white text
-- [ ] No AI-generated text or typography artifacts in the composition
-- [ ] Composition was presented to user and approved before proceeding
+- ❌ Single-image news posts (the old format — now deprecated)
+- ❌ Long captions with 6–10 paragraphs of info (content now lives in slides)
+- ❌ PIL for text overlay (deprecated — all text is HTML + render.sh)
+- ❌ Cream background or grid pattern (that's step-by-step identity)
+- ❌ `@lucianomusellaa` handle on news slides (news uses Alta Studio logo only)
+- ❌ Alta Studio in BOTH corners (only one corner per slide)
+- ❌ SWIPE pill on body slides (only on cover)
+- ❌ Page dots on any slide (Instagram adds carousel dots natively)
+- ❌ Nano Banana generating text, logos, or watermarks (always strip with "No text, no logos, no words")
+- ❌ Using `--reference` with real person photos (100% generative per user preference)
+- ❌ Generating cover photos at `--aspect-ratio 4:3` (the old split layout) — use `4:5` for full-bleed covers with CSS gradient overlay
+- ❌ Using the old "photo top 810px + solid black text zone bottom" cover layout — creates a visible "marco negro". Use full-bleed photo + CSS gradient instead
+- ❌ Generating body slide photos at `--aspect-ratio 4:5` — they get cropped to the 608px photo region. Use `16:9` so the full composition is visible
+- ❌ Using `backdrop-filter: blur` anywhere — headless Chrome strips it, elements render invisible
+- ❌ PIL baked fade-to-black on cover photos — this was for the old split layout. Full-bleed covers use CSS gradient overlay instead
+- ❌ Nesting the bottom-row (tagline + SWIPE pill) inside the headline block — Chrome headless clips child content that extends beyond parent's rendered height. Use SEPARATE absolute-positioned elements
+- ❌ Alta Studio logo smaller than ~80px on covers — it disappears visually. 100px is the target (uniform across all slides)
+- ❌ Fabricating quotes attributed to real people (see §11 ethics)
+- ❌ More than one Template B (white card) in a row — needs visual rhythm
+- ❌ Headlines in English (always Colombian Spanish)
+- ❌ Clickbait ("¡INCREÍBLE!", "¡NO VAS A CREER!")
+- ❌ Generating multiple photo variants per slide (prompt well, generate once, iterate on prompt if needed)
+- ❌ Hashtags or emojis in the caption
 
-### HTML text overlay
-- [ ] Canvas is 1080×1350
-- [ ] "AI NEWS" badge in coral pill, top-left
-- [ ] Alta Studio logo in top-right (NOT `@lucianomusellaa` on news posts)
-- [ ] Headline in bottom third, 8–20 words, Colombian Spanish
-- [ ] Headline uses Inter font, weight 800, white
-- [ ] 0–1 keyword highlighted in coral (not mandatory)
-- [ ] No double highlight, no yellow marker (unless exceptional)
-- [ ] Source attribution if applicable
-- [ ] Alta Studio watermark in bottom-right, subtle (opacity 0.3–0.5)
-- [ ] Safety gradient only if needed for text readability
+---
+
+## 16. Quick-reference checklist (run before presenting the carousel)
 
 ### Content
-- [ ] **Colombian Spanish only** — no voseo (creá, usá, etc.)
-- [ ] **Caption drafted** — 6–10 short paragraphs, factual, no emojis, no hashtags, no CTA
-- [ ] Caption saved as `caption.txt` in the output folder
-- [ ] All data in the caption is sourced (nothing invented)
+- [ ] 4–7 slides total (5 is default)
+- [ ] Cover has killer headline with 2–3 keyword highlights (coral + yellow)
+- [ ] Slide 2 is a real official tweet or a quote card (never a fabricated tweet from a real person)
+- [ ] Body slides (3, 4) use Template A (text+photo) mostly, B (white card) for punchlines
+- [ ] Closer is reaction tweet, stat card, or takeaway — chosen for impact
+- [ ] Caption is 1–3 lines, no hashtags, no emojis
 
-### Delivery
-- [ ] Saved to `PostTypes/news/Outputs/{topic-slug}/`
-- [ ] Rendered via `./render.sh`
-- [ ] Visual verification passed — text readable, no artifacts
+### Visual
+- [ ] Every slide is 1080×1350
+- [ ] Alta Studio logo in one top corner on every slide (not both, not missing)
+- [ ] SWIPE pill only on cover
+- [ ] No page dots on any slide (Instagram adds them natively)
+- [ ] No `@lucianomusellaa` anywhere
+- [ ] Cover photo is Nano Banana at 4:5 (full-bleed), body photos at 16:9, all text/logo-free
+- [ ] No black border artifacts (render.sh handles this — verify with QA)
+
+### Language
+- [ ] Colombian Spanish, `tú` form throughout
+- [ ] Brand names kept in English
+- [ ] Numbers as digits
+- [ ] No voseo, no "¡!", no clickbait tone
+
+### Pipeline
+- [ ] All slides rendered via `./render.sh`
+- [ ] Visual QA run on every PNG
+- [ ] Output folder follows naming convention
+- [ ] Caption saved as `caption.txt`
+- [ ] User asked which slides are favorites

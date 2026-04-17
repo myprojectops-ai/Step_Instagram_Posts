@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{width:1080px;height:1350px;font-family:'Inter',system-ui,sans-serif;overflow:hidden;position:relative;background:#000;color:#fff}
+  .alta{position:absolute;top:44px;left:50px;height:100px;opacity:.98;z-index:10;filter:drop-shadow(0 2px 14px rgba(0,0,0,.55))}
+  .label{position:absolute;top:196px;left:60px;font-size:16px;font-weight:700;color:#E85D3C;text-transform:uppercase;letter-spacing:.14em;z-index:10}
+  .tweet-card{position:absolute;top:258px;left:60px;right:60px;background:#fff;border-radius:28px;padding:58px 56px 50px 56px;color:#0F1419}
+  .tweet-header{display:flex;align-items:center;gap:18px;margin-bottom:32px}
+  .avatar{width:88px;height:88px;border-radius:50%;background-color:#000;background-image:url('../../../../Logos/OpenAI_logo.png');background-size:72%;background-position:center;background-repeat:no-repeat;flex-shrink:0}
+  .name-row{display:flex;flex-direction:column}
+  .name{font-size:32px;font-weight:800;display:flex;align-items:center;gap:8px;color:#0F1419;line-height:1.1}
+  .verified{width:28px;height:28px;fill:#1D9BF0}
+  .handle{font-size:24px;color:#536471;font-weight:400;margin-top:4px}
+  .tweet-body{font-size:42px;line-height:1.38;font-weight:400;color:#0F1419}
+  .tweet-body p{margin-bottom:24px}
+  .tweet-body p:last-child{margin-bottom:0}
+  .tweet-body strong{font-weight:700}
+  .tweet-body .link{color:#1D9BF0}
+  .tweet-time{font-size:20px;color:#536471;margin-top:32px;border-top:1px solid #EFF3F4;padding-top:22px}
+  .divider-block{position:absolute;bottom:200px;left:60px;right:60px;z-index:10}
+  .divider-line{display:inline-block;width:48px;height:2px;background:#E85D3C;margin-bottom:16px}
+  .traduccion-label{font-size:15px;font-weight:700;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.18em}
+  .traduccion{margin-top:14px;font-size:28px;font-weight:700;line-height:1.32;color:#fff}
+  .traduccion .accent{color:#FFE45C}
+</style></head>
+<body>
+  <img class="alta" src="../../../../Logos/Alta_Studio_logo_white.png">
+  <div class="label">EL ANUNCIO OFICIAL</div>
+  <div class="tweet-card">
+    <div class="tweet-header">
+      <div class="avatar"></div>
+      <div class="name-row">
+        <div class="name">OpenAI Developers <svg class="verified" viewBox="0 0 24 24"><path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-4-3.818-4-.47 0-.92.084-1.336.25C14.818 2.415 13.51 1.5 12 1.5s-2.816.917-3.437 2.25c-.415-.165-.866-.25-1.336-.25-2.11 0-3.818 1.79-3.818 4 0 .494.083.964.237 1.4-1.272.65-2.147 2.018-2.147 3.6 0 1.495.782 2.798 1.942 3.486-.02.17-.032.34-.032.514 0 2.21 1.708 4 3.818 4 .47 0 .92-.086 1.335-.25.62 1.334 1.926 2.25 3.437 2.25 1.512 0 2.818-.916 3.437-2.25.415.163.865.248 1.336.248 2.11 0 3.818-1.79 3.818-4 0-.174-.012-.344-.033-.513 1.158-.687 1.943-1.99 1.943-3.484zm-6.616-3.334l-4.334 6.5c-.145.217-.382.354-.643.371h-.05c-.24 0-.47-.09-.644-.26l-2.5-2.5c-.33-.33-.33-.866 0-1.195.33-.33.866-.33 1.196 0l2.064 2.064 3.71-5.566c.245-.367.78-.26.986-.16.366.245.466.76.22 1.126z"/></svg></div>
+        <div class="handle">@OpenAIDevs</div>
+      </div>
+    </div>
+    <div class="tweet-body">
+      <p>With the Agents SDK and <span class="link">@Vercel</span> Sandbox, agents can execute work in isolated environments while keeping <strong>credentials separate from the harness</strong>.</p>
+    </div>
+    <div class="tweet-time">11:02 AM · 15 abr 2026</div>
+  </div>
+  <div class="divider-block">
+    <span class="divider-line"></span>
+    <div class="traduccion-label">EN ESPAÑOL</div>
+    <div class="traduccion">Los agentes corren en ambientes aislados; las credenciales <span class="accent">nunca</span> viajan al entorno del modelo.</div>
+  </div>
+</body></html>

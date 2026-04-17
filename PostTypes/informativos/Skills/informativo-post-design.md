@@ -643,8 +643,8 @@ PostTypes/informativos/Outputs/{topic-slug}/
 
 ### Delivery
 - [ ] Saved to `PostTypes/informativos/Outputs/{topic-slug}/`
-- [ ] Rendered via `./render.sh`
-- [ ] Visual QA passed — every PNG inspected, text alignment verified
+- [ ] Rendered via `./render.sh` (uses `--window-size=1098,1550` + PIL crop to handle Chrome's viewport bug — content below y≈1272 was invisible with the old window size)
+- [ ] Visual QA passed — every PNG inspected, text alignment verified, bottom elements (dots, footer, handle) visible
 - [ ] Asked user which images are favorites for `Favoritos_Claude_Generated/`
 
 ---

@@ -139,7 +139,7 @@ In addition to the base skill's anti-patterns:
    - Headline phrasing (question vs statement, short vs long)
    - Which word gets coral vs yellow
    - Layout (A vs B if both fit)
-6. **Render** each variation to PNG using the HTML→Chrome headless pipeline from the base skill. Save as `cover_v{n}_{descriptor}.png`.
+6. **Render** each variation to PNG using `render.sh` (which uses `--window-size=1098,1550` + PIL crop to handle Chrome's viewport bug — see base skill §7). Save as `cover_v{n}_{descriptor}.png`.
 7. **Show all variations** and ask for feedback. Iterate on the chosen one.
 
 ---

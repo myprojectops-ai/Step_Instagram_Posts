@@ -53,6 +53,7 @@ For every rendered PNG, open the image with the Read tool and verify:
 - [ ] No overlapping elements that shouldn't overlap
 - [ ] Gradient overlay is strong enough for readability but not so heavy it kills the photo
 - [ ] Watermarks/subtle elements are present but not dominant
+- [ ] **Content below y≈1272 renders correctly** — dots, pills, taglines, bottom-row elements must be visible. Chrome headless on Windows subtracts ~96px for window chrome; `render.sh` compensates with a larger viewport + crop, but verify these elements are not cut off
 
 ### 3.5 Cross-variation consistency
 - [ ] When generating multiple variations, verify each one individually — don't assume "if v1 looks good, v2 is fine too"
@@ -83,6 +84,7 @@ For every rendered PNG, open the image with the Read tool and verify:
 | Text invisible on light part of photo | Gradient overlay too light in that zone | Increase gradient opacity in the zone where text sits |
 | AVIF/WebP image not rendering | Browser/renderer doesn't support format | Convert to PNG, or verify Chrome version supports the format |
 | CSS filter makes logo invisible | `brightness(0) invert(1)` on transparent PNG kills alpha | Use `mix-blend-mode: screen` instead for white-on-black logos, or `filter: brightness(100)` for teal logos |
+| Bottom elements (dots, pills, taglines) missing | Chrome headless viewport bug — content below y≈1272 was not rendered with old `--window-size=1098,1368` | Verify `render.sh` uses `--window-size=1098,1550` + PIL crop to 1080×1350. If still cut off, increase the height further |
 
 ---
 

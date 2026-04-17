@@ -50,14 +50,16 @@ render_one() {
     win_png="${BASH_REMATCH[1]}:/${BASH_REMATCH[2]}"
   fi
 
-  # Render at a slightly larger viewport (1098x1368) to avoid Chrome's
-  # black-border artifact on Windows, then crop to exact 1080x1350.
+  # Render at a larger viewport to avoid Chrome's black-border artifact
+  # on Windows. Chrome headless subtracts ~96px for window chrome, so we
+  # add 200px of headroom (1098x1550) to guarantee the full 1350px canvas
+  # renders, then crop to exact 1080x1350.
   "$CHROME" \
     --headless=new \
     --disable-gpu \
     --hide-scrollbars \
     --force-device-scale-factor=1 \
-    --window-size=1098,1368 \
+    --window-size=1098,1550 \
     --virtual-time-budget=5000 \
     --screenshot="$win_png" \
     "file:///$win_path" 2>/dev/null

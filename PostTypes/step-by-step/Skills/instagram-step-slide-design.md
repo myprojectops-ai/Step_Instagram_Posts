@@ -187,7 +187,7 @@ In addition to the base skill's anti-patterns and the cover skill's:
    - Body subtitle if needed (or "none — visual carries it")
    - Mockup description (real screenshot? recreated UI? generated?)
 5. **Show the full step breakdown to the user** before generating any image. Wait for approval. This avoids burning render cycles on the wrong copy.
-6. **Render** each approved step using the HTML→Chrome headless pipeline from the base skill.
+6. **Render** each approved step using `render.sh` (which uses `--window-size=1098,1550` + PIL crop to handle Chrome's viewport bug — see base skill §7). Verify bottom elements (dots, `Desliza →`) render correctly.
 7. **Save** to `Outputs/{topic-slug}/paso_{n}_{descriptor}.png`. Keep the cover and step slides in the same `Outputs/{topic-slug}/` folder so the whole carousel lives together.
 8. **Show the carousel as a sequence** (cover → paso 1 → paso 2 → …) so the user sees the flow, not isolated slides.
 

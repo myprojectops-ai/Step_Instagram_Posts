@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{width:1080px;height:1350px;font-family:'Inter',system-ui,sans-serif;overflow:hidden;position:relative;background:#000}
+  .alta{position:absolute;top:44px;left:50px;height:100px;opacity:.98;z-index:10;filter:drop-shadow(0 2px 14px rgba(0,0,0,.55))}
+  .card{position:absolute;top:170px;left:60px;right:60px;bottom:110px;background:#fff;border-radius:28px;padding:56px 58px;color:#0E0E0E;display:flex;flex-direction:column}
+  .card-label{font-size:16px;font-weight:700;color:#E85D3C;text-transform:uppercase;letter-spacing:.14em}
+  .card-body{flex:1;display:flex;flex-direction:column;justify-content:center;padding:20px 0}
+  .quote-mark{font-family:'Inter',sans-serif;font-size:140px;font-weight:900;color:#E85D3C;line-height:.7;margin-bottom:4px}
+  .quote{font-size:48px;font-weight:600;line-height:1.28;letter-spacing:-.01em;color:#0E0E0E}
+  .attribution{padding-top:32px;border-top:2px solid #ECECEC}
+  .attribution-name{font-size:21px;font-weight:700;color:#0E0E0E}
+  .attribution-meta{font-size:17px;font-weight:500;color:#6B6B6B;margin-top:4px}
+  .dots{position:absolute;bottom:44px;left:0;right:0;display:flex;justify-content:center;gap:10px;z-index:20}
+  .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.45)}
+  .dot.active{background:#fff;box-shadow:0 0 10px rgba(255,255,255,.7)}
+</style></head>
+<body>
+  <img class="alta" src="../../../../Logos/Alta_Studio_logo_white.png">
+  <div class="card">
+    <div class="card-label">EL COMUNICADO OFICIAL</div>
+    <div class="card-body">
+      <div class="quote-mark">“</div>
+      <div class="quote">Vamos a adquirir hardware de cómputo para IA de alto desempeño y bajas latencias, y lo ofreceremos bajo contratos de leasing a largo plazo, para cubrir una demanda que ni los mercados spot ni los hyperscalers logran servir de forma confiable.</div>
+    </div>
+    <div class="attribution">
+      <div class="attribution-name">Allbirds, Inc.</div>
+      <div class="attribution-meta">Comunicado oficial · 15 abril 2026</div>
+    </div>
+  </div>
+  <div class="dots">
+    <div class="dot"></div>
+    <div class="dot active"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+</body></html>

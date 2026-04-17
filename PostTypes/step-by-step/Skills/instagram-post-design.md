@@ -223,6 +223,7 @@ When the user asks me to make a post / carousel, I will:
    - Render to 1080×1350 PNG using **`./render.sh {folder}`** from the project root. The script wraps headless Chrome with all the right flags and handles Git Bash → Windows path conversion. Do NOT call Chrome manually.
    - Example: `./render.sh PostTypes/step-by-step/Outputs/agentes-claude-code` renders every `.html` in that folder to a PNG of the same name.
    - Single-file mode also works: `./render.sh PostTypes/step-by-step/Outputs/agentes-claude-code/cover_v1.html`
+   - **Viewport bug note (2026-04-16):** Chrome headless on Windows subtracts ~96px from `--window-size` for window chrome. `render.sh` uses `--window-size=1098,1550` (with extra headroom) and crops to 1080×1350 via PIL. This ensures content near the bottom of the canvas (dots, pills, footers at y>1272) renders correctly. If bottom elements appear cut off, verify `render.sh` has the correct window size.
 
    For slides that need illustrations or imagery that HTML/CSS can't build, recreate them with elaborate inline SVG inside the HTML template. This is the only image-generation method used in this project — no external APIs.
 5. **Save outputs** to [Outputs/](../Outputs/) with naming `post_{topic-slug}_{slide-number}.png`.

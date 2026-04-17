@@ -96,7 +96,8 @@ Visual_posts/
 ├── CLAUDE.md                          ← this file (autoloaded — the router)
 ├── README.md                          ← project intro
 ├── Skills/                            ← global skills (apply to ALL post types)
-│   └── visual-qa.md                   ← MANDATORY post-render QA — verify every PNG before presenting
+│   ├── visual-qa.md                   ← MANDATORY post-render QA — verify every PNG before presenting
+│   └── slide-spacing.md               ← MANDATORY spacing/layout rules — content must fill ~70-85% of canvas, never leave large empty zones
 ├── PostTypes/
 │   ├── step-by-step/                  ← tutorial / how-to carousels (mature)
 │   │   ├── README.md                  ← workflow + triggers + folder rules for this type
@@ -164,7 +165,9 @@ These are project-wide invariants. They live across every post type, every slide
 - Single-file mode also works: `./render.sh PostTypes/step-by-step/Outputs/agentes-claude-v2/cover_v1_delega.html`
 - Do NOT manually script Chrome headless commands — use `render.sh`
 - The script handles all the flags (window size, virtual time budget, scale factor) and Git Bash → Windows path conversion
+- **Viewport bug fix (2026-04-16):** Chrome headless on Windows subtracts ~96px from `--window-size` height for window chrome decorations. `render.sh` uses `--window-size=1098,1550` (200px extra headroom) and then crops to exact 1080×1350 via PIL. This ensures content near the bottom of the canvas (dots, pills, taglines at y>1272) renders correctly. If bottom elements appear cut off in renders, verify `render.sh` has the correct window size.
 - **After every render, run the [Visual QA skill](Skills/visual-qa.md)** — open and inspect every PNG before presenting it to the user. This is mandatory for ALL post types. Never describe a feature you can't visually confirm in the rendered output.
+- **Before writing any slide's HTML AND during QA, apply the [Slide Spacing skill](Skills/slide-spacing.md)** — content must fill ~70–85% of the usable canvas. Never leave >150px empty in the middle of a slide or >120px at the bottom outside the safe zone. Scale fonts up for short content; use flex `justify-content: space-between` for multi-element slides. This applies to ALL post types.
 
 ### 3.5 Image generation — hybrid approach (by post type)
 
@@ -173,7 +176,7 @@ This project uses **two image generation methods** depending on the post type:
 | Post type | Method | Visual assets (logos, personas, backgrounds) |
 |---|---|---|
 | **Step-by-step** | HTML + CSS + inline SVG | Logos from `Logos/`; **Nano Banana 2 ONLY for missing logos** — nothing else |
-| **News** | **Nano Banana 2 full composition** + PIL text overlay | Nano Banana generates the COMPLETE visual (person + logo + atmosphere) as one image; PIL only adds text (badge, headline, watermark) |
+| **News** | **Nano Banana 2 photos per slide** + HTML overlay | 5-slide carousel. Nano Banana generates ONE photo per slide that needs one (cover + body slides); HTML adds all text, tweet cards, stat cards, dots, Alta Studio. **No PIL anywhere.** |
 | **Informativos** | **Nano Banana 2 full composition** + HTML text overlay | Nano Banana generates the COMPLETE visual (background, layout structure, icons, logos, decorative elements — NO text); HTML overlay adds all text |
 
 #### Step-by-step posts (Nano Banana ONLY for missing logos)
@@ -183,17 +186,26 @@ This project uses **two image generation methods** depending on the post type:
 - **If a needed logo is NOT in `Logos/`** → generate it with Nano Banana 2 via `generate-image.py`, save to `Logos/`, and present to the user for review before using it.
 - **Nano Banana is strictly limited to logo generation in this post type.** Do NOT use it for backgrounds, illustrations, person photos, or any other asset — that would burn API budget for no gain. Everything else stays HTML + CSS + inline SVG.
 
-#### News posts (Nano Banana FULL COMPOSITION + HTML text overlay)
-- **Nano Banana 2 generates the complete visual composition** — person photo, brand logo, dark atmosphere, lighting — all as ONE cohesive image. This replaced the old approach of composing photos + logos in HTML/CSS, which produced "pasted-looking" results.
-- **HTML is used ONLY for text** — the "AI NEWS" badge, headline, source attribution, and Alta Studio watermark. These are better handled by HTML for pixel-perfect typography.
-- **Workflow for news compositions:**
-  1. Check `Assets/Personas/` for existing reference photos (useful for `--reference` mode)
-  2. Craft a detailed composition prompt (person + logo integration + dark atmosphere + dark bottom for text)
-  3. Generate 2–3 composition variants with `generate-image.py --model gemini-3-pro-image-preview --aspect-ratio 4:5`
-  4. Present compositions to user for review — they choose which to use
-  5. Generate HTML text overlay on top of the approved composition
-  6. Render via `render.sh`
-- See `PostTypes/news/Skills/news-post-design.md` section 4 for detailed prompting guidelines.
+#### News posts (5-slide carousel, Nano Banana photos + HTML overlay)
+- **News is a carousel**, not a single image. 5 slides default (4–7 allowed). The old single-image + long-caption format is **deprecated**.
+- **Slide structure:** (1) cover with photo + headline, (2) tweet/official announcement, (3) text+photo, (4) text+photo OR white-card stat, (5) closer (reaction tweet, stat card, or takeaway).
+- **Nano Banana 2 generates one photo per slide that needs one** — cover photo, body-slide supporting photos, optional tweet avatars. No text or logos inside the images.
+- **HTML + render.sh handles everything else** — headlines with coral/yellow keyword highlights, tweet cards, white stat cards, page dots, Alta Studio logo, SWIPE pill. **PIL is no longer used for news.**
+- **Tweet ethics (mandatory):** real official tweets are researched and reproduced faithfully; reaction/commentary tweets use invented handles with Nano Banana avatars; **never fabricate a quote attributed to a real person.** See `PostTypes/news/Skills/news-post-design.md` §11.
+- **Photos are 100% generative** — no `--reference` with real person photos per user preference.
+- **Alta Studio logo** appears in ONE top corner per slide (not both). **No `@lucianomusellaa`** on news. **No bottom-right watermark.**
+- **Workflow for news carousels:**
+  1. Visual re-anchor (`Inspiracion/` + `Favoritos_Claude_Generated/`)
+  2. Draft the 5-slide outline → user approves structure
+  3. Propose 2–3 cover headline variations (Colombian Spanish, keyword highlights) → user approves
+  4. Research real tweets for slide 2 via WebSearch (if official announcement)
+  5. Generate photos with `generate-image.py --model gemini-3-pro-image-preview` — cover at `--aspect-ratio 4:5` (full-bleed), body slides at `--aspect-ratio 16:9` — ONE per slide that needs one
+  6. Present photos to user — only regenerate if rejected
+  7. Build HTML for all slides → `./render.sh PostTypes/news/Outputs/{topic-slug}`
+  8. Visual QA on every PNG
+  9. Short caption (1–3 lines) saved as `caption.txt`
+  10. Present full carousel + caption, ask which slides are favorites
+- See `PostTypes/news/Skills/news-post-design.md` for the complete visual system, HTML scaffolds, prompt guidelines, and tweet ethics.
 
 #### Informativos posts (Nano Banana FULL COMPOSITION + HTML text overlay)
 - **Nano Banana 2 generates the complete visual composition** — background, layout structure (cards, tiers, grids, mind-map nodes), decorative elements, icons, brand logos — all as ONE cohesive image. This replaced the old HTML+CSS+SVG approach, which couldn't achieve the editorial richness of the inspiration images.
