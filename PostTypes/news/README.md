@@ -2,7 +2,7 @@
 
 ## What this type is for
 
-Posts about AI announcements, model releases, breaking news, industry events. **5-slide carousel** (4–7 allowed) with a dark editorial feel — Nano Banana photos + HTML text overlay. The hook is **timeliness + a bold headline + a real source tweet + digestible body slides** that replace the old long caption.
+Posts about AI announcements, model releases, breaking news, industry events. **5-slide carousel** (4–7 allowed) with a dark editorial feel — gpt-image-1 photos + HTML text overlay. The hook is **timeliness + a bold headline + a real source tweet + digestible body slides** that replace the old long caption.
 
 ## Trigger phrases
 
@@ -13,15 +13,15 @@ Posts about AI announcements, model releases, breaking news, industry events. **
 
 ## Skills to load (in order)
 
-1. **[Skills/news-post-design.md](Skills/news-post-design.md)** — the complete visual system for news carousels (5-slide taxonomy, cover layout, tweet/text/card templates, Nano Banana prompting, tweet ethics, Colombian Spanish rules, HTML scaffolds)
+1. **[Skills/news-post-design.md](Skills/news-post-design.md)** — the complete visual system for news carousels (5-slide taxonomy, cover layout, tweet/text/card templates, gpt-image-1 prompting, tweet ethics, Colombian Spanish rules, HTML scaffolds)
 
 ## The 5-slide default structure
 
 | # | Slide type | Purpose |
 |---|---|---|
-| 1 | **Cover** | Nano Banana photo + bold headline with coral/yellow keyword highlights + SWIPE pill |
+| 1 | **Cover** | gpt-image-1 photo + bold headline with coral/yellow keyword highlights + SWIPE pill |
 | 2 | **Tweet** | Real official tweet from the company/CEO (researched) OR quote card |
-| 3 | **Text + photo** | What happened — short text block + Nano Banana supporting photo |
+| 3 | **Text + photo** | What happened — short text block + gpt-image-1 supporting photo |
 | 4 | **Text + photo** OR **white card** | Why it matters — explanation with photo, OR punchline stat on white card |
 | 5 | **Closer** | Reaction tweet (invented commentator handle) OR stat card OR key takeaway |
 
@@ -36,7 +36,7 @@ Flexibility: 4 slides for simple news (skip slide 4), 6–7 for complex news. Ne
 5. **Draft the 5-slide outline:** propose the breakdown (cover hook, tweet angle, body slide 1 angle, body slide 2 angle, closer angle). Wait for user approval of the structure.
 6. **Propose 2–3 cover headline variations** in Colombian Spanish with keyword highlights marked. Wait for approval.
 7. **Research real tweets** if slide 2 is an official announcement — use WebSearch, reproduce the real tweet text faithfully (see skill §11).
-8. **Generate photos with Nano Banana** — ONE per slide that needs one (cover + 1–2 body slides + optional closer/avatar). Use `gemini-3-pro-image-preview` + `--aspect-ratio 4:5`. Resize to 1080×1350 after.
+8. **Generate photos with gpt-image-1** — ONE per slide that needs one (cover + 1–2 body slides + optional closer/avatar). Cover at `--aspect-ratio 4:5`, body slides at `16:9`. The script crops + resizes internally to exact dimensions — no separate resize step needed.
 9. **Present photos to user for review.** Only regenerate if rejected.
 10. **Build the HTML for all slides** — cover, tweet, text+photo, (optional) white card, closer. Save each as `slide{N}_{descriptor}.html` in the post's output folder.
 11. **Render via `./render.sh PostTypes/news/Outputs/{topic-slug}`** — renders all slides at once.
@@ -55,7 +55,7 @@ From the root [CLAUDE.md](../../CLAUDE.md):
 - **Colombian Spanish, tú form** — never Argentinian voseo
 - **NO `@lucianomusellaa` on news** — Alta Studio logo in ONE top corner replaces it
 - **No bottom-right watermark** — just the single Alta Studio logo
-- **Photos are 100% Nano Banana generative** (no `--reference`, no real person compositing)
+- **Photos are 100% generative** (no `--reference`, no real person compositing)
 - **Fabricated quotes attributed to real people are forbidden** — see skill §11 for tweet ethics
 
 ## What changed vs. the old system
@@ -66,7 +66,7 @@ The old news system was a **single image with a long caption**. That approach is
 |---|---|---|
 | Format | Single image + 6–10 paragraph caption | 5-slide carousel + 1–3 line caption |
 | Text compositing | PIL (Python) | HTML + render.sh |
-| Photos | Nano Banana (often with `--reference`) | Nano Banana only, no reference |
+| Photos | Generated (often with `--reference`) | gpt-image-1 only, no reference |
 | Alta Studio | Fixed top-right every time | One corner per slide (composition-dependent) |
 
 ## Folder layout
@@ -80,7 +80,7 @@ PostTypes/news/
 ├── Favoritos_Claude_Generated/   ← past slides the user marked as favorites
 └── Outputs/                      ← rendered news carousels (one folder per news item)
     └── {topic-slug}/
-        ├── composition.png              ← cover photo (Nano Banana)
+        ├── composition.png              ← cover photo (gpt-image-1)
         ├── slide3_photo.png             ← body slide photo
         ├── slide4_photo.png             ← (optional)
         ├── slide5_photo.png             ← (optional, if closer is Template A)

@@ -10,7 +10,7 @@ type: skill
 
 ## The problem this solves
 
-Informativo posts use Nano Banana compositions + PIL text overlay. The text must align precisely with organic blob shapes in the composition. Manual position estimates can be off by **100+ pixels** on irregular shapes. This skill ensures positions are calculated precisely and verified visually before the user sees anything.
+Informativo posts use gpt-image-1 compositions + PIL text overlay. The text must align precisely with organic blob shapes in the composition. Manual position estimates can be off by **100+ pixels** on irregular shapes. This skill ensures positions are calculated precisely and verified visually before the user sees anything.
 
 ---
 

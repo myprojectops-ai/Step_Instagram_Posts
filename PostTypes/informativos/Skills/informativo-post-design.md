@@ -1,6 +1,6 @@
 ---
 name: informativo-post-design
-description: Visual system for informative Instagram posts — dense infographics, tip lists, cheatsheets, tier lists, hack compilations. Uses Nano Banana 2 for full visual compositions (backgrounds, icons, layout structure, brand logos) with HTML text overlay for precise typography. The goal is "save-worthy" content that looks editorially designed, not AI-generated.
+description: Visual system for informative Instagram posts — dense infographics, tip lists, cheatsheets, tier lists, hack compilations. Uses gpt-image-1 for full visual compositions (backgrounds, icons, layout structure, brand logos) with HTML text overlay for precise typography. The goal is "save-worthy" content that looks editorially designed, not AI-generated.
 type: skill
 ---
 
@@ -18,10 +18,10 @@ Informativos share the **brand-wide typography** (Inter family) and brand elemen
 
 | Property | Step-by-step | News | **Informativo** |
 |---|---|---|---|
-| Background | Cream `#F5F2ED` + grid | Dark photo + gradient | **Nano Banana composition** (cream-based, richly designed) |
+| Background | Cream `#F5F2ED` + grid | Dark photo + gradient | **gpt-image-1 composition** (cream-based, richly designed) |
 | Density | Low — one focal point per slide | Low — photo + headline | **HIGH — multiple content blocks, icons, badges** |
 | Format | Multi-slide carousel (6–8 slides) | Single image | **Single image OR short carousel (1–4 slides)** |
-| Visual generation | HTML + CSS + inline SVG | Nano Banana full composition | **Nano Banana full composition** |
+| Visual generation | HTML + CSS + inline SVG | gpt-image-1 full composition | **gpt-image-1 full composition** |
 | Text rendering | HTML (baked into the slide) | PIL overlay | **PIL overlay** (directly on composition image) |
 | Visual elements | 1–2 per slide (logo bubbles, mockup) | Photo + gradient | **Many — icons, badges, cards, numbered items, tier bars** |
 | Mood | Clean, instructional | Bold, urgent | **Dense, save-worthy, reference-quality** |
@@ -61,7 +61,7 @@ Informativos inherit the base palette but unlock **category colors** for disting
 
 | Role | Hex | Use |
 |---|---|---|
-| Background | `#F5F2ED` | Canvas base (Nano Banana should replicate this) |
+| Background | `#F5F2ED` | Canvas base (gpt-image-1 should replicate this) |
 | Grid lines | `#E8E4DD` | Subtle background grid |
 | Primary text | `#0E0E0E` | Titles, item names |
 | Secondary text | `#8A8780` | Labels, captions, descriptions |
@@ -93,7 +93,7 @@ When items need **visual differentiation** (e.g., "7 AI models" where each needs
 
 ## 3. Typography — denser hierarchy
 
-Informativos need more typography levels than step-by-step because they carry more information layers. All text is rendered via HTML overlay, NOT baked into the Nano Banana composition.
+Informativos need more typography levels than step-by-step because they carry more information layers. All text is rendered via HTML overlay, NOT baked into the gpt-image-1 composition.
 
 - **Family:** `'Inter', system-ui, -apple-system, sans-serif`
 - **Import:** `https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap`
@@ -133,9 +133,9 @@ The title is the **hook** — it has to promise enough value that the viewer sav
 
 ---
 
-## 4. The visual composition layer (CRITICAL — Nano Banana 2 full composition)
+## 4. The visual composition layer (CRITICAL — gpt-image-1 full composition)
 
-> **Core approach (April 2026):** informativo posts use **Nano Banana 2 to generate the complete visual composition** — background, layout structure, decorative elements, icons, brand logos, gradients, card shapes — all as ONE cohesive image. **HTML is used ONLY for text overlays** (titles, item names, descriptions, numbers, badges, handle, footer).
+> **Core approach (April 2026):** informativo posts use **gpt-image-1 to generate the complete visual composition** — background, layout structure, decorative elements, icons, brand logos, gradients, card shapes — all as ONE cohesive image. **HTML is used ONLY for text overlays** (titles, item names, descriptions, numbers, badges, handle, footer).
 
 ### Why this approach
 
@@ -146,9 +146,9 @@ The previous approach (HTML + CSS + inline SVG) produced layouts that looked "fl
 - Professionally designed card layouts with depth and shadows
 - Brand logos naturally integrated into the scene
 
-Nano Banana can generate all of this as one cohesive image where elements feel like they *belong together*, not pasted on top of each other. Text overlay via HTML ensures every word is legible, correctly spelled, and precisely positioned.
+gpt-image-1 can generate all of this as one cohesive image where elements feel like they *belong together*, not pasted on top of each other. Text overlay via HTML ensures every word is legible, correctly spelled, and precisely positioned.
 
-### What Nano Banana generates (the "composition image")
+### What gpt-image-1 generates (the "composition image")
 
 A single 4:5 image that contains the **visual skeleton** of the post:
 - **Background** — cream-based with subtle texture, grid pattern, or artistic gradient (matching the brand `#F5F2ED` palette)
@@ -158,7 +158,7 @@ A single 4:5 image that contains the **visual skeleton** of the post:
 - **Photos** — real person photos if relevant to the content (e.g., Inspo_05 style)
 - **Color coding** — category colors on cards, tier bars, badges (the visual framework the text will sit on)
 
-### What Nano Banana does NOT generate
+### What gpt-image-1 does NOT generate
 
 - **NO text of any kind** — no titles, no item names, no descriptions, no numbers, no handle, no footer
 - **NO typography** — all text comes from the HTML overlay
@@ -166,7 +166,7 @@ A single 4:5 image that contains the **visual skeleton** of the post:
 
 ### Composition prompting guidelines
 
-The prompt to Nano Banana must describe the **complete visual layout** in detail. The model needs to understand the spatial arrangement so the text overlay aligns correctly.
+The prompt to gpt-image-1 must describe the **complete visual layout** in detail. The model needs to understand the spatial arrangement so the text overlay aligns correctly.
 
 **General prompt structure:**
 
@@ -181,12 +181,12 @@ Clean, editorial, magazine-quality design. NOT generic AI template aesthetics.
 ```
 
 **Key prompt rules:**
-- **Always end with "No text, no typography, no letters, no numbers anywhere in the image"** — Nano Banana tends to add text if not explicitly told not to
+- **Always end with "No text, no typography, no letters, no numbers anywhere in the image"** — gpt-image-1 tends to add text if not explicitly told not to
 - **Describe the layout spatially** — "top section has...", "center area contains a 3x3 grid of cards", "bottom strip has..."
 - **Reference the color palette by name** — "cream background (#F5F2ED)", "coral accent circles (#E85D3C)", "soft purple card borders"
 - **Describe empty zones explicitly** — "each card has empty white space in the center where text will be added later"
 - **Use `--aspect-ratio 4:5`** to match the Instagram canvas
-- **Use `--model gemini-3-pro-image-preview`** for maximum quality
+- **Default `--quality high`** for the editorial density compositions require; switch to `--quality medium` when iterating on the prompt wording to save cost
 
 ### Prompt templates per layout pattern
 
@@ -305,19 +305,11 @@ Clean comparison layout, balanced and symmetrical.
    python generate-image.py \
      --prompt "[composition prompt]" \
      --output PostTypes/informativos/Outputs/{topic-slug}/composition.png \
-     --model gemini-3-pro-image-preview \
      --aspect-ratio 4:5
    ```
-5. **Resize to exact canvas dimensions** (Nano Banana may output smaller):
-   ```python
-   from PIL import Image
-   img = Image.open("composition.png")
-   if img.size != (1080, 1350):
-       img = img.resize((1080, 1350), Image.LANCZOS)
-       img.save("composition.png")
-   ```
-6. **Present to user for review** — only regenerate if they reject it
-7. Once approved, proceed to the **HTML text overlay step**
+   The script crops + resizes internally, so `composition.png` is guaranteed to be exactly 1080×1350. No separate resize step is needed.
+5. **Present to user for review** — only regenerate if they reject it
+6. Once approved, proceed to the **HTML text overlay step**
 
 ### Quality checklist for compositions
 - Layout structure is clear and matches the chosen pattern
@@ -332,7 +324,7 @@ Clean comparison layout, balanced and symmetrical.
 
 ## 5. PIL text compositing — the second layer
 
-> **After the Nano Banana composition is approved, PIL renders all text directly on top of it.** This eliminates Chrome border artifacts that occur when using HTML+render.sh with background images.
+> **After the gpt-image-1 composition is approved, PIL renders all text directly on top of it.** This eliminates Chrome border artifacts that occur when using HTML+render.sh with background images.
 
 ### Why PIL (not HTML/Chrome) for informativos
 
@@ -399,7 +391,7 @@ Text is drawn **directly on the composition** without semi-transparent rectangle
 
 ## 6. Layout patterns — conceptual reference
 
-These 7 patterns guide BOTH the Nano Banana prompt (section 4) AND the HTML text overlay (section 5). Choose the one that best fits the content.
+These 7 patterns guide BOTH the gpt-image-1 prompt (section 4) AND the HTML text overlay (section 5). Choose the one that best fits the content.
 
 ### Layout A — Numbered list (the default)
 **Best for:** "Top N...", "X tips para...", "X hacks de...", any numbered list.
@@ -470,7 +462,7 @@ These 7 patterns guide BOTH the Nano Banana prompt (section 4) AND the HTML text
 
 ### Icons in the composition
 
-Since Nano Banana generates the visual composition, icons and decorative elements are **baked into the image**. When prompting Nano Banana:
+Since gpt-image-1 generates the visual composition, icons and decorative elements are **baked into the image**. When prompting gpt-image-1:
 - Describe icons by their concept, not SVG code: "a lightning bolt icon", "a shield icon", "a brain illustration"
 - Specify the icon style: "stroke-based, minimalist, matching the editorial aesthetic"
 - Specify colors: "coral icon", "grey icon", "blue icon"
@@ -480,8 +472,8 @@ Since Nano Banana generates the visual composition, icons and decorative element
 When the post references **real brands** (Claude, ChatGPT, Perplexity, etc.):
 
 1. **Check `Logos/` first** — if the real logo exists, describe it in the prompt or use `--reference`
-2. **If not in `Logos/`** → include the logo in the Nano Banana composition prompt: "the [Brand] logo naturally integrated into the card/section"
-3. **Alternatively, generate the logo separately** with Nano Banana, save to `Logos/`, then use it as a reference in the main composition
+2. **If not in `Logos/`** → include the logo in the gpt-image-1 composition prompt: "the [Brand] logo naturally integrated into the card/section"
+3. **Alternatively, generate the logo separately** with gpt-image-1, save to `Logos/`, then use it as a reference in the main composition
 4. **Always present generated logos to the user for review**
 
 ---
@@ -491,7 +483,7 @@ When the post references **real brands** (Claude, ChatGPT, Perplexity, etc.):
 In addition to the brand-wide anti-patterns:
 
 - ❌ **Generic AI template aesthetics** — the composition must look editorially designed, not like a Canva template
-- ❌ **Text in the Nano Banana composition** — ALL text comes from HTML overlay. No exceptions.
+- ❌ **Text in the gpt-image-1 composition** — ALL text comes from HTML overlay. No exceptions.
 - ❌ **"PASO X" labels** — that's tutorial language, not informativo
 - ❌ **Logo bubble connectors** — that's the step-by-step cover identity
 - ❌ **Alta Studio watermark** — watermark is news-only. NOT on informativos.
@@ -501,15 +493,15 @@ In addition to the brand-wide anti-patterns:
 - ❌ **Tiny unreadable text** — minimum text size is 16 px. If content doesn't fit at 16 px, reduce items.
 - ❌ **Generic filler content** — every item must deliver real, specific value
 - ❌ **Walls of text** — descriptions are 1–2 lines max per item
-- ❌ **Emojis as icons** — icons are part of the Nano Banana composition, not emoji characters
+- ❌ **Emojis as icons** — icons are part of the gpt-image-1 composition, not emoji characters
 - ❌ **Generating multiple composition variants** — ONE only, regenerate only if user rejects it
-- ❌ **Using Nano Banana assets without user review** — always present the composition for approval
+- ❌ **Using gpt-image-1 assets without user review** — always present the composition for approval
 - ❌ **Carousel when single image works** — default to single image
 - ❌ **Missing number in title** — informativos almost always have a number
 - ❌ **"Desliza →" on single-image posts** — no swiping on single images
 - ❌ **Clickbait exclamation marks** — no "INCREIBLE!" or "NO VAS A CREER!"
-- ❌ **Dark background** — informativos are cream-based (unlike news). The Nano Banana composition should maintain the warm cream aesthetic.
-- ❌ **Pure HTML+CSS+SVG compositions** — the old approach. Always use Nano Banana for the visual composition now.
+- ❌ **Dark background** — informativos are cream-based (unlike news). The gpt-image-1 composition should maintain the warm cream aesthetic.
+- ❌ **Pure HTML+CSS+SVG compositions** — the old approach. Always use gpt-image-1 for the visual composition now.
 
 ---
 
@@ -561,13 +553,13 @@ Save as `caption.txt` in the output folder alongside the image files.
    - List of items/sections with their titles and 1-line descriptions
    - Wait for approval before generating.
 7. **Draft the caption** and present alongside the content breakdown (no approval needed for captions).
-8. **Generate ONE visual composition with Nano Banana 2.** This is the key step:
+8. **Generate ONE visual composition with gpt-image-1.** This is the key step:
    - Craft the best possible prompt using the layout template from section 4, customized for the topic
    - Use `--reference` with existing logos/photos if available
-   - Use `--model gemini-3-pro-image-preview` for maximum quality
    - Use `--aspect-ratio 4:5` for Instagram canvas
+   - Default `--quality high` is correct; drop to `medium` only when iterating on prompt wording
    - **Generate ONE composition only** — don't waste API calls on variants
-   - Resize to 1080x1350 if needed
+   - The script crops + resizes internally to exactly 1080×1350 — no separate resize step needed
    - **Present to user for review** — only regenerate if rejected
 9. **PIL text overlay** on the approved composition (see section 5).
 10. **MANDATORY visual verification** (Visual QA skill) — inspect every PNG before presenting.
@@ -578,12 +570,12 @@ Save as `caption.txt` in the output folder alongside the image files.
 
 When the informativo has **multiple slides** (cover + content slides), use this hybrid workflow:
 
-> **Cover = Nano Banana (editorial photo composition). Content slides = HTML+CSS (step-by-step structure).**
+> **Cover = gpt-image-1 (editorial photo composition). Content slides = HTML+CSS (step-by-step structure).**
 
-**Why this hybrid:** Nano Banana produces stunning editorial cover photos but is unreliable for content slides — text positioning on generated compositions requires guessing pixel coordinates, leading to misaligned text and wasted iterations. HTML+CSS gives pixel-perfect control over mockups, code editors, terminals, and typography.
+**Why this hybrid:** gpt-image-1 produces stunning editorial cover photos but is unreliable for content slides — text positioning on generated compositions requires guessing pixel coordinates, leading to misaligned text and wasted iterations. HTML+CSS gives pixel-perfect control over mockups, code editors, terminals, and typography.
 
 1. Steps 1–7 are the same as 11.A (load skills, re-anchor, propose breakdown, draft caption).
-2. **Cover slide — Nano Banana composition:**
+2. **Cover slide — gpt-image-1 composition:**
    - Generate ONE editorial photo composition (person + brand elements + warm tones)
    - PIL text overlay for the title, handle, subtitle, slide indicator, and "Desliza →"
    - **Title must be BIG (64px+ Inter ExtraBold)** and clearly visible — positioned where it has good contrast against the photo
@@ -602,7 +594,7 @@ When the informativo has **multiple slides** (cover + content slides), use this 
 
 ```
 PostTypes/informativos/Outputs/{topic-slug}/
-├── composition.png              ← Nano Banana full visual composition (NO text)
+├── composition.png              ← gpt-image-1 full visual composition (NO text)
 ├── info_v1_{descriptor}.html    ← HTML text overlay (references composition.png as background)
 ├── info_v1_{descriptor}.png     ← Final rendered image (composition + text)
 ├── caption.txt                  ← Caption for Instagram
@@ -616,8 +608,8 @@ PostTypes/informativos/Outputs/{topic-slug}/
 
 ## 12. Quick reference checklist (run before exporting any informativo)
 
-### Composition (Nano Banana)
-- [ ] Composition generated with `gemini-3-pro-image-preview` at 4:5 aspect ratio
+### Composition (gpt-image-1)
+- [ ] Composition generated with gpt-image-1 at 4:5 aspect ratio
 - [ ] Layout structure matches the chosen pattern (A–G)
 - [ ] Empty text zones are clearly defined
 - [ ] Brand logos are visible and naturally integrated (not pasted-looking)

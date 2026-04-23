@@ -1,0 +1,5 @@
+ChatGPT Images 2.0 ya está afuera y, según OpenAI, le ganó a Nano Banana 2 en los benchmarks.
+
+Lo nuevo: la primera modelo de imagen que razona antes de dibujar — busca contexto en la web, compone mejor y rinde en 10 imágenes por prompt.
+
+El ciclo se acortó a meses: ¿cuánto aguanta esta corona?

@@ -13,7 +13,7 @@ Differences vs the other types:
 | Goal | Teach a process | Report a fact | **Deliver save-worthy reference info** |
 | Format | Carousel (6–8 slides) | Single image | **Single image or short carousel (1–4)** |
 | Density | Low — 1 focal point | Low — photo + headline | **HIGH — many items, icons, cards** |
-| Background | Cream + grid | Dark photo | **Nano Banana composition** (cream-based) |
+| Background | Cream + grid | Dark photo | **gpt-image-1 composition** (cream-based) |
 | Labels | "PASO X" | "AI NEWS" badge | **Numbered items, section headers** |
 
 ## Trigger phrases
@@ -43,7 +43,7 @@ Also read the brand-wide rules in the root [`CLAUDE.md`](../../CLAUDE.md) — th
 5. Check `Logos/` and `Assets/` for needed brand assets
 6. Propose content breakdown → wait for user approval
 7. Draft caption (no approval needed)
-8. **Generate ONE visual composition with Nano Banana 2** — the full visual (background, layout structure, icons, logos, decorative elements — NO text). Present to user for approval.
+8. **Generate ONE visual composition with gpt-image-1** — the full visual (background, layout structure, icons, logos, decorative elements — NO text). Present to user for approval.
 9. **Generate HTML text overlay** — use approved composition as `background-image`, position all text to align with the visual structure
 10. Render via `./render.sh` → Visual QA (inspect every PNG)
 11. Present rendered image(s) + caption to user
@@ -73,7 +73,7 @@ PostTypes/informativos/
 ├── Favoritos_Claude_Generated/      ← past slides the user marked as favorites
 └── Outputs/                         ← rendered informativo posts
     └── {topic-slug}/               ← one folder per post
-        ├── composition.png              ← Nano Banana visual (no text)
+        ├── composition.png              ← gpt-image-1 visual (no text)
         ├── info_v1_{descriptor}.html    ← HTML text overlay
         ├── info_v1_{descriptor}.png     ← Final rendered (composition + text)
         ├── caption.txt
@@ -86,7 +86,7 @@ PostTypes/informativos/
 - **Mandatory visual re-anchoring** (CLAUDE.md section 1.5)
 - **After every post, ask which images are favorites** (CLAUDE.md section 1.6)
 - **Colombian Spanish, tú form** — never Argentinian voseo
-- **Nano Banana 2 generates the full visual composition** (background, layout, icons, logos — NO text). HTML overlay adds all text.
-- **Brand logos** from `Logos/` (existing) or generated with **Nano Banana 2** if missing — always user-reviewed
+- **gpt-image-1 generates the full visual composition** (background, layout, icons, logos — NO text). HTML overlay adds all text.
+- **Brand logos** from `Logos/` (existing) or generated with **gpt-image-1** if missing — always user-reviewed
 - **NO Alta Studio watermark** — that's news-only
 - **Variety is essential** — posts must follow the same aesthetic but NOT all look the same

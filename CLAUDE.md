@@ -130,8 +130,8 @@ Visual_posts/
 │   └── Personas/                      ← real person photos (CEOs, founders) — global
 ├── Errors/                            ← user marks visual bugs here for me to fix
 ├── render.sh                          ← HTML→PNG batch renderer (use this, not raw chrome)
-├── generate-image.py                  ← Nano Banana 2 (Gemini API) image generator
-├── .env                               ← GEMINI_API_KEY lives here (git-ignored)
+├── generate-image.py                  ← gpt-image-1 (OpenAI API) image generator
+├── .env                               ← OPENAI_API_KEY lives here (git-ignored)
 └── memory/                            ← persistent user/feedback memories (auto-loaded)
 ```
 
@@ -175,23 +175,23 @@ This project uses **two image generation methods** depending on the post type:
 
 | Post type | Method | Visual assets (logos, personas, backgrounds) |
 |---|---|---|
-| **Step-by-step** | HTML + CSS + inline SVG | Logos from `Logos/`; **Nano Banana 2 ONLY for missing logos** — nothing else |
-| **News** | **Nano Banana 2 photos per slide** + HTML overlay | 5-slide carousel. Nano Banana generates ONE photo per slide that needs one (cover + body slides); HTML adds all text, tweet cards, stat cards, dots, Alta Studio. **No PIL anywhere.** |
-| **Informativos** | **Nano Banana 2 full composition** + HTML text overlay | Nano Banana generates the COMPLETE visual (background, layout structure, icons, logos, decorative elements — NO text); HTML overlay adds all text |
+| **Step-by-step** | HTML + CSS + inline SVG | Logos from `Logos/`; **gpt-image-1 ONLY for missing logos** — nothing else |
+| **News** | **gpt-image-1 photos per slide** + HTML overlay | 5-slide carousel. gpt-image-1 generates ONE photo per slide that needs one (cover + body slides); HTML adds all text, tweet cards, stat cards, dots, Alta Studio. **No PIL anywhere.** |
+| **Informativos** | **gpt-image-1 full composition** + HTML text overlay | gpt-image-1 generates the COMPLETE visual (background, layout structure, icons, logos, decorative elements — NO text); HTML overlay adds all text |
 
-#### Step-by-step posts (Nano Banana ONLY for missing logos)
+#### Step-by-step posts (gpt-image-1 ONLY for missing logos)
 - All slides are **HTML + CSS + inline SVG**, rendered to PNG via `render.sh`.
 - If a slide needs imagery beyond text, recreate it with elaborate inline SVG.
 - Logos come from `Logos/` (real assets uploaded by the user).
-- **If a needed logo is NOT in `Logos/`** → generate it with Nano Banana 2 via `generate-image.py`, save to `Logos/`, and present to the user for review before using it.
-- **Nano Banana is strictly limited to logo generation in this post type.** Do NOT use it for backgrounds, illustrations, person photos, or any other asset — that would burn API budget for no gain. Everything else stays HTML + CSS + inline SVG.
+- **If a needed logo is NOT in `Logos/`** → generate it with gpt-image-1 via `generate-image.py`, save to `Logos/`, and present to the user for review before using it.
+- **gpt-image-1 is strictly limited to logo generation in this post type.** Do NOT use it for backgrounds, illustrations, person photos, or any other asset — that would burn API budget for no gain. Everything else stays HTML + CSS + inline SVG.
 
-#### News posts (5-slide carousel, Nano Banana photos + HTML overlay)
+#### News posts (5-slide carousel, gpt-image-1 photos + HTML overlay)
 - **News is a carousel**, not a single image. 5 slides default (4–7 allowed). The old single-image + long-caption format is **deprecated**.
 - **Slide structure:** (1) cover with photo + headline, (2) tweet/official announcement, (3) text+photo, (4) text+photo OR white-card stat, (5) closer (reaction tweet, stat card, or takeaway).
-- **Nano Banana 2 generates one photo per slide that needs one** — cover photo, body-slide supporting photos, optional tweet avatars. No text or logos inside the images.
+- **gpt-image-1 generates one photo per slide that needs one** — cover photo, body-slide supporting photos, optional tweet avatars. No text or logos inside the images.
 - **HTML + render.sh handles everything else** — headlines with coral/yellow keyword highlights, tweet cards, white stat cards, page dots, Alta Studio logo, SWIPE pill. **PIL is no longer used for news.**
-- **Tweet ethics (mandatory):** real official tweets are researched and reproduced faithfully; reaction/commentary tweets use invented handles with Nano Banana avatars; **never fabricate a quote attributed to a real person.** See `PostTypes/news/Skills/news-post-design.md` §11.
+- **Tweet ethics (mandatory):** real official tweets are researched and reproduced faithfully; reaction/commentary tweets use invented handles with generated avatars; **never fabricate a quote attributed to a real person.** See `PostTypes/news/Skills/news-post-design.md` §11.
 - **Photos are 100% generative** — no `--reference` with real person photos per user preference.
 - **Alta Studio logo** appears in ONE top corner per slide (not both). **No `@lucianomusellaa`** on news. **No bottom-right watermark.**
 - **Workflow for news carousels:**
@@ -199,7 +199,7 @@ This project uses **two image generation methods** depending on the post type:
   2. Draft the 5-slide outline → user approves structure
   3. Propose 2–3 cover headline variations (Colombian Spanish, keyword highlights) → user approves
   4. Research real tweets for slide 2 via WebSearch (if official announcement)
-  5. Generate photos with `generate-image.py --model gemini-3-pro-image-preview` — cover at `--aspect-ratio 4:5` (full-bleed), body slides at `--aspect-ratio 16:9` — ONE per slide that needs one
+  5. Generate photos with `generate-image.py` — cover at `--aspect-ratio 4:5` (full-bleed), body slides at `--aspect-ratio 16:9` — ONE per slide that needs one
   6. Present photos to user — only regenerate if rejected
   7. Build HTML for all slides → `./render.sh PostTypes/news/Outputs/{topic-slug}`
   8. Visual QA on every PNG
@@ -207,26 +207,30 @@ This project uses **two image generation methods** depending on the post type:
   10. Present full carousel + caption, ask which slides are favorites
 - See `PostTypes/news/Skills/news-post-design.md` for the complete visual system, HTML scaffolds, prompt guidelines, and tweet ethics.
 
-#### Informativos posts (Nano Banana FULL COMPOSITION + HTML text overlay)
-- **Nano Banana 2 generates the complete visual composition** — background, layout structure (cards, tiers, grids, mind-map nodes), decorative elements, icons, brand logos — all as ONE cohesive image. This replaced the old HTML+CSS+SVG approach, which couldn't achieve the editorial richness of the inspiration images.
+#### Informativos posts (gpt-image-1 FULL COMPOSITION + HTML text overlay)
+- **gpt-image-1 generates the complete visual composition** — background, layout structure (cards, tiers, grids, mind-map nodes), decorative elements, icons, brand logos — all as ONE cohesive image. This replaced the old HTML+CSS+SVG approach, which couldn't achieve the editorial richness of the inspiration images.
 - **HTML is used ONLY for text** — titles, item names, descriptions, numbers, handle, footer. HTML uses the composition as `background-image` and positions text to align with the visual structure.
 - **Workflow for informativos compositions:**
   1. Choose layout pattern (A–G) and craft a detailed composition prompt (see skill file section 4)
   2. Check `Logos/` and `Assets/` for existing brand assets (use `--reference` if available)
-  3. Generate ONE composition with `generate-image.py --model gemini-3-pro-image-preview --aspect-ratio 4:5`
+  3. Generate ONE composition with `generate-image.py --aspect-ratio 4:5`
   4. Present composition to user for review — only regenerate if rejected
   5. Generate HTML text overlay on top of the approved composition
   6. Render via `render.sh`
 - See `PostTypes/informativos/Skills/informativo-post-design.md` section 4 for detailed prompting guidelines and layout templates.
 - **The script:** `python generate-image.py --prompt "..." --output path/to/output.png`
-  - Add `--model gemini-3-pro-image-preview` for maximum quality (compositions, logos, portraits)
-  - Add `--aspect-ratio 4:5` for full-slide compositions
-  - Add `--reference input.png` for style transfer / editing
+  - Add `--aspect-ratio 4:5` for full-slide compositions (also `1:1` and `16:9` supported)
+  - Add `--quality high|medium|low|auto` (default `high` — use `medium` for cheap prompt iteration)
+  - Add `--crop top|center|bottom` (default `top` — preserves faces in portraits)
+  - Add `--reference input.png` for editing mode (uses `images.edit` endpoint)
   - See `generate-image.py --help` for all options
-- **Default model:** `gemini-3.1-flash-image-preview` (Nano Banana 2) for all image generation
-- **Requires:** `pip install google-genai` and a valid `GEMINI_API_KEY` in `.env`
+- **Default model:** `gpt-image-1`. Legacy `--model gemini-*` args soft-warn and remap automatically.
+- **Output dimensions:** script crops + resizes internally to 1080×1080 (1:1), 1080×1350 (4:5), or 1080×608 (16:9). Skills no longer need a post-script PIL resize step.
+- **Requires:** `pip install openai pillow` and a valid `OPENAI_API_KEY` in `.env`.
+- **⚠️ Pricing & billing:** `gpt-image-1` is billed per image on the OpenAI Images API. A ChatGPT Plus/Pro subscription does NOT cover this — it requires a separate API key with its own balance.
+- **⚠️ Content policy:** OpenAI's image policy rejects named real public figures (CEOs, politicians, researchers) more aggressively than Gemini did. If the script fails with `content_policy_violation`, rephrase the prompt as "a person who looks like X", describe the role/setting without the name, or use a user-provided reference photo in `Assets/Personas/`.
 
-#### Prompt guidelines for Nano Banana
+#### Prompt guidelines for gpt-image-1
 - **Logos:** be specific about the brand, style, and background. E.g. "Official OpenAI logo, clean vector style, white background, high resolution"
 - **Person photos:** describe the person and context. E.g. "Professional headshot of Sam Altman, CEO of OpenAI, wearing a grey t-shirt, neutral background, editorial photography style"
 - **Backgrounds/textures:** describe the mood and palette. E.g. "Abstract dark background with subtle blue circuit patterns, futuristic AI aesthetic, 1080x1350"
@@ -234,11 +238,11 @@ This project uses **two image generation methods** depending on the post type:
 
 ### 3.5.1 Brand logos and person photos — sourcing hierarchy
 
-For **step-by-step** posts, logos MUST come from the `Logos/` folder first. If a logo is missing → generate it with Nano Banana 2 (`generate-image.py`), save to `Logos/`, and present for user review. **Nano Banana is ONLY allowed for logos in step-by-step — never for backgrounds, illustrations, or any other asset.**
+For **step-by-step** posts, logos MUST come from the `Logos/` folder first. If a logo is missing → generate it with gpt-image-1 (`generate-image.py`), save to `Logos/`, and present for user review. **gpt-image-1 is ONLY allowed for logos in step-by-step — never for backgrounds, illustrations, or any other asset.**
 
 For **news and informativos** posts, follow this order:
 1. **Check `Logos/` and `Assets/Personas/` first** — if the real asset exists, always prefer it
-2. **If not available → generate with Nano Banana** via `generate-image.py`
+2. **If not available → generate with gpt-image-1** via `generate-image.py`
 3. **Save generated logos** to `Logos/` and **generated person photos** to `Assets/Personas/` so they're reusable across future posts
 4. **Present to user for review** — they approve before it goes into the slide
 5. **Never silently skip a visual asset** — either use an existing one or generate one. Every brand/person mentioned in the post should have its visual.

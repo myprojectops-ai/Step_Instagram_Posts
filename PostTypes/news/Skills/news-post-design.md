@@ -1,6 +1,6 @@
 ---
 name: news-post-design
-description: Visual system for AI news Instagram posts — 5-slide carousel with Nano Banana photo compositions, HTML text overlays, and tweet slides. Covers, text+photo slides, and white-card slides on black editorial background.
+description: Visual system for AI news Instagram posts — 5-slide carousel with gpt-image-1 photo compositions, HTML text overlays, and tweet slides. Covers, text+photo slides, and white-card slides on black editorial background.
 type: skill
 ---
 
@@ -17,10 +17,10 @@ This skill defines the visual language for **AI news posts** — 5-slide Instagr
 | | Old system (deprecated) | New system |
 |---|---|---|
 | Format | Single image + long caption (6–10 paragraphs) | **5-slide carousel** (scalable to 7) + short caption (1–3 lines) |
-| Cover render | Nano Banana photo + PIL text overlay | Nano Banana photo + **HTML overlay via render.sh** |
+| Cover render | Generated photo + PIL text overlay | gpt-image-1 photo + **HTML overlay via render.sh** |
 | Body content | All in the caption | **Distributed across slides** (tweet + text + photo) |
 | Alta Studio logo | Top-right (fixed position) | **One corner only** (top-left or top-right, composition-dependent) |
-| Pipeline | PIL for text, render.sh for HTML | **Unified: render.sh for all slides, Nano Banana for all photos** |
+| Pipeline | PIL for text, render.sh for HTML | **Unified: render.sh for all slides, gpt-image-1 for all photos** |
 
 **Why:** the carousel format is what AI news creators actually use on Instagram (see inspo). It's more visually engaging, each slide "earns its swipe", and people actually read digestible chunks instead of skipping long captions.
 
@@ -91,7 +91,7 @@ Every news post follows this skeleton (deviations require user approval):
 |---|---|---|---|
 | **1** | **Cover** | Hook: photo + killer headline | §5 |
 | **2** | **Tweet / oficial** | Source of truth: reproduces the company or CEO's public announcement | §6 |
-| **3** | **Text + photo** (Template A) | What happened — context in 2–3 short lines + supporting Nano Banana photo | §7 |
+| **3** | **Text + photo** (Template A) | What happened — context in 2–3 short lines + supporting gpt-image-1 photo | §7 |
 | **4** | **Text + photo** or **White card** | Why it matters — explanation with photo, OR punchline stat with white card | §7 or §8 |
 | **5** | **Closer** | Reaction tweet (invented handle) OR stat card OR CTA | §6 or §8 |
 
@@ -124,7 +124,7 @@ Every news post follows this skeleton (deviations require user approval):
 │ [Alta]                              │  ← top-left, overlaps photo
 │                                     │
 │                                     │
-│    NANO BANANA PHOTO (4:5)          │  ← 1080 × 1350 px FULL BLEED
+│    GPT-IMAGE-1 PHOTO (4:5)          │  ← 1080 × 1350 px FULL BLEED
 │    (shoe, scene, person, etc.)      │    fills entire canvas
 │    editorial, cinematic,            │    subject in upper 60%
 │    background-size: cover           │
@@ -141,7 +141,7 @@ Every news post follows this skeleton (deviations require user approval):
 
 > **NOTE:** Headline and bottom-row are SEPARATE `position:absolute` elements on `<body>`, NOT nested inside each other. Chrome headless clips child content that extends beyond its parent's rendered height — nesting the bottom-row inside the headline block caused the SWIPE pill to be invisible. Independent positioning avoids this.
 
-### Nano Banana prompt structure (cover photo)
+### gpt-image-1 prompt structure (cover photo)
 
 ```
 Editorial cinematic photograph, vertical portrait composition, 4:5 aspect ratio.
@@ -152,19 +152,19 @@ No text, no typography, no logos, no words, no watermarks anywhere in the image.
 ```
 
 **Prompt rules:**
-- **Always end with** "No text, no typography, no logos, no words anywhere" — Nano Banana loves to add text
-- Use `--aspect-ratio 4:5` (outputs ~1080×1350). Cover photos are **full-bleed** — they fill the entire canvas edge to edge. A CSS gradient overlay darkens the bottom for text readability
-- **Position the subject in the upper portion** of the frame — the bottom 40% will be darkened by the gradient, so important details should sit above ~y=540
+- **Always end with** "No text, no typography, no logos, no words anywhere" — image models love to add text
+- Use `--aspect-ratio 4:5` (outputs 1080×1350 after internal crop+resize). Cover photos are **full-bleed** — they fill the entire canvas edge to edge. A CSS gradient overlay darkens the bottom for text readability
+- **Position the subject in the upper portion** of the frame — the bottom 40% will be darkened by the gradient, so important details should sit above ~y=540. The default `--crop top` preserves the upper portion if any trim is needed
 - Describe the scene, not the frame: avoid "cover photo", "Instagram post", etc.
 - Include **"film grain"** or "editorial photography" — avoids the plastic AI look
-- For real public figures (Altman, Amodei, Pichai, Zuck) — describe by features, not names, to avoid policy issues: "a bearded tech CEO in a grey t-shirt at a Senate hearing" rather than "Sam Altman"
+- **For real public figures** (Altman, Amodei, Pichai, Zuck) — OpenAI's content policy is stricter than Gemini's and will likely reject named real people. Describe by features, role, and setting instead: "a bearded tech CEO in a grey t-shirt at a Senate hearing" rather than "Sam Altman". If a prompt fails with `content_policy_violation`, rephrase as "a person who looks like X" or check `Assets/Personas/` for an existing reference photo
 - For invented roles (researchers, analysts, workers) — describe demographics + context naturally
 
 **Generate ONE cover photo.** Present to user. Only regenerate if rejected.
 
 ### Cover HTML scaffold
 
-Save as `slide1_cover.html` in the post's output folder. The `composition.png` (Nano Banana 4:5 output) must be in the same folder.
+Save as `slide1_cover.html` in the post's output folder. The `composition.png` (gpt-image-1 4:5 output) must be in the same folder.
 
 ```html
 <!DOCTYPE html>
@@ -279,7 +279,7 @@ The tweet is the "source of truth" slide. It reproduces either (a) a real public
 
 ### Avatar handling
 
-- **Avatar image = Nano Banana generated.** For known brands, generate a logo-style avatar: *"Official [brand] logo avatar, circular format, solid background"*. Save to `Logos/` so it's reusable.
+- **Avatar image = gpt-image-1 generated.** For known brands, generate a logo-style avatar: *"Official [brand] logo avatar, circular format, solid background"*. Save to `Logos/` so it's reusable.
 - **For invented commentator tweets**, generate a plausible portrait avatar: *"Professional headshot of a 30s Latin American AI researcher, neutral background, editorial photography"*. Do NOT save these to `Assets/Personas/` — they're post-specific.
 
 ### Tweet writing rules
@@ -293,7 +293,7 @@ The tweet is the "source of truth" slide. It reproduces either (a) a real public
 
 ## 7. Template A: Text + photo slide (default body slide)
 
-This is the **workhorse** of the carousel. Used for slides 3 and often 4. Dark background, text in the top ~55%, Nano Banana photo (16:9 rectangle) in the bottom ~45%.
+This is the **workhorse** of the carousel. Used for slides 3 and often 4. Dark background, text in the top ~55%, gpt-image-1 photo (16:9 rectangle) in the bottom ~45%.
 
 ### Layout
 
@@ -311,14 +311,14 @@ This is the **workhorse** of the carousel. Used for slides 3 and often 4. Dark b
 │                                     │
 ├─────────────────────────────────────┤  ← hard edge at y=742
 │                                     │
-│   NANO BANANA PHOTO (16:9)          │  ← 1080 × 608 px
+│   GPT-IMAGE-1 PHOTO (16:9)          │  ← 1080 × 608 px
 │   concept-reinforcing,              │    natively horizontal, fully visible
 │   editorial photography             │    NOT cropped
 │                                     │
 └─────────────────────────────────────┘
 ```
 
-### Nano Banana prompt structure (body slide photo)
+### gpt-image-1 prompt structure (body slide photo)
 
 ```
 Editorial cinematic photograph, horizontal widescreen composition.
@@ -328,7 +328,7 @@ Editorial cinematic photograph, horizontal widescreen composition.
 No text, no logos, no words, no watermarks anywhere in the image.
 ```
 
-**Use `--aspect-ratio 16:9`** → outputs ~1080×608. This matches the photo region in the HTML exactly, so the full composition is visible with NO cropping.
+**Use `--aspect-ratio 16:9`** → outputs 1080×608 after internal crop+resize. This matches the photo region in the HTML exactly, so the full composition is visible with NO cropping.
 
 ### HTML scaffold
 
@@ -457,7 +457,7 @@ Three valid closer formats (pick based on the news):
 
 ---
 
-## 10. Nano Banana — photo generation
+## 10. gpt-image-1 — photo generation
 
 ### Aspect ratios by slide type (non-negotiable)
 
@@ -467,8 +467,10 @@ News photos use **rectangular aspect ratios** that match their designated region
 |---|---|---|---|
 | **Cover (slide 1)** | `4:5` | 1080 × 1350 | Full-bleed photo fills entire canvas; CSS gradient overlay darkens bottom for text |
 | **Body text+photo (Template A)** | `16:9` | 1080 × 608 | Photo occupies bottom ~45% of canvas; text + label occupy top ~55% |
-| **Tweet avatar** | `1:1` | 1024 × 1024 | Square for circular crop in tweet UI |
+| **Tweet avatar** | `1:1` | 1080 × 1080 | Square for circular crop in tweet UI |
 | **Closer photo (slide 5 Template A variant)** | `16:9` | 1080 × 608 | Same as body photos |
+
+> The script crops + resizes internally to these exact dimensions. No post-script PIL resize is needed — that step is baked in.
 
 ### Default command
 
@@ -476,9 +478,10 @@ News photos use **rectangular aspect ratios** that match their designated region
 python generate-image.py \
   --prompt "[detailed prompt]" \
   --output PostTypes/news/Outputs/{topic-slug}/{filename}.png \
-  --model gemini-3-pro-image-preview \
   --aspect-ratio {4:5 | 16:9 | 1:1 — per table above}
 ```
+
+The default `--quality high` and `--crop top` are correct for news photos (editorial quality, preserves faces in portraits).
 
 ### Naming convention for photo files
 
@@ -494,9 +497,9 @@ PostTypes/news/Outputs/{topic-slug}/
 ### Rules
 
 - **Generate ONE photo per slide.** Do not generate variants. The prompt is the craft — if the output is wrong, iterate on the prompt, not on the count.
-- **Resize to 1080×1350 if needed** (Nano Banana may output smaller). Use `Image.open(x).resize((1080,1350), Image.LANCZOS).save(x)`.
-- **Never use `--reference`** — per user preference, all news photos are 100% Nano Banana generative. Do not composite real person photos.
-- **Never embed text** in Nano Banana prompts. Text = HTML overlay, always.
+- **Never use `--reference`** — per user preference, all news photos are 100% generative. Do not composite real person photos.
+- **Never embed text** in prompts. Text = HTML overlay, always.
+- **Content policy:** OpenAI rejects named real public figures. If the script fails with `content_policy_violation`, rephrase with role/features instead of the name, or use a reference photo from `Assets/Personas/` (last resort — violates the no-reference rule above, so only if the user explicitly OKs it).
 
 ### Prompt checklist (before submitting to API)
 
@@ -505,7 +508,7 @@ PostTypes/news/Outputs/{topic-slug}/
 - [ ] For covers: positions subject in upper portion, leaves lower area for gradient overlay
 - [ ] Ends with "No text, no typography, no logos, no words anywhere in the image"
 - [ ] Correct aspect ratio flag set (4:5 for covers, 16:9 for body slides)
-- [ ] `gemini-3-pro-image-preview` model (not the flash default)
+- [ ] Real public figures described by role/features, not by name (OpenAI content policy)
 
 ---
 
@@ -517,7 +520,7 @@ News posts include tweets. **Approved rules (user-locked):**
 |---|---|
 | **Official company announcement** (ej: "Perplexity anunció X") | Research the actual tweet via WebSearch. Reproduce the real tweet faithfully — author, handle, text. **Cite, never invent.** |
 | **Public CEO statement** (ej: Altman in Senate hearing, Amodei in a conference) | Paraphrase from documented public record only. Attribute to real handle. **If the quote can't be verified, do NOT attribute to a real person.** |
-| **Reaction / analysis tweet** (journalist, researcher commentary) | Use **invented plausible handle** (e.g., `@sofia_reyes_ai`) with Nano Banana avatar. Clearly fictional persona. **Never attribute an invented quote to a real person.** |
+| **Reaction / analysis tweet** (journalist, researcher commentary) | Use **invented plausible handle** (e.g., `@sofia_reyes_ai`) with gpt-image-1 avatar. Clearly fictional persona. **Never attribute an invented quote to a real person.** |
 | **Editorial quote card** (fallback) | If no real source and no need for commentary, use a quote card styled differently from a tweet — no Twitter UI, just typographic quote + source citation. |
 
 ### Why this matters
@@ -619,7 +622,7 @@ Seguridad personal y figura pública, el costo del liderazgo en IA.
 4. **Draft the slide outline** — propose the 5-slide breakdown (headline, tweet angle, body slide 1, body slide 2, closer). Wait for approval.
 5. **Propose 2–3 cover headline variations** (Colombian Spanish, with keyword highlights marked). Wait for approval.
 6. **Research real tweets** if slide 2 is an official announcement (see §11). If the source announcement exists, capture the exact tweet text.
-7. **Generate photos with Nano Banana** — ONE per slide that needs one (cover + 1–2 body slides). Use `gemini-3-pro-image-preview`. Cover at `--aspect-ratio 4:5` (full-bleed), body slides at `--aspect-ratio 16:9`. Resize if needed.
+7. **Generate photos with gpt-image-1** — ONE per slide that needs one (cover + 1–2 body slides). Cover at `--aspect-ratio 4:5` (full-bleed), body slides at `--aspect-ratio 16:9`. The script handles crop + resize internally.
 8. **Present photos to user for review.** Only regenerate if rejected.
 9. **Build the HTML for all slides** — cover, tweet, text+photo, (optional) white card, closer. Save each as `slide{N}_{descriptor}.html` in the output folder.
 10. **Render via `./render.sh PostTypes/news/Outputs/{topic-slug}`** — renders all slides at once.
@@ -632,7 +635,7 @@ Seguridad personal y figura pública, el costo del liderazgo en IA.
 
 ```
 PostTypes/news/Outputs/{topic-slug}/
-├── composition.png              ← cover photo (Nano Banana)
+├── composition.png              ← cover photo (gpt-image-1)
 ├── slide3_photo.png             ← text+photo slide 3 photo
 ├── slide4_photo.png             ← (optional) text+photo slide 4 photo
 ├── slide5_photo.png             ← (optional) closer photo
@@ -664,7 +667,7 @@ PostTypes/news/Outputs/{topic-slug}/
 - ❌ Alta Studio in BOTH corners (only one corner per slide)
 - ❌ SWIPE pill on body slides (only on cover)
 - ❌ Page dots on any slide (Instagram adds carousel dots natively)
-- ❌ Nano Banana generating text, logos, or watermarks (always strip with "No text, no logos, no words")
+- ❌ gpt-image-1 generating text, logos, or watermarks (always strip with "No text, no logos, no words")
 - ❌ Using `--reference` with real person photos (100% generative per user preference)
 - ❌ Generating cover photos at `--aspect-ratio 4:3` (the old split layout) — use `4:5` for full-bleed covers with CSS gradient overlay
 - ❌ Using the old "photo top 810px + solid black text zone bottom" cover layout — creates a visible "marco negro". Use full-bleed photo + CSS gradient instead
@@ -698,7 +701,7 @@ PostTypes/news/Outputs/{topic-slug}/
 - [ ] SWIPE pill only on cover
 - [ ] No page dots on any slide (Instagram adds them natively)
 - [ ] No `@lucianomusellaa` anywhere
-- [ ] Cover photo is Nano Banana at 4:5 (full-bleed), body photos at 16:9, all text/logo-free
+- [ ] Cover photo is gpt-image-1 at 4:5 (full-bleed), body photos at 16:9, all text/logo-free
 - [ ] No black border artifacts (render.sh handles this — verify with QA)
 
 ### Language
