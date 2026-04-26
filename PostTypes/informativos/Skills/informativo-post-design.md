@@ -1,6 +1,6 @@
----
+﻿---
 name: informativo-post-design
-description: Visual system for informative Instagram posts — dense infographics, tip lists, cheatsheets, tier lists, hack compilations. Uses gpt-image-1 for full visual compositions (backgrounds, icons, layout structure, brand logos) with HTML text overlay for precise typography. The goal is "save-worthy" content that looks editorially designed, not AI-generated.
+description: Visual system for informative Instagram posts â€” dense infographics, tip lists, cheatsheets, tier lists, hack compilations. Uses Codex image tool for full visual compositions (backgrounds, icons, layout structure, brand logos) with HTML text overlay for precise typography. The goal is "save-worthy" content that looks editorially designed, not AI-generated.
 type: skill
 ---
 
@@ -8,7 +8,7 @@ type: skill
 
 > **Project root:** `c:/Visual_posts/`. The autoloaded **[`CLAUDE.md`](../../../CLAUDE.md)** at the project root contains the trigger phrases and routes to per-type workflows. The informativo workflow lives in [`../README.md`](../README.md). Read those for the *process*; read this skill for the *visual system*.
 
-This skill defines the complete visual language for **informative posts** — standalone infographics, tip lists, hack compilations, cheatsheets, tier lists, and "save-this" reference content about AI tools. These are the **densest, most visually rich posts** in the project.
+This skill defines the complete visual language for **informative posts** â€” standalone infographics, tip lists, hack compilations, cheatsheets, tier lists, and "save-this" reference content about AI tools. These are the **densest, most visually rich posts** in the project.
 
 ---
 
@@ -18,15 +18,15 @@ Informativos share the **brand-wide typography** (Inter family) and brand elemen
 
 | Property | Step-by-step | News | **Informativo** |
 |---|---|---|---|
-| Background | Cream `#F5F2ED` + grid | Dark photo + gradient | **gpt-image-1 composition** (cream-based, richly designed) |
-| Density | Low — one focal point per slide | Low — photo + headline | **HIGH — multiple content blocks, icons, badges** |
-| Format | Multi-slide carousel (6–8 slides) | Single image | **Single image OR short carousel (1–4 slides)** |
-| Visual generation | HTML + CSS + inline SVG | gpt-image-1 full composition | **gpt-image-1 full composition** |
+| Background | Cream `#F5F2ED` + grid | Dark photo + gradient | **Codex image tool composition** (cream-based, richly designed) |
+| Density | Low â€” one focal point per slide | Low â€” photo + headline | **HIGH â€” multiple content blocks, icons, badges** |
+| Format | Multi-slide carousel (6â€“8 slides) | Single image | **Single image OR short carousel (1â€“4 slides)** |
+| Visual generation | HTML + CSS + inline SVG | Codex image tool full composition | **Codex image tool full composition** |
 | Text rendering | HTML (baked into the slide) | PIL overlay | **PIL overlay** (directly on composition image) |
-| Visual elements | 1–2 per slide (logo bubbles, mockup) | Photo + gradient | **Many — icons, badges, cards, numbered items, tier bars** |
+| Visual elements | 1â€“2 per slide (logo bubbles, mockup) | Photo + gradient | **Many â€” icons, badges, cards, numbered items, tier bars** |
 | Mood | Clean, instructional | Bold, urgent | **Dense, save-worthy, reference-quality** |
 
-The shared thread: Inter typography + `@lucianomusellaa` handle + coral/yellow accents. Informativos are the "textbook pages" of the feed — packed with value.
+The shared thread: Inter typography + `@lucianomusellaa` handle + coral/yellow accents. Informativos are the "textbook pages" of the feed â€” packed with value.
 
 ---
 
@@ -36,24 +36,24 @@ The shared thread: Inter typography + `@lucianomusellaa` handle + coral/yellow a
 |---|---|
 | Aspect ratio | **4:5 portrait** (Instagram feed optimal) |
 | Resolution | **1080 x 1350 px** |
-| Format | **Single image** (default) or **short carousel** (2–4 slides max for very long lists). Most informativos are single images. |
-| Safe margins | **50–60 px** on all sides (tighter than step-by-step — we need the space) |
+| Format | **Single image** (default) or **short carousel** (2â€“4 slides max for very long lists). Most informativos are single images. |
+| Safe margins | **50â€“60 px** on all sides (tighter than step-by-step â€” we need the space) |
 
 ### When to use carousel vs single image
 
 | Content | Format |
 |---|---|
-| 5–9 items (tips, tools, hacks) | **Single image** — fit them all |
-| 10+ items or items with long descriptions | **Short carousel** (2–3 slides + optional closing CTA) |
-| Cheatsheet / reference card | **Single image** — it should be screenshot-able |
+| 5â€“9 items (tips, tools, hacks) | **Single image** â€” fit them all |
+| 10+ items or items with long descriptions | **Short carousel** (2â€“3 slides + optional closing CTA) |
+| Cheatsheet / reference card | **Single image** â€” it should be screenshot-able |
 | Mind map / concept diagram | **Single image** |
 | Tier list / pyramid | **Single image** |
 
-When using carousel format, include slide indicators and `Desliza →` exactly like step-by-step (see base skill section 4.5).
+When using carousel format, include slide indicators and `Desliza â†’` exactly like step-by-step (see base skill section 4.5).
 
 ---
 
-## 2. Color palette — extended for informativos
+## 2. Color palette â€” extended for informativos
 
 Informativos inherit the base palette but unlock **category colors** for distinguishing sections, items, or tiers. This is the only post type that can use more than 2 accent colors per slide.
 
@@ -61,13 +61,13 @@ Informativos inherit the base palette but unlock **category colors** for disting
 
 | Role | Hex | Use |
 |---|---|---|
-| Background | `#F5F2ED` | Canvas base (gpt-image-1 should replicate this) |
+| Background | `#F5F2ED` | Canvas base (Codex image tool should replicate this) |
 | Grid lines | `#E8E4DD` | Subtle background grid |
 | Primary text | `#0E0E0E` | Titles, item names |
 | Secondary text | `#8A8780` | Labels, captions, descriptions |
 | Body text | `#3A3A38` | Item descriptions, longer text |
-| **Accent coral** | `#E85D3C` | Primary accent — numbers, key badges, highlighted words |
-| **Highlight yellow** | `#FFE45C` | Secondary accent — markers, callout backgrounds |
+| **Accent coral** | `#E85D3C` | Primary accent â€” numbers, key badges, highlighted words |
+| **Highlight yellow** | `#FFE45C` | Secondary accent â€” markers, callout backgrounds |
 
 ### Category color palette (informativos only)
 
@@ -85,15 +85,15 @@ When items need **visual differentiation** (e.g., "7 AI models" where each needs
 
 **Rules for category colors:**
 - Use **at most 5 different category colors** per single-image post. More than that = visual chaos.
-- Category colors appear as **small elements** — badges, side borders, icon fills, number circles. Never as large background areas.
+- Category colors appear as **small elements** â€” badges, side borders, icon fills, number circles. Never as large background areas.
 - The overall post must still read as ~75% neutral (cream/black/grey) with colored accents, NOT a rainbow.
 - When items don't need differentiation (e.g., "5 tips" that are all equal), stick to coral + yellow only.
 
 ---
 
-## 3. Typography — denser hierarchy
+## 3. Typography â€” denser hierarchy
 
-Informativos need more typography levels than step-by-step because they carry more information layers. All text is rendered via HTML overlay, NOT baked into the gpt-image-1 composition.
+Informativos need more typography levels than step-by-step because they carry more information layers. All text is rendered via HTML overlay, NOT baked into the Codex image tool composition.
 
 - **Family:** `'Inter', system-ui, -apple-system, sans-serif`
 - **Import:** `https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap`
@@ -103,26 +103,26 @@ Informativos need more typography levels than step-by-step because they carry mo
 
 | Element | Size | Weight | Color | Notes |
 |---|---|---|---|---|
-| `@lucianomusellaa` (top) | 22–24 px | 500 | `#8A8780` | Top center or top-left, slightly smaller than step-by-step to save space |
-| **Main title** | 48–64 px | 800–900 | `#0E0E0E` | The hook. 2–3 lines max. Can go up to 72 px for pure typographic covers. |
-| **Subtitle / hook line** | 22–26 px | 500 | `#8A8780` | Optional — appears below the title |
-| **Section header** | 28–34 px | 700 | `#0E0E0E` | Used in multi-section layouts |
-| **Item number / badge** | 24–32 px | 800 | `#FFFFFF` on colored circle | Numbered items get a colored circle (36–44 px) with the number inside |
-| **Item title** | 24–30 px | 700 | `#0E0E0E` | The name of the tip/tool/hack |
-| **Item description** | 18–22 px | 400–500 | `#3A3A38` or `#6B6860` | 1–2 lines explaining the item. Keep it tight. |
-| **Callout / highlight box text** | 20–24 px | 600 | Varies | Inside colored boxes or cards |
-| **Footer / source** | 16–18 px | 500 | `#8A8780` | "Fuente:", attribution, or micro-CTA |
+| `@lucianomusellaa` (top) | 22â€“24 px | 500 | `#8A8780` | Top center or top-left, slightly smaller than step-by-step to save space |
+| **Main title** | 48â€“64 px | 800â€“900 | `#0E0E0E` | The hook. 2â€“3 lines max. Can go up to 72 px for pure typographic covers. |
+| **Subtitle / hook line** | 22â€“26 px | 500 | `#8A8780` | Optional â€” appears below the title |
+| **Section header** | 28â€“34 px | 700 | `#0E0E0E` | Used in multi-section layouts |
+| **Item number / badge** | 24â€“32 px | 800 | `#FFFFFF` on colored circle | Numbered items get a colored circle (36â€“44 px) with the number inside |
+| **Item title** | 24â€“30 px | 700 | `#0E0E0E` | The name of the tip/tool/hack |
+| **Item description** | 18â€“22 px | 400â€“500 | `#3A3A38` or `#6B6860` | 1â€“2 lines explaining the item. Keep it tight. |
+| **Callout / highlight box text** | 20â€“24 px | 600 | Varies | Inside colored boxes or cards |
+| **Footer / source** | 16â€“18 px | 500 | `#8A8780` | "Fuente:", attribution, or micro-CTA |
 
 ### Title writing rules for informativos
 
-The title is the **hook** — it has to promise enough value that the viewer saves the post.
+The title is the **hook** â€” it has to promise enough value that the viewer saves the post.
 
 | Rule | Value |
 |---|---|
-| Word count | **5–14 words** (longer than covers because it often includes a number) |
-| Number in title | **Almost always** — "7 prompts", "Top 5 herramientas", "9 reglas" |
-| Font size | 48–64 px (adjust based on content density below it) |
-| Highlighted words | **1–2 keywords** in coral or on yellow marker. The number is almost always highlighted. |
+| Word count | **5â€“14 words** (longer than covers because it often includes a number) |
+| Number in title | **Almost always** â€” "7 prompts", "Top 5 herramientas", "9 reglas" |
+| Font size | 48â€“64 px (adjust based on content density below it) |
+| Highlighted words | **1â€“2 keywords** in coral or on yellow marker. The number is almost always highlighted. |
 | Tone | Colombian Spanish, `tu` form. Factual + useful. |
 
 **Good informativo titles:**
@@ -133,9 +133,9 @@ The title is the **hook** — it has to promise enough value that the viewer sav
 
 ---
 
-## 4. The visual composition layer (CRITICAL — gpt-image-1 full composition)
+## 4. The visual composition layer (CRITICAL â€” Codex image tool full composition)
 
-> **Core approach (April 2026):** informativo posts use **gpt-image-1 to generate the complete visual composition** — background, layout structure, decorative elements, icons, brand logos, gradients, card shapes — all as ONE cohesive image. **HTML is used ONLY for text overlays** (titles, item names, descriptions, numbers, badges, handle, footer).
+> **Core approach (April 2026):** informativo posts use **Codex image tool to generate the complete visual composition** â€” background, layout structure, decorative elements, icons, brand logos, gradients, card shapes â€” all as ONE cohesive image. **HTML is used ONLY for text overlays** (titles, item names, descriptions, numbers, badges, handle, footer).
 
 ### Why this approach
 
@@ -146,72 +146,72 @@ The previous approach (HTML + CSS + inline SVG) produced layouts that looked "fl
 - Professionally designed card layouts with depth and shadows
 - Brand logos naturally integrated into the scene
 
-gpt-image-1 can generate all of this as one cohesive image where elements feel like they *belong together*, not pasted on top of each other. Text overlay via HTML ensures every word is legible, correctly spelled, and precisely positioned.
+Codex image tool can generate all of this as one cohesive image where elements feel like they *belong together*, not pasted on top of each other. Text overlay via HTML ensures every word is legible, correctly spelled, and precisely positioned.
 
-### What gpt-image-1 generates (the "composition image")
+### What Codex image tool generates (the "composition image")
 
 A single 4:5 image that contains the **visual skeleton** of the post:
-- **Background** — cream-based with subtle texture, grid pattern, or artistic gradient (matching the brand `#F5F2ED` palette)
-- **Layout structure** — visual containers for content: card shapes, tier bars, grid cells, mind-map nodes, section dividers
-- **Decorative elements** — icons, illustrations, abstract shapes, gradients, visual accents
-- **Brand logos** — real brand logos naturally integrated (e.g., Claude logo, ChatGPT logo, tool icons)
-- **Photos** — real person photos if relevant to the content (e.g., Inspo_05 style)
-- **Color coding** — category colors on cards, tier bars, badges (the visual framework the text will sit on)
+- **Background** â€” cream-based with subtle texture, grid pattern, or artistic gradient (matching the brand `#F5F2ED` palette)
+- **Layout structure** â€” visual containers for content: card shapes, tier bars, grid cells, mind-map nodes, section dividers
+- **Decorative elements** â€” icons, illustrations, abstract shapes, gradients, visual accents
+- **Brand logos** â€” real brand logos naturally integrated (e.g., Claude logo, ChatGPT logo, tool icons)
+- **Photos** â€” real person photos if relevant to the content (e.g., Inspo_05 style)
+- **Color coding** â€” category colors on cards, tier bars, badges (the visual framework the text will sit on)
 
-### What gpt-image-1 does NOT generate
+### What Codex image tool does NOT generate
 
-- **NO text of any kind** — no titles, no item names, no descriptions, no numbers, no handle, no footer
-- **NO typography** — all text comes from the HTML overlay
-- The composition should have **clear empty zones** where text will be placed — these zones should be visually defined (e.g., a white card area, a colored bar, a labeled region) but contain no actual text
+- **NO text of any kind** â€” no titles, no item names, no descriptions, no numbers, no handle, no footer
+- **NO typography** â€” all text comes from the HTML overlay
+- The composition should have **clear empty zones** where text will be placed â€” these zones should be visually defined (e.g., a white card area, a colored bar, a labeled region) but contain no actual text
 
 ### Composition prompting guidelines
 
-The prompt to gpt-image-1 must describe the **complete visual layout** in detail. The model needs to understand the spatial arrangement so the text overlay aligns correctly.
+The prompt to Codex image tool must describe the **complete visual layout** in detail. The model needs to understand the spatial arrangement so the text overlay aligns correctly.
 
 **General prompt structure:**
 
 ```
 Professional Instagram infographic composition, 4:5 portrait format, 1080x1350 pixels.
 [BACKGROUND DESCRIPTION: cream/warm palette, subtle grid, artistic texture].
-[LAYOUT DESCRIPTION: specific arrangement of visual containers — cards, bars, circles, etc.].
+[LAYOUT DESCRIPTION: specific arrangement of visual containers â€” cards, bars, circles, etc.].
 [DECORATIVE ELEMENTS: icons, illustrations, brand logos with specific positions].
 [COLOR CODING: which containers use which colors from the brand palette].
-Leave ALL text areas empty — no text, no typography, no letters, no numbers anywhere in the image.
+Leave ALL text areas empty â€” no text, no typography, no letters, no numbers anywhere in the image.
 Clean, editorial, magazine-quality design. NOT generic AI template aesthetics.
 ```
 
 **Key prompt rules:**
-- **Always end with "No text, no typography, no letters, no numbers anywhere in the image"** — gpt-image-1 tends to add text if not explicitly told not to
-- **Describe the layout spatially** — "top section has...", "center area contains a 3x3 grid of cards", "bottom strip has..."
-- **Reference the color palette by name** — "cream background (#F5F2ED)", "coral accent circles (#E85D3C)", "soft purple card borders"
-- **Describe empty zones explicitly** — "each card has empty white space in the center where text will be added later"
+- **Always end with "No text, no typography, no letters, no numbers anywhere in the image"** â€” Codex image tool tends to add text if not explicitly told not to
+- **Describe the layout spatially** â€” "top section has...", "center area contains a 3x3 grid of cards", "bottom strip has..."
+- **Reference the color palette by name** â€” "cream background (#F5F2ED)", "coral accent circles (#E85D3C)", "soft purple card borders"
+- **Describe empty zones explicitly** â€” "each card has empty white space in the center where text will be added later"
 - **Use `--aspect-ratio 4:5`** to match the Instagram canvas
 - **Default `--quality high`** for the editorial density compositions require; switch to `--quality medium` when iterating on the prompt wording to save cost
 
 ### Prompt templates per layout pattern
 
-#### Layout A — Numbered list
+#### Layout A â€” Numbered list
 ```
 Professional Instagram infographic composition, 4:5 portrait, 1080x1350px.
 Warm cream background (#F5F2ED) with subtle grid pattern.
 Top area: empty space for title text (no text).
 Below the title: [N] horizontal card rows stacked vertically with small gaps.
 Each card is a white rounded rectangle with soft shadow.
-Left side of each card: a coral (#E85D3C) circle (for the number — leave the circle empty, no number).
+Left side of each card: a coral (#E85D3C) circle (for the number â€” leave the circle empty, no number).
 Center of each card: empty white space for item title and description text.
-Right side of each card: [optional: small icon/logo relevant to the item — describe specifically].
+Right side of each card: [optional: small icon/logo relevant to the item â€” describe specifically].
 Bottom: thin footer area with empty space for footer text.
 No text, no typography, no letters, no numbers anywhere in the image.
 Clean, editorial infographic design. Magazine quality.
 ```
 
-#### Layout B — Grid cards
+#### Layout B â€” Grid cards
 ```
 Professional Instagram infographic composition, 4:5 portrait, 1080x1350px.
 Warm cream background (#F5F2ED) with subtle grid texture.
 Top area: empty space for title (no text).
 Main area: a [2x3 / 3x3] grid of white rounded cards with soft shadows.
-Each card has a colored top border (varying colors: coral, orange, green, blue, purple — one per card).
+Each card has a colored top border (varying colors: coral, orange, green, blue, purple â€” one per card).
 Inside each card: a small colored circle at top-left (empty, for number) and empty white space for text.
 Cards are evenly spaced with 16-20px gaps between them.
 Bottom: footer area with empty space.
@@ -219,25 +219,25 @@ No text, no typography, no letters, no numbers anywhere in the image.
 Polished editorial design, professional infographic layout.
 ```
 
-#### Layout C — Tier list / Pyramid
+#### Layout C â€” Tier list / Pyramid
 ```
 Professional Instagram infographic composition, 4:5 portrait, 1080x1350px.
 Warm cream background (#F5F2ED) with subtle grid.
 Top area: empty space for title (no text).
 Center: a pyramid/tier structure with [N] horizontal bars stacked vertically.
 Top bar is narrowest (~55% width), bottom bar is widest (~95% width).
-Each bar has a different color: [describe colors top to bottom — coral, orange, green, blue, purple].
+Each bar has a different color: [describe colors top to bottom â€” coral, orange, green, blue, purple].
 Bars have rounded corners and soft shadows, separated by small gaps.
 Inside each bar: empty space for tier label and item names. Also include small [brand/app] icons naturally arranged inside each bar.
 Bottom: footer area.
 No text, no typography, no letters, no numbers anywhere in the image.
 ```
 
-#### Layout D — Mind map / Radial
+#### Layout D â€” Mind map / Radial
 ```
 Professional Instagram infographic composition, 4:5 portrait, 1080x1350px.
 Warm cream background (#F5F2ED) with subtle grid.
-Center: a large coral (#E85D3C) circle (hub) — empty inside (title text will be added).
+Center: a large coral (#E85D3C) circle (hub) â€” empty inside (title text will be added).
 Around the center: [N] white rounded-rectangle satellite nodes arranged radially, connected to the center by thin dashed lines.
 Each satellite node has a small colored number circle at top-left (empty) and empty space for text inside.
 Nodes are evenly distributed around the central hub with balanced spacing.
@@ -246,13 +246,13 @@ No text, no typography, no letters, no numbers anywhere in the image.
 Elegant, organized mind-map layout. Magazine infographic quality.
 ```
 
-#### Layout E — Sectioned cheatsheet
+#### Layout E â€” Sectioned cheatsheet
 ```
 Professional Instagram infographic composition, 4:5 portrait, 1080x1350px.
 Warm cream background (#F5F2ED) with subtle grid.
 Top area: compact space for title (no text).
-Main area: [2–4] large white section cards stacked vertically with generous spacing.
-Each section card has a colored left border (coral, green, blue, purple — one per section).
+Main area: [2â€“4] large white section cards stacked vertically with generous spacing.
+Each section card has a colored left border (coral, green, blue, purple â€” one per section).
 Inside each card: a header row area (empty, for section title) and below it a 2-column layout of empty content areas.
 Optional: one section includes a dark (#1A1A1A) code-block area with rounded corners.
 Bottom: footer area.
@@ -260,21 +260,21 @@ No text, no typography, no letters, no numbers anywhere in the image.
 Reference-card quality, clean and organized.
 ```
 
-#### Layout F — Single feature / Hero card
+#### Layout F â€” Single feature / Hero card
 ```
 Professional Instagram infographic composition, 4:5 portrait, 1080x1350px.
 Warm cream background (#F5F2ED) with subtle grid.
 Top area: generous space for a large title (no text).
 Center: one large white card with pronounced rounded corners and deep shadow, taking up ~70% of the width.
-Inside the card: [describe the visual — e.g., a code editor mockup, a UI screenshot recreation, a prompt template area]. The card interior has empty space for text content.
+Inside the card: [describe the visual â€” e.g., a code editor mockup, a UI screenshot recreation, a prompt template area]. The card interior has empty space for text content.
 Below the card: empty space for supporting context text.
 Bottom: footer area.
-[Optional: decorative elements around the card — subtle sparkle icons, connecting lines, brand logo].
+[Optional: decorative elements around the card â€” subtle sparkle icons, connecting lines, brand logo].
 No text, no typography, no letters, no numbers anywhere in the image.
 Bold, high-impact single-feature layout.
 ```
 
-#### Layout G — Comparison / Before-After
+#### Layout G â€” Comparison / Before-After
 ```
 Professional Instagram infographic composition, 4:5 portrait, 1080x1350px.
 Warm cream background (#F5F2ED) with subtle grid.
@@ -291,24 +291,18 @@ Clean comparison layout, balanced and symmetrical.
 
 ### Workflow for generating the composition
 
-> **IMPORTANT: Generate ONE composition only.** The user trusts the prompt crafting to produce a good result on the first try. Do NOT generate 2–3 variants — that wastes API calls and money. Only generate a second composition if the user explicitly rejects the first one.
+> **IMPORTANT: Generate ONE composition only.** The user trusts the prompt crafting to produce a good result on the first try. Do NOT generate 2â€“3 variants â€” that creates unnecessary variants. Only generate a second composition if the user explicitly rejects the first one.
 
-1. **Choose the layout pattern** (A–G) based on the content
+1. **Choose the layout pattern** (Aâ€“G) based on the content
 2. **Craft the composition prompt** using the template above, customized for the specific topic:
    - Specify exact number of items/cards/tiers
-   - Describe any brand logos needed (check `Logos/` first — if the real logo exists, use `--reference`)
+   - Describe any brand logos needed (check `Logos/` first â€” if the real logo exists, use image references)
    - Describe decorative elements specific to the topic
    - Specify the category colors for each card/tier/section
-3. **Check `Logos/` and `Assets/`** — if brand logos or person photos exist, use `--reference` mode
-4. **Generate ONE composition:**
-   ```bash
-   python generate-image.py \
-     --prompt "[composition prompt]" \
-     --output PostTypes/informativos/Outputs/{topic-slug}/composition.png \
-     --aspect-ratio 4:5
-   ```
-   The script crops + resizes internally, so `composition.png` is guaranteed to be exactly 1080×1350. No separate resize step is needed.
-5. **Present to user for review** — only regenerate if they reject it
+3. **Check `Logos/` and `Assets/`** â€” if brand logos or person photos exist, use image references mode
+4. **Generate ONE composition:** use Codex's integrated image tool and save the approved result as `PostTypes/informativos/Outputs/{topic-slug}/composition.png`
+   The script crops + resizes internally, so `composition.png` is guaranteed to be exactly 1080Ã—1350. No separate resize step is needed.
+5. **Present to user for review** â€” only regenerate if they reject it
 6. Once approved, proceed to the **HTML text overlay step**
 
 ### Quality checklist for compositions
@@ -322,13 +316,13 @@ Clean comparison layout, balanced and symmetrical.
 
 ---
 
-## 5. PIL text compositing — the second layer
+## 5. PIL text compositing â€” the second layer
 
-> **After the gpt-image-1 composition is approved, PIL renders all text directly on top of it.** This eliminates Chrome border artifacts that occur when using HTML+render.sh with background images.
+> **After the Codex image tool composition is approved, PIL renders all text directly on top of it.** This eliminates Chrome border artifacts that occur when using HTML+render.sh with background images.
 
 ### Why PIL (not HTML/Chrome) for informativos
 
-Chrome on Windows introduces border artifacts when rendering HTML with a background-image. PIL composites text directly onto the image — no browser, no viewport issues, pixel-perfect output at exactly 1080x1350.
+Chrome on Windows introduces border artifacts when rendering HTML with a background-image. PIL composites text directly onto the image â€” no browser, no viewport issues, pixel-perfect output at exactly 1080x1350.
 
 ### PIL workflow
 
@@ -352,11 +346,11 @@ font_desc = ImageFont.truetype("Assets/Fonts/Inter-Medium.ttf", 18)
 canvas.convert("RGB").save("output.png", quality=95)
 ```
 
-### Text drawn directly — no white card backgrounds
+### Text drawn directly â€” no white card backgrounds
 
 Text sits **directly on the composition** without semi-transparent rectangles. The white oval interiors provide enough contrast. White card backgrounds overlap with colored blob borders and look "pasted on."
 
-### Finding exact text positions — connected component analysis (MANDATORY)
+### Finding exact text positions â€” connected component analysis (MANDATORY)
 
 **Never guess pixel coordinates manually.** Use scipy connected component analysis to find the exact white interiors:
 
@@ -389,66 +383,66 @@ Text is drawn **directly on the composition** without semi-transparent rectangle
 
 ---
 
-## 6. Layout patterns — conceptual reference
+## 6. Layout patterns â€” conceptual reference
 
-These 7 patterns guide BOTH the gpt-image-1 prompt (section 4) AND the HTML text overlay (section 5). Choose the one that best fits the content.
+These 7 patterns guide BOTH the Codex image tool prompt (section 4) AND the HTML text overlay (section 5). Choose the one that best fits the content.
 
-### Layout A — Numbered list (the default)
+### Layout A â€” Numbered list (the default)
 **Best for:** "Top N...", "X tips para...", "X hacks de...", any numbered list.
-- 5–9 items stacked vertically as horizontal card rows
+- 5â€“9 items stacked vertically as horizontal card rows
 - Each card: colored number circle + title + description + optional icon
 - Items separated by card gaps
 
-### Layout B — Grid cards
+### Layout B â€” Grid cards
 **Best for:** Tips with explanations, rule sets, cheatsheets with sections.
-- 2–3 column grid of cards (4–9 cards)
-- Each card: icon/number + title + 2–3 bullet points
+- 2â€“3 column grid of cards (4â€“9 cards)
+- Each card: icon/number + title + 2â€“3 bullet points
 - Cards have white background with colored top-border for category
 
-### Layout C — Tier list / Pyramid
+### Layout C â€” Tier list / Pyramid
 **Best for:** Rankings, hierarchies, capability layers.
-- 4–7 stacked horizontal bars, progressively wider (pyramid) or same width
+- 4â€“7 stacked horizontal bars, progressively wider (pyramid) or same width
 - Each bar: different color, tier label + item icons/names
 - Bars separated by small gaps
 
-### Layout D — Mind map / Radial
+### Layout D â€” Mind map / Radial
 **Best for:** Central concept with related ideas radiating outward.
-- Central circle (hub) with 6–9 satellite nodes arranged radially
+- Central circle (hub) with 6â€“9 satellite nodes arranged radially
 - Connecting lines from center to each node
 - Each node: number + title + description + optional callout
-- **Most technically challenging** — positioning needs careful calculation
+- **Most technically challenging** â€” positioning needs careful calculation
 
-### Layout E — Sectioned cheatsheet
+### Layout E â€” Sectioned cheatsheet
 **Best for:** Reference cards, multi-section guides, "everything you need to know."
-- 2–4 major sections, each as a white card with colored left-border
+- 2â€“4 major sections, each as a white card with colored left-border
 - Each section: section header + content area (mini-list, table, bullets)
 - Optional code block section
 
-### Layout F — Single feature / Hero card
+### Layout F â€” Single feature / Hero card
 **Best for:** One killer prompt, one hack, high visual impact.
 - Large central card with prominent shadow
 - Inside: prompt text, code snippet, or UI recreation
 - Supporting context text below
-- Lots of whitespace — quality > quantity
+- Lots of whitespace â€” quality > quantity
 
-### Layout G — Comparison / Before-After
-**Best for:** "X vs Y", "antes vs después", "con IA vs sin IA."
+### Layout G â€” Comparison / Before-After
+**Best for:** "X vs Y", "antes vs despuÃ©s", "con IA vs sin IA."
 - Two columns side by side with divider or "VS" badge
 - Left column: "antes/sin" items (grey/red accent)
-- Right column: "después/con" items (green/coral accent)
+- Right column: "despuÃ©s/con" items (green/coral accent)
 
 ---
 
 ## 7. Highlight & accent rules for informativos
 
 ### Title highlighting
-- Same as covers: **1–2 keywords highlighted** (coral text or yellow marker)
+- Same as covers: **1â€“2 keywords highlighted** (coral text or yellow marker)
 - The **number** in the title is almost always highlighted: `<span class='accent-coral'>9</span> reglas de oro`
 - If there's a brand name, it can be the second highlight
 
 ### Item-level highlighting
 - **Numbered badges** use the category color palette (coral circle with white number by default)
-- **Key terms** inside item descriptions can be **bold** but NOT colored — too many colors in body text creates chaos
+- **Key terms** inside item descriptions can be **bold** but NOT colored â€” too many colors in body text creates chaos
 - **One callout box** per post can use a yellow `#FFE45C` background at 15% opacity as a "pro tip" highlight
 
 ### What NOT to highlight
@@ -462,7 +456,7 @@ These 7 patterns guide BOTH the gpt-image-1 prompt (section 4) AND the HTML text
 
 ### Icons in the composition
 
-Since gpt-image-1 generates the visual composition, icons and decorative elements are **baked into the image**. When prompting gpt-image-1:
+Since Codex image tool generates the visual composition, icons and decorative elements are **baked into the image**. When prompting Codex image tool:
 - Describe icons by their concept, not SVG code: "a lightning bolt icon", "a shield icon", "a brain illustration"
 - Specify the icon style: "stroke-based, minimalist, matching the editorial aesthetic"
 - Specify colors: "coral icon", "grey icon", "blue icon"
@@ -471,9 +465,9 @@ Since gpt-image-1 generates the visual composition, icons and decorative element
 
 When the post references **real brands** (Claude, ChatGPT, Perplexity, etc.):
 
-1. **Check `Logos/` first** — if the real logo exists, describe it in the prompt or use `--reference`
-2. **If not in `Logos/`** → include the logo in the gpt-image-1 composition prompt: "the [Brand] logo naturally integrated into the card/section"
-3. **Alternatively, generate the logo separately** with gpt-image-1, save to `Logos/`, then use it as a reference in the main composition
+1. **Check `Logos/` first** â€” if the real logo exists, describe it in the prompt or use image references
+2. **If not in `Logos/`** â†’ include the logo in the Codex image tool composition prompt: "the [Brand] logo naturally integrated into the card/section"
+3. **Alternatively, generate the logo separately** with Codex image tool, save to `Logos/`, then use it as a reference in the main composition
 4. **Always present generated logos to the user for review**
 
 ---
@@ -482,26 +476,26 @@ When the post references **real brands** (Claude, ChatGPT, Perplexity, etc.):
 
 In addition to the brand-wide anti-patterns:
 
-- ❌ **Generic AI template aesthetics** — the composition must look editorially designed, not like a Canva template
-- ❌ **Text in the gpt-image-1 composition** — ALL text comes from HTML overlay. No exceptions.
-- ❌ **"PASO X" labels** — that's tutorial language, not informativo
-- ❌ **Logo bubble connectors** — that's the step-by-step cover identity
-- ❌ **Alta Studio watermark** — watermark is news-only. NOT on informativos.
-- ❌ **Misaligned text overlay** — text must align precisely with the composition's visual zones. Always verify.
-- ❌ **Cramped text** — if you can't read every word at 50% zoom, the layout is too tight. Cut items.
-- ❌ **Rainbow explosion** — using all 7 category colors at once. Max 5 per post.
-- ❌ **Tiny unreadable text** — minimum text size is 16 px. If content doesn't fit at 16 px, reduce items.
-- ❌ **Generic filler content** — every item must deliver real, specific value
-- ❌ **Walls of text** — descriptions are 1–2 lines max per item
-- ❌ **Emojis as icons** — icons are part of the gpt-image-1 composition, not emoji characters
-- ❌ **Generating multiple composition variants** — ONE only, regenerate only if user rejects it
-- ❌ **Using gpt-image-1 assets without user review** — always present the composition for approval
-- ❌ **Carousel when single image works** — default to single image
-- ❌ **Missing number in title** — informativos almost always have a number
-- ❌ **"Desliza →" on single-image posts** — no swiping on single images
-- ❌ **Clickbait exclamation marks** — no "INCREIBLE!" or "NO VAS A CREER!"
-- ❌ **Dark background** — informativos are cream-based (unlike news). The gpt-image-1 composition should maintain the warm cream aesthetic.
-- ❌ **Pure HTML+CSS+SVG compositions** — the old approach. Always use gpt-image-1 for the visual composition now.
+- âŒ **Generic AI template aesthetics** â€” the composition must look editorially designed, not like a Canva template
+- âŒ **Text in the Codex image tool composition** â€” ALL text comes from HTML overlay. No exceptions.
+- âŒ **"PASO X" labels** â€” that's tutorial language, not informativo
+- âŒ **Logo bubble connectors** â€” that's the step-by-step cover identity
+- âŒ **Alta Studio watermark** â€” watermark is news-only. NOT on informativos.
+- âŒ **Misaligned text overlay** â€” text must align precisely with the composition's visual zones. Always verify.
+- âŒ **Cramped text** â€” if you can't read every word at 50% zoom, the layout is too tight. Cut items.
+- âŒ **Rainbow explosion** â€” using all 7 category colors at once. Max 5 per post.
+- âŒ **Tiny unreadable text** â€” minimum text size is 16 px. If content doesn't fit at 16 px, reduce items.
+- âŒ **Generic filler content** â€” every item must deliver real, specific value
+- âŒ **Walls of text** â€” descriptions are 1â€“2 lines max per item
+- âŒ **Emojis as icons** â€” icons are part of the Codex image tool composition, not emoji characters
+- âŒ **Generating multiple composition variants** â€” ONE only, regenerate only if user rejects it
+- âŒ **Using Codex image tool assets without user review** â€” always present the composition for approval
+- âŒ **Carousel when single image works** â€” default to single image
+- âŒ **Missing number in title** â€” informativos almost always have a number
+- âŒ **"Desliza â†’" on single-image posts** â€” no swiping on single images
+- âŒ **Clickbait exclamation marks** â€” no "INCREIBLE!" or "NO VAS A CREER!"
+- âŒ **Dark background** â€” informativos are cream-based (unlike news). The Codex image tool composition should maintain the warm cream aesthetic.
+- âŒ **Pure HTML+CSS+SVG compositions** â€” the old approach. Always use Codex image tool for the visual composition now.
 
 ---
 
@@ -511,11 +505,11 @@ Like news posts, informativos come with a **caption** that complements the image
 
 ### Caption structure
 
-1. **Hook** (1 line) — the promise. What they'll get from this post.
-2. **Context** (1–2 lines) — why this matters now.
-3. **Key takeaways** (3–5 short paragraphs) — expand on the most interesting items. Each paragraph = 1–2 sentences.
-4. **Personal angle** (1–2 lines) — what YOU (the creator) use or recommend.
-5. **Soft CTA** (1 line) — "Guarda este post para cuando lo necesites." or "Cual es tu favorita?"
+1. **Hook** (1 line) â€” the promise. What they'll get from this post.
+2. **Context** (1â€“2 lines) â€” why this matters now.
+3. **Key takeaways** (3â€“5 short paragraphs) â€” expand on the most interesting items. Each paragraph = 1â€“2 sentences.
+4. **Personal angle** (1â€“2 lines) â€” what YOU (the creator) use or recommend.
+5. **Soft CTA** (1 line) â€” "Guarda este post para cuando lo necesites." or "Cual es tu favorita?"
 
 ### Caption rules
 
@@ -523,12 +517,12 @@ Like news posts, informativos come with a **caption** that complements the image
 |---|---|
 | Language | Colombian Spanish, tu form |
 | Tone | Conversational, expert but approachable. Not academic, not clickbaity |
-| Paragraphs | Short (1–2 sentences), separated by blank lines |
-| Length | 100–250 words (shorter than news — the image carries more information) |
+| Paragraphs | Short (1â€“2 sentences), separated by blank lines |
+| Length | 100â€“250 words (shorter than news â€” the image carries more information) |
 | Emojis | NO emojis |
-| Hashtags | NO — user adds them later |
+| Hashtags | NO â€” user adds them later |
 | Numbers | Use digits: "7 modelos", "2026", "$20/mes" |
-| CTA style | Soft. "Guarda", "Comenta", "Comparte" — never aggressive |
+| CTA style | Soft. "Guarda", "Comenta", "Comparte" â€” never aggressive |
 
 ### Caption delivery
 
@@ -540,12 +534,12 @@ Save as `caption.txt` in the output folder alongside the image files.
 
 > **Two workflows exist depending on format: single-image vs. multi-slide carousel.**
 
-### 11.A — Single-image informativos (default)
+### 11.A â€” Single-image informativos (default)
 
 1. **Read this skill** + brand-wide rules from [`CLAUDE.md`](../../../CLAUDE.md).
 2. **Mandatory visual re-anchoring:** review `Inspiracion/` AND `Favoritos_Claude_Generated/` (see CLAUDE.md section 1.5).
 3. **Understand the topic:** What information is being presented? How many items? What's the natural structure?
-4. **Choose the layout pattern** (A–G from section 6) based on the content type.
+4. **Choose the layout pattern** (Aâ€“G from section 6) based on the content type.
 5. **Check `Logos/` and `Assets/`** for any brand logos or photos needed.
 6. **Propose the content breakdown** to the user:
    - Title (with highlighted keywords marked)
@@ -553,40 +547,39 @@ Save as `caption.txt` in the output folder alongside the image files.
    - List of items/sections with their titles and 1-line descriptions
    - Wait for approval before generating.
 7. **Draft the caption** and present alongside the content breakdown (no approval needed for captions).
-8. **Generate ONE visual composition with gpt-image-1.** This is the key step:
+8. **Generate ONE visual composition with Codex image tool.** This is the key step:
    - Craft the best possible prompt using the layout template from section 4, customized for the topic
-   - Use `--reference` with existing logos/photos if available
-   - Use `--aspect-ratio 4:5` for Instagram canvas
-   - Default `--quality high` is correct; drop to `medium` only when iterating on prompt wording
-   - **Generate ONE composition only** — don't waste API calls on variants
-   - The script crops + resizes internally to exactly 1080×1350 — no separate resize step needed
-   - **Present to user for review** — only regenerate if rejected
+   - Use existing logos/photos as visual references when appropriate
+   - Use a 4:5 target for the Instagram canvas
+      - **Generate ONE composition only** unless the user rejects it
+   - Save or resize the final composition to exactly 1080x1350
+   - **Present to user for review** â€” only regenerate if rejected
 9. **PIL text overlay** on the approved composition (see section 5).
-10. **MANDATORY visual verification** (Visual QA skill) — inspect every PNG before presenting.
+10. **MANDATORY visual verification** (Visual QA skill) â€” inspect every PNG before presenting.
 11. **Present the complete deliverable:** rendered image + caption.
 12. **Ask which images are favorites** for `Favoritos_Claude_Generated/`.
 
-### 11.B — Multi-slide informativo carousels (HYBRID approach)
+### 11.B â€” Multi-slide informativo carousels (HYBRID approach)
 
 When the informativo has **multiple slides** (cover + content slides), use this hybrid workflow:
 
-> **Cover = gpt-image-1 (editorial photo composition). Content slides = HTML+CSS (step-by-step structure).**
+> **Cover = Codex image tool (editorial photo composition). Content slides = HTML+CSS (step-by-step structure).**
 
-**Why this hybrid:** gpt-image-1 produces stunning editorial cover photos but is unreliable for content slides — text positioning on generated compositions requires guessing pixel coordinates, leading to misaligned text and wasted iterations. HTML+CSS gives pixel-perfect control over mockups, code editors, terminals, and typography.
+**Why this hybrid:** Codex image tool produces stunning editorial cover photos but is unreliable for content slides â€” text positioning on generated compositions requires guessing pixel coordinates, leading to misaligned text and wasted iterations. HTML+CSS gives pixel-perfect control over mockups, code editors, terminals, and typography.
 
-1. Steps 1–7 are the same as 11.A (load skills, re-anchor, propose breakdown, draft caption).
-2. **Cover slide — gpt-image-1 composition:**
+1. Steps 1â€“7 are the same as 11.A (load skills, re-anchor, propose breakdown, draft caption).
+2. **Cover slide â€” Codex image tool composition:**
    - Generate ONE editorial photo composition (person + brand elements + warm tones)
-   - PIL text overlay for the title, handle, subtitle, slide indicator, and "Desliza →"
-   - **Title must be BIG (64px+ Inter ExtraBold)** and clearly visible — positioned where it has good contrast against the photo
+   - PIL text overlay for the title, handle, subtitle, slide indicator, and "Desliza â†’"
+   - **Title must be BIG (64px+ Inter ExtraBold)** and clearly visible â€” positioned where it has good contrast against the photo
    - Yellow highlight and coral accents must be properly centered on the text they wrap
    - Present to user for review
-3. **Content slides — HTML+CSS (step-by-step structure):**
+3. **Content slides â€” HTML+CSS (step-by-step structure):**
    - Use the cream background + grid system from step-by-step posts
-   - Include: `@lucianomusellaa` handle, coral number badge (not "PASO X"), bold headline with single coral highlight, subtitle, UI mockup (code editor, terminal, diagram — recreated in HTML/CSS), chevrons, slide indicators
-   - Last slide: include CTA ("Guarda este post") and omit "Desliza →"
+   - Include: `@lucianomusellaa` handle, coral number badge (not "PASO X"), bold headline with single coral highlight, subtitle, UI mockup (code editor, terminal, diagram â€” recreated in HTML/CSS), chevrons, slide indicators
+   - Last slide: include CTA ("Guarda este post") and omit "Desliza â†’"
    - Render via `./render.sh`
-4. **MANDATORY visual verification** — inspect every PNG.
+4. **MANDATORY visual verification** â€” inspect every PNG.
 5. **Present the complete deliverable:** cover + content slides + caption.
 6. **Ask which images are favorites** for `Favoritos_Claude_Generated/`.
 
@@ -594,11 +587,11 @@ When the informativo has **multiple slides** (cover + content slides), use this 
 
 ```
 PostTypes/informativos/Outputs/{topic-slug}/
-├── composition.png              ← gpt-image-1 full visual composition (NO text)
-├── info_v1_{descriptor}.html    ← HTML text overlay (references composition.png as background)
-├── info_v1_{descriptor}.png     ← Final rendered image (composition + text)
-├── caption.txt                  ← Caption for Instagram
-└── ...
+â”œâ”€â”€ composition.png              â† Codex image tool full visual composition (NO text)
+â”œâ”€â”€ info_v1_{descriptor}.html    â† HTML text overlay (references composition.png as background)
+â”œâ”€â”€ info_v1_{descriptor}.png     â† Final rendered image (composition + text)
+â”œâ”€â”€ caption.txt                  â† Caption for Instagram
+â””â”€â”€ ...
 ```
 
 - `{topic-slug}`: kebab-case. E.g. `top-7-modelos-ia`, `reglas-claude`, `hacks-prompts`.
@@ -608,9 +601,9 @@ PostTypes/informativos/Outputs/{topic-slug}/
 
 ## 12. Quick reference checklist (run before exporting any informativo)
 
-### Composition (gpt-image-1)
-- [ ] Composition generated with gpt-image-1 at 4:5 aspect ratio
-- [ ] Layout structure matches the chosen pattern (A–G)
+### Composition (Codex image tool)
+- [ ] Composition generated with Codex image tool at 4:5 aspect ratio
+- [ ] Layout structure matches the chosen pattern (Aâ€“G)
 - [ ] Empty text zones are clearly defined
 - [ ] Brand logos are visible and naturally integrated (not pasted-looking)
 - [ ] No AI-generated text or typography artifacts in the composition
@@ -621,27 +614,27 @@ PostTypes/informativos/Outputs/{topic-slug}/
 - [ ] Canvas is 1080x1350
 - [ ] Composition is the `background-image` filling edge to edge
 - [ ] `@lucianomusellaa` at top (NOT @ramiro.cubria)
-- [ ] Title has a number and 1–2 highlighted keywords
+- [ ] Title has a number and 1â€“2 highlighted keywords
 - [ ] Text elements align precisely with composition visual zones
 - [ ] All items are readable at 50% zoom (minimum 16 px text)
 - [ ] Category colors used sparingly (max 5 per post)
 - [ ] No Alta Studio watermark (that's news-only)
 
 ### Content
-- [ ] **Colombian Spanish only** — no voseo (crea, usa, etc.)
+- [ ] **Colombian Spanish only** â€” no voseo (crea, usa, etc.)
 - [ ] Content is specific and useful (no generic filler)
 - [ ] Caption drafted and saved as `caption.txt`
 - [ ] Single image unless content genuinely requires carousel
 
 ### Delivery
 - [ ] Saved to `PostTypes/informativos/Outputs/{topic-slug}/`
-- [ ] Rendered via `./render.sh` (uses `--window-size=1098,1550` + PIL crop to handle Chrome's viewport bug — content below y≈1272 was invisible with the old window size)
-- [ ] Visual QA passed — every PNG inspected, text alignment verified, bottom elements (dots, footer, handle) visible
+- [ ] Rendered via `./render.sh` (uses `--window-size=1098,1550` + PIL crop to handle Chrome's viewport bug â€” content below yâ‰ˆ1272 was invisible with the old window size)
+- [ ] Visual QA passed â€” every PNG inspected, text alignment verified, bottom elements (dots, footer, handle) visible
 - [ ] Asked user which images are favorites for `Favoritos_Claude_Generated/`
 
 ---
 
-## 13. Adapting complexity to content — "readability budget"
+## 13. Adapting complexity to content â€” "readability budget"
 
 | Content type | Density level | Layout recommendation |
 |---|---|---|
@@ -653,3 +646,5 @@ PostTypes/informativos/Outputs/{topic-slug}/
 | "Tier ranking" | Medium-high | Layout C |
 
 **The golden rule:** if you have to shrink text below 16 px to fit everything, you have too much content. Either cut items, simplify descriptions, or split into a carousel. Legibility is non-negotiable.
+
+

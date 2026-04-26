@@ -1,0 +1,9 @@
+Los agentes de Notion no solo responden: también pueden mover trabajo dentro del sistema donde tu equipo ya documenta, decide y hace seguimiento.
+
+La diferencia grande para empresas está en los flujos repetitivos: preguntas internas, reportes semanales, actualización de bases, triage de tareas y búsqueda de contexto entre herramientas.
+
+Mi lectura: el mayor ahorro no viene de reemplazar personas, sino de quitarles microtareas que rompen el foco todo el día. Si tu equipo ya usa Notion como wiki, CRM, roadmap o tracker, los agentes pueden convertir ese espacio en una capa operativa más viva.
+
+Guarda este post para revisar qué procesos repetitivos podrías automatizar primero.
+
+Fuentes: Notion Agents, Notion 3.3 Custom Agents y caso Braintrust.

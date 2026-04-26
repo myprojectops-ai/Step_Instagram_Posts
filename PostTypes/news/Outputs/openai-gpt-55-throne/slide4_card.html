@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{width:1080px;height:1350px;font-family:'Inter',system-ui,sans-serif;overflow:hidden;position:relative;background:#000}
+  .alta{position:absolute;top:44px;left:50px;height:100px;opacity:.98;z-index:10;filter:drop-shadow(0 2px 14px rgba(0,0,0,.55))}
+  .card{position:absolute;top:178px;left:60px;right:60px;bottom:96px;background:#fff;border-radius:28px;padding:58px 56px;color:#0E0E0E;display:flex;flex-direction:column;justify-content:space-between}
+  .label{font-size:16px;font-weight:800;color:#E85D3C;text-transform:uppercase;letter-spacing:.14em}
+  .big{font-size:210px;font-weight:900;line-height:.86;letter-spacing:-.055em}
+  .body{font-size:42px;font-weight:750;line-height:1.16;letter-spacing:-.018em;max-width:830px}
+  .body .yellow{background:#FFE45C;padding:0 8px 4px;border-radius:6px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+  .mini{border:1px solid #E5E7EB;border-radius:18px;padding:20px}
+  .mini-num{font-size:38px;font-weight:900;color:#E85D3C;letter-spacing:-.02em}
+  .mini-text{font-size:18px;font-weight:650;line-height:1.25;margin-top:6px;color:#4B5563}
+  .source{font-size:18px;font-weight:600;color:#6B7280;border-top:1px solid #E5E7EB;padding-top:24px}
+</style></head>
+<body>
+  <img class="alta" src="../../../../Logos/Alta_Studio_logo_white.png">
+  <div class="card">
+    <div class="label">EL DATO</div>
+    <div>
+      <div class="big">82.7%</div>
+      <div class="body">en Terminal-Bench 2.0, por encima de <span class="yellow">Claude Opus 4.7</span> y Gemini 3.1 Pro.</div>
+      <div class="grid">
+        <div class="mini">
+          <div class="mini-num">84.9%</div>
+          <div class="mini-text">en GDPval, tareas de conocimiento en 44 ocupaciones.</div>
+        </div>
+        <div class="mini">
+          <div class="mini-num">78.7%</div>
+          <div class="mini-text">en OSWorld-Verified, uso real de computadores.</div>
+        </div>
+      </div>
+    </div>
+    <div class="source">Fuente: OpenAI, evaluaciones publicadas de GPT-5.5.</div>
+  </div>
+</body></html>

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Visual Step-By-Step"
+  short_description: "Tutorial carousel workflow and visual rules"
+  default_prompt: "Use $visual-posts-step-by-step to create a tutorial carousel."
+policy:
+  allow_implicit_invocation: true

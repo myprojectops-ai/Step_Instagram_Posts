@@ -1,110 +1,113 @@
 # Visual_posts
 
-Sistema de generación de **posts de Instagram** con un lenguaje visual consistente, pensado para la cuenta **@lucianomusellaa**. Soporta tres tipos diferentes de posts, cada uno con sus propios skills, referencias visuales y workflow.
+Sistema para generar posts y carruseles de Instagram sobre inteligencia
+artificial, automatizacion y herramientas de trabajo para `@lucianomusellaa`.
 
-El proyecto está diseñado para operarse desde [Claude Code](https://claude.com/claude-code): tú escribes una intención en lenguaje natural ("hagamos un post sobre X") y el agente sigue un workflow definido para producir el post renderizado en PNG, listo para subir.
+El proyecto empezo como un flujo para Claude Code. Ahora esta migrado para ser
+operado por Codex: `AGENTS.md` es el router principal y `.codex/skills/`
+contiene los skills Codex-first. `CLAUDE.md` se conserva como referencia
+historica y compatibilidad.
 
----
+## Tipos De Posts
 
-## Tres tipos de posts
-
-| Tipo | Estado | Para qué sirve |
+| Tipo | Estado | Uso |
 |---|---|---|
-| **Step-by-step** ([`PostTypes/step-by-step/`](PostTypes/step-by-step/)) | ✅ Maduro — listo para usar | Tutoriales, how-tos, "X pasos para Y". Carruseles con cover → pasos → cierre. |
-| **News** ([`PostTypes/news/`](PostTypes/news/)) | 🚧 Por construir | Posts de noticias de IA, lanzamientos, actualizaciones. Falta definir skills + referencias. |
-| **Informativos** ([`PostTypes/informativos/`](PostTypes/informativos/)) | 🚧 Por construir | Hacks, tips, listas, "did you know". Falta definir skills + referencias. |
+| `step-by-step` | Maduro | Tutoriales, how-tos y carruseles paso a paso. |
+| `news` | Activo | Carruseles editoriales de noticias de IA, lanzamientos y anuncios. |
+| `informativos` | Activo | Infografias, hacks, listas, cheatsheets y posts guardables. |
 
-Cada tipo tiene su propio `README.md` con el workflow específico, sus skills (la "spec" de diseño visual), una carpeta de `Inspiracion/` con referencias, y `Outputs/` donde se guardan los posts renderizados.
+## Como Trabajar Con Codex
 
----
+1. Pide un post en lenguaje natural.
+2. Codex debe confirmar el tipo de post: step-by-step, news o informativo.
+3. Codex lee `AGENTS.md`.
+4. Codex carga el skill local correspondiente en `.codex/skills/`.
+5. Codex revisa inspiracion y favoritos del tipo elegido.
+6. Codex propone el desglose y espera aprobacion cuando el workflow lo exige.
+7. Codex genera HTML, imagenes o overlays segun el tipo.
+8. Codex renderiza y verifica visualmente cada PNG antes de presentarlo.
 
-## Estructura del proyecto
+## Estructura
 
-```
+```text
 Visual_posts/
-├── CLAUDE.md                          ← instrucciones del agente (autoload, router por tipo)
-├── README.md                          ← este archivo
-├── PostTypes/
-│   ├── step-by-step/                  ← tutoriales / how-tos (maduro)
-│   │   ├── README.md                  ← workflow + triggers + reglas para este tipo
-│   │   ├── Skills/                    ← spec de diseño visual
-│   │   ├── Inspiracion/               ← referencias visuales externas (drop nuevas aquí)
-│   │   ├── Favoritos_Claude_Generated/ ← imágenes favoritas del usuario de runs pasados
-│   │   └── Outputs/                   ← posts renderizados
-│   ├── news/                          ← posts de noticias de IA (por construir)
-│   └── informativos/                  ← hacks / tips / listas (por construir)
-├── Logos/                             ← assets de marca compartidos
-├── Assets/                            ← screenshots e imágenes del usuario
-├── Errors/                            ← marcado de bugs visuales para iteraciones
-├── render.sh                          ← batch renderer HTML → PNG (Chrome headless)
-└── memory/                            ← memorias persistentes del usuario
+|-- AGENTS.md
+|-- CLAUDE.md
+|-- README.md
+|-- .codex/
+|   `-- skills/
+|       |-- visual-posts-core/
+|       |-- visual-posts-step-by-step/
+|       |-- visual-posts-news/
+|       `-- visual-posts-informativos/
+|-- Skills/
+|   |-- visual-qa.md
+|   |-- slide-spacing.md
+|   `-- informativo-visual-iteration.md
+|-- PostTypes/
+|   |-- step-by-step/
+|   |-- news/
+|   `-- informativos/
+|-- Assets/
+|-- Logos/
+|-- Errors/
+`-- render.sh
 ```
 
----
+## Reglas Globales
 
-## Reglas no negociables del sistema visual (todos los tipos)
+- Idioma: espanol colombiano con `tu`; nunca voseo argentino.
+- Canvas final: 1080 x 1350 px.
+- Tipografia: Inter; JetBrains Mono para codigo.
+- Step-by-step e informativos usan `@lucianomusellaa`.
+- News no usa `@lucianomusellaa`; usa logo de Alta Studio.
+- No usar credenciales locales para generar imagenes.
+- Todas las imagenes generativas las produce Codex con su herramienta integrada,
+  sin depender de cobros del proyecto.
+- Toda imagen renderizada debe pasar QA visual antes de presentarse.
 
-- **Handle**: siempre `@lucianomusellaa` en la parte superior de cada slide.
-- **Idioma**: español **colombiano** con `tú` (nunca voseo argentino: ✅ `crea`, `define`, `instala` / ❌ `creá`, `definí`, `instalá`).
-- **Paleta**:
-  - Fondo crema `#F5F2ED` con grid sutil `#E8E4DD`
-  - Texto principal `#0E0E0E`
-  - Acento coral `#E85D3C`
-  - Highlight amarillo `#FFE45C`
-- **Tipografía**: Inter (500/600/700/800) + JetBrains Mono para código.
-- **Canvas**: 1080 × 1350 px (4:5 portrait).
-- **Generación de imágenes**: 100% HTML + CSS + SVG inline, renderizado a PNG con Chrome headless. **Sin APIs externas de generación de imágenes** — todo se construye con código.
+## Render Manual
 
-Detalle completo en [CLAUDE.md](CLAUDE.md) y en los skills de cada tipo (por ejemplo [PostTypes/step-by-step/Skills/](PostTypes/step-by-step/Skills/)).
-
----
-
-## Cómo usarlo (con Claude Code)
-
-### Requisitos previos
-
-- [Claude Code](https://claude.com/claude-code) instalado
-- [Google Chrome](https://www.google.com/chrome/) instalado (lo usa `render.sh` en modo headless)
-
-### Disparar un post
-
-Escribe alguna de estas frases en Claude Code (el agente identificará automáticamente el tipo de post según la frase):
-
-**Step-by-step** (tutoriales):
-- `nuevo post: {tema}`
-- `hagamos un post sobre {tema}`
-- `tutorial de {tema}`
-
-**News** (cuando esté construido):
-- `post de noticia: {titular}`
-- `esto salió hoy: {url}`
-
-**Informativos** (cuando esté construido):
-- `post informativo de {tema}`
-- `post de hacks de {tema}`
-- `5 prompts para {tema}`
-
-El agente te pedirá el contexto faltante, te propondrá el desglose en texto, y solo después de tu aprobación generará y renderizará los slides.
-
-### Renderizar manualmente
+Renderizar una carpeta:
 
 ```bash
 ./render.sh PostTypes/step-by-step/Outputs/{topic-slug}
 ```
 
-Convierte todos los `.html` de la carpeta a PNGs del mismo nombre.
+Renderizar un archivo:
 
----
+```bash
+./render.sh PostTypes/news/Outputs/{topic-slug}/slide1_cover.html
+```
 
-## Cómo añadir un nuevo tipo de post
+En PowerShell puede ser necesario:
 
-1. Crea referencias visuales y déjalas en `PostTypes/{nuevo-tipo}/Inspiracion/`
-2. Co-crea con Claude el skill que captura el patrón visual de esas referencias en `PostTypes/{nuevo-tipo}/Skills/`
-3. Actualiza el `README.md` del tipo con el workflow específico
-4. Añade el tipo y sus trigger phrases a la sección 1 del [CLAUDE.md](CLAUDE.md) raíz
+```powershell
+bash render.sh PostTypes/step-by-step/Outputs/{topic-slug}
+```
 
----
+## Imagenes Generativas
 
-## Créditos visuales
+Las imagenes generativas se crean siempre con la herramienta integrada de Codex,
+no con scripts locales ni credenciales del proyecto.
 
-El lenguaje visual está inspirado en el estilo de creadores de contenido AI (referencia: @ramiro.cubria — solo estilo visual, no el handle). El proyecto está adaptado a la voz y audiencia de **@lucianomusellaa**.
+Flujo:
+
+1. Codex genera la imagen en la herramienta integrada.
+2. Codex la guarda dentro del proyecto en la carpeta correspondiente:
+   `PostTypes/{type}/Outputs/{topic-slug}/`, `Logos/` o `Assets/`.
+3. El post usa esa imagen local para el render final.
+
+No debe existir ningun archivo local de credenciales para imagenes en este proyecto.
+
+## Notas De Migracion
+
+- La fuente de operacion para Codex es `AGENTS.md` + `.codex/skills/`.
+- Los skills originales en `PostTypes/*/Skills/` siguen siendo la spec visual
+  detallada.
+- Algunos outputs antiguos de `news` pertenecen a un formato deprecated; no se
+  deben usar como regla actual.
+- Algunos scripts generados antiguos usan `C:/Visual_posts`; el workspace actual
+  es `C:/Trabajo_AI/Visual_posts`. Usar rutas relativas cuando sea posible.
+- Referencias antiguas a modelos o scripts locales de imagen deben interpretarse como
+  "usar la herramienta integrada de imagen de Codex".

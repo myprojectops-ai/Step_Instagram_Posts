@@ -1,0 +1,6 @@
+interface:
+  display_name: "Visual Informativos"
+  short_description: "Dense AI infographic workflow"
+  default_prompt: "Use $visual-posts-informativos to create a save-worthy infographic."
+policy:
+  allow_implicit_invocation: true

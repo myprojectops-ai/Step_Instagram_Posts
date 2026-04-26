@@ -1,6 +1,6 @@
----
+﻿---
 name: informativo-visual-iteration
-description: Self-iteration skill for informativo posts — render with PIL, screenshot, check alignment against exact blob positions (scipy connected components), fix, repeat until visually correct before presenting to user.
+description: Self-iteration skill for informativo posts â€” render with PIL, screenshot, check alignment against exact blob positions (scipy connected components), fix, repeat until visually correct before presenting to user.
 type: skill
 ---
 
@@ -10,11 +10,11 @@ type: skill
 
 ## The problem this solves
 
-Informativo posts use gpt-image-1 compositions + PIL text overlay. The text must align precisely with organic blob shapes in the composition. Manual position estimates can be off by **100+ pixels** on irregular shapes. This skill ensures positions are calculated precisely and verified visually before the user sees anything.
+Informativo posts use Codex image tool compositions + PIL text overlay. The text must align precisely with organic blob shapes in the composition. Manual position estimates can be off by **100+ pixels** on irregular shapes. This skill ensures positions are calculated precisely and verified visually before the user sees anything.
 
 ---
 
-## Step 0 — Find exact blob positions with scipy (BEFORE any rendering)
+## Step 0 â€” Find exact blob positions with scipy (BEFORE any rendering)
 
 **Never guess pixel coordinates.** Use connected component analysis on the composition image to find the exact center of each white interior:
 
@@ -46,14 +46,14 @@ for i in range(1, n + 1):
 ```
 
 This gives:
-- **center (cx, cy)** — where to center the text block
-- **bbox width and height** — maximum area for text (use ~75-85% of this to leave padding)
+- **center (cx, cy)** â€” where to center the text block
+- **bbox width and height** â€” maximum area for text (use ~75-85% of this to leave padding)
 
 Store these values and use them for ALL text positioning. Do NOT manually estimate.
 
 ---
 
-## Step 1 — PIL compositing (NOT Chrome/render.sh)
+## Step 1 â€” PIL compositing (NOT Chrome/render.sh)
 
 **Always use PIL for informativo text compositing.** Chrome on Windows creates border artifacts with background-image compositions.
 
@@ -80,33 +80,33 @@ canvas.convert("RGB").save("output.png", quality=95)
 ```
 
 ### Key rules for PIL compositing:
-- **No white card backgrounds** — text goes directly on the composition. White ovals already provide contrast.
-- **Center text on scipy-detected blob centers** — not manual estimates.
+- **No white card backgrounds** â€” text goes directly on the composition. White ovals already provide contrast.
+- **Center text on scipy-detected blob centers** â€” not manual estimates.
 - **Wrap descriptions** to fit within ~75% of the blob's detected width.
 - **Handle goes at the BOTTOM** of the image (not top) for informativo posts.
 - **Title** should be large (38px+) and centered in the composition's title bar area.
 
 ---
 
-## Step 2 — The self-iteration loop
+## Step 2 â€” The self-iteration loop
 
 ```
 FOR EACH render attempt:
   1. RENDER the image with PIL
   2. READ the rendered PNG (use Read tool to visually inspect)
   3. CHECK every element against the checklist below
-  4. IF any check fails → identify what's wrong, FIX it, go back to step 1
-  5. IF all checks pass → the image is ready to present to the user
+  4. IF any check fails â†’ identify what's wrong, FIX it, go back to step 1
+  5. IF all checks pass â†’ the image is ready to present to the user
 ```
 
 **Maximum iterations:** 5. If after 5 attempts there are still minor issues, present the best version with honest notes.
 
 ---
 
-## Checklist — verify on EVERY render
+## Checklist â€” verify on EVERY render
 
 ### Edge-to-edge
-- [ ] Image is exactly 1080x1350 — no white, black, or colored strips on any edge
+- [ ] Image is exactly 1080x1350 â€” no white, black, or colored strips on any edge
 - [ ] Composition reaches all 4 corners
 - [ ] `canvas.size == (1080, 1350)` verified in code before saving
 
@@ -122,14 +122,14 @@ FOR EACH render attempt:
 - [ ] `@lucianomusellaa` is at the BOTTOM, visible, not overlapping with anything
 
 ### Typography
-- [ ] All text is readable — names are big (28-36px), descriptions are legible (16-18px)
+- [ ] All text is readable â€” names are big (28-36px), descriptions are legible (16-18px)
 - [ ] No text is cut off
 - [ ] Badge pills have correct brand colors
 - [ ] Descriptions don't overflow the blob area
 
 ### Spacing
 - [ ] Name and badge are NOT overlapping (check especially on smaller blobs)
-- [ ] Adequate gap between name → badge → description (min 6px)
+- [ ] Adequate gap between name â†’ badge â†’ description (min 6px)
 - [ ] Footer/handle not cut off at bottom edge
 
 ---
@@ -139,3 +139,4 @@ FOR EACH render attempt:
 The user's time is more valuable than render cycles. It's better to iterate 5 times silently and present one clean image than to show 5 broken iterations asking for feedback on each.
 
 If the self-QA catches an issue, fix it **without telling the user about the intermediate failure**. Only mention the iteration process if the user asks or if you hit the 5-iteration limit.
+

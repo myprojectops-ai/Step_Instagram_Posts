@@ -1,0 +1,6 @@
+interface:
+  display_name: "Visual News Carousel"
+  short_description: "Dark AI news carousel workflow"
+  default_prompt: "Use $visual-posts-news to create a verified AI news carousel."
+policy:
+  allow_implicit_invocation: true

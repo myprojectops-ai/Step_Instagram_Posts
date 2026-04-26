@@ -1,0 +1,6 @@
+interface:
+  display_name: "Visual Posts Core"
+  short_description: "Shared rules for Instagram post generation"
+  default_prompt: "Use $visual-posts-core to render and QA a Visual_posts asset."
+policy:
+  allow_implicit_invocation: true
