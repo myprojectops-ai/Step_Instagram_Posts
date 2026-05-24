@@ -164,31 +164,20 @@ Text in top zone, photo at bottom. Text zone must use its height.
 If text is SHORT (2–3 lines): increase font size OR center vertically in text zone using flex.
 If text is LONG (6+ lines): use smaller font and top-align.
 
-### 3.4 Cover (news: full-bleed photo + gradient; step-by-step: cream + typographic)
+### 3.4 Cover patterns (per post type)
 
-**News covers:** full-bleed 4:5 photo fills entire canvas. CSS gradient darkens the bottom ~40%. Headline at `top:860px` and bottom-row at `top:1268px` are SEPARATE absolute-positioned elements (not nested — Chrome clips nested children).
+Canonical cover patterns are defined in [Brand/brand-spec.md §3](../Brand/brand-spec.md). Summary:
 
-```
-┌──────────────────┐
-│                  │
-│  [PHOTO 4:5]     │ ← fills entire 1350px canvas
-│  full bleed      │
-│                  │
-│ ┄┄┄gradient┄┄┄┄  │ ← CSS gradient starts ~62% from top
-│                  │
-│ HEADLINE         │ ← top:860px, absolute
-│ BIG BOLD 62–68px │
-│                  │
-│ tagline    [pill]│ ← top:1268px, absolute (SEPARATE element)
-└──────────────────┘
-```
+**Tutorial cover (step-by-step):** background color from the chosen mode (LIGHT cream `#efedec` or DARK navy gradient). Layout: `@lucianomusellaa` orange small caps at top → headline (Roboto Bold + 1 word in Playfair Italic accent color) → solid-color pill with "en X pasos" in white → visual hook (terminal mockup, illustration, orgchart) → "Desliza" pill at bottom. See `Brand/Templates/Tutorial/{COLOR}/{STYLE}/{MODE}/` for reference PNGs.
 
-**Step-by-step covers:** cream background, typographic layout as before.
+**News cover:** full-bleed 4:5 Higgsfield photo fills entire canvas. CSS gradient darkens the bottom ~40%. Headline (Roboto Black ALL CAPS, white) at `top:860px` and bottom-row (subtitle + optional SWIPE pill) at `top:1268px` are SEPARATE absolute-positioned elements (Chrome clips nested children). 1-3 emphasis words rendered in Playfair Italic in the highlight color. See `Brand/Templates/Noticias/{COLOR}/{MODE}/`.
 
-Font scaling for cover headlines:
-- 2–3 line headline: **70–80px**
-- 4 line headline: **62–68px**
-- 5 line headline: **54–58px**
+**Informativo cover:** full-canvas Higgsfield composition (background + visual structure + decorative elements) with HTML text overlay aligned to the composition's empty zones. See `PostTypes/informativos/Skills/informativo-post-design.md`.
+
+Font scaling for cover headlines (all post types, all modes):
+- 2-3 line headline: **70-84px**
+- 4 line headline: **62-68px**
+- 5 line headline: **54-58px**
 
 ---
 

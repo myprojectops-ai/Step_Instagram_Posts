@@ -1,6 +1,6 @@
 ﻿---
 name: informativo-visual-iteration
-description: Self-iteration skill for informativo posts â€” render with PIL, screenshot, check alignment against exact blob positions (scipy connected components), fix, repeat until visually correct before presenting to user.
+description: Self-iteration skill for informativo posts -- render with PIL, screenshot, check alignment against exact blob positions (scipy connected components), fix, repeat until visually correct before presenting to user.
 type: skill
 ---
 
@@ -10,7 +10,7 @@ type: skill
 
 ## The problem this solves
 
-Informativo posts use Codex image tool compositions + PIL text overlay. The text must align precisely with organic blob shapes in the composition. Manual position estimates can be off by **100+ pixels** on irregular shapes. This skill ensures positions are calculated precisely and verified visually before the user sees anything.
+Informativo posts use **Higgsfield-generated compositions** + PIL text overlay. The text must align precisely with organic blob shapes in the composition. Manual position estimates can be off by **100+ pixels** on irregular shapes. This skill ensures positions are calculated precisely and verified visually before the user sees anything.
 
 ---
 
@@ -66,12 +66,14 @@ if comp.size != (1080, 1350):
 canvas = comp.copy()
 draw = ImageDraw.Draw(canvas)
 
-# Fonts from Assets/Fonts/
-font_name = ImageFont.truetype("Assets/Fonts/Inter-ExtraBold.ttf", 30)
-font_badge = ImageFont.truetype("Assets/Fonts/Inter-Bold.ttf", 14)
-font_desc = ImageFont.truetype("Assets/Fonts/Inter-Medium.ttf", 18)
-font_title = ImageFont.truetype("Assets/Fonts/Inter-Black.ttf", 38)
-font_handle = ImageFont.truetype("Assets/Fonts/Inter-Medium.ttf", 20)
+# Fonts from Brand/Fonts/ (brand v2)
+font_name   = ImageFont.truetype("Brand/Fonts/Roboto/static/Roboto-Bold.ttf", 30)
+font_badge  = ImageFont.truetype("Brand/Fonts/Roboto/static/Roboto-Bold.ttf", 14)
+font_desc   = ImageFont.truetype("Brand/Fonts/Roboto/static/Roboto-Medium.ttf", 18)
+font_title  = ImageFont.truetype("Brand/Fonts/Roboto/static/Roboto-Black.ttf", 38)
+font_handle = ImageFont.truetype("Brand/Fonts/Roboto/static/Roboto-Medium.ttf", 20)
+# For italic emphasis words, use Playfair Display Italic:
+font_italic = ImageFont.truetype("Brand/Fonts/PlayfairDisplay/static/PlayfairDisplay-Italic.ttf", 38)
 
 # Draw text centered on blob centers from Step 0
 # ... (name, badge pill, wrapped description for each tool)
@@ -118,7 +120,8 @@ FOR EACH render attempt:
 
 ### Title and handle
 - [ ] Title is large, centered in the composition's title bar area
-- [ ] Highlighted keywords (coral number, yellow marker) are visible
+- [ ] Highlighted keywords use the scheme's accent color (`#ffb050` orange / `#e60000` red / `#0056a6` blue) -- never both at once
+- [ ] Emphasis words rendered in Playfair Display Italic where applicable
 - [ ] `@lucianomusellaa` is at the BOTTOM, visible, not overlapping with anything
 
 ### Typography

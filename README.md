@@ -54,16 +54,16 @@ Visual_posts/
 `-- render.sh
 ```
 
-## Reglas Globales
+## Reglas Globales (brand v2)
 
 - Idioma: espanol colombiano con `tu`; nunca voseo argentino.
 - Canvas final: 1080 x 1350 px.
-- Tipografia: Inter; JetBrains Mono para codigo.
-- Step-by-step e informativos usan `@lucianomusellaa`.
-- News no usa `@lucianomusellaa`; usa logo de Alta Studio.
-- No usar credenciales locales para generar imagenes.
-- Todas las imagenes generativas las produce Codex con su herramienta integrada,
-  sin depender de cobros del proyecto.
+- Tipografia: Roboto (body/headings) + Playfair Display Italic (1-2 palabras de enfasis por titular).
+- Paleta: 3 esquemas (AMARILLO/ROJO/AZUL) x 2 modos (LIGHT/DARK). El usuario elige por post. Detalles en `Brand/brand-spec.md`.
+- Tutorial cover + informativos usan `@lucianomusellaa`. Slides intermedias de tutoriales no.
+- News no usa `@lucianomusellaa`; usa logo de Alta Studio en una sola esquina.
+- Sin page dots en ninguna slide (Instagram pagina nativamente).
+- Imagenes generativas: Higgsfield MCP unicamente (OAuth con la cuenta paga). Codex image tool y gpt-image-1 estan deprecados.
 - Toda imagen renderizada debe pasar QA visual antes de presentarse.
 
 ## Render Manual

@@ -42,11 +42,12 @@ For every rendered PNG, open the image with the Read tool and verify:
 
 ### 3.3 Text
 - [ ] Headline is fully visible and legible (not clipped, not running off-canvas)
-- [ ] Headline contrast is sufficient against the background (white text on dark overlay must be crisp)
-- [ ] Accent colors (coral, yellow) actually render on the highlighted words
+- [ ] Headline contrast is sufficient against the background (light text on DARK mode bg, dark text on LIGHT mode bg)
+- [ ] **Fonts loaded correctly** -- Roboto for body/headings, Playfair Display Italic for emphasis words. If you see a generic system serif/sans fallback instead of these, `@font-face` failed -- check the path in the HTML
+- [ ] **Highlight color matches chosen scheme** -- AMARILLO posts show orange `#ffb050` highlights, ROJO shows red `#e60000`, AZUL shows blue `#0056a6`. Wrong scheme = visible mismatch with the rest of the carousel
 - [ ] No text overflow or wrapping issues (words don't break mid-syllable in ugly ways)
-- [ ] Badge text ("AI NEWS", "PASO X") is readable
-- [ ] Username `@lucianomusellaa` is visible
+- [ ] Eyebrow / badge text ("TUTORIAL · PASO 01", "LA CONTROVERSIA", etc.) is readable
+- [ ] Username `@lucianomusellaa` is visible on slides that should have it (tutorial covers + informativos) and ABSENT on news slides (which use Alta Studio logo instead)
 
 ### 3.4 Layout
 - [ ] Elements are positioned where intended (top bar at top, headline in bottom third for news, etc.)

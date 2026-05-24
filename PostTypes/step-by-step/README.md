@@ -1,10 +1,10 @@
-# Step-by-step posts — workflow
+# Step-by-step posts -- workflow
 
-This is the **mature** post type. Its visual system, layouts and copy rules are fully defined in the 3 skills inside [`Skills/`](Skills/). Whenever the user triggers a step-by-step post, follow this workflow **in order**. Do not skip steps. Do not render images before the user approves the breakdown.
+This is the **most mature** post type. Its visual system, layouts, and copy rules live in the 4 skills inside [`Skills/`](Skills/) and in [Brand/brand-spec.md](../../Brand/brand-spec.md). Whenever the user triggers a step-by-step post, follow this workflow **in order**. Do not skip steps. Do not render images before the user approves the breakdown.
 
 ## What this type is for
 
-Tutorials, how-tos, "X pasos para Y", anything where the carousel walks the viewer through a sequence of actions. The carousel is structured as: **cover → paso 1 → paso 2 → … → cierre**.
+Tutorials, how-tos, "X pasos para Y", anything where the carousel walks the viewer through a sequence of actions. Carousel structure: **cover → paso 01 → paso 02 → ... → cierre**.
 
 ## Trigger phrases
 
@@ -20,118 +20,129 @@ Tutorials, how-tos, "X pasos para Y", anything where the carousel walks the view
 
 In this exact order:
 
-1. [Skills/instagram-post-design.md](Skills/instagram-post-design.md) — base visual system (palette, fonts, render pipeline, anti-patterns, slide indicator)
-2. [Skills/instagram-cover-design.md](Skills/instagram-cover-design.md) — cover layouts (Layout A: two logos / Layout B: mockup / Layout C: typographic)
-3. [Skills/instagram-step-slide-design.md](Skills/instagram-step-slide-design.md) — step slides + closing slide
+1. [Brand/brand-spec.md](../../Brand/brand-spec.md) -- canonical palette, fonts, slide patterns
+2. [Skills/instagram-post-design.md](Skills/instagram-post-design.md) -- step-by-step base (workflow, Colombian Spanish, scaffolds)
+3. [Skills/instagram-cover-design.md](Skills/instagram-cover-design.md) -- cover layouts (Tutorial cover pattern with italic emphasis + solid pill + visual hook)
+4. [Skills/instagram-step-slide-design.md](Skills/instagram-step-slide-design.md) -- step slides + closing slide
+5. [Skills/instagram-dark-mode.md](Skills/instagram-dark-mode.md) -- only when the user chose DARK mode at the start
 
-### Opt-in skill — dark mode
+Plus the global mandatory skills:
+- [Skills/visual-qa.md](../../Skills/visual-qa.md) -- mandatory post-render QA
+- [Skills/slide-spacing.md](../../Skills/slide-spacing.md) -- universal spacing rules
 
-4. [Skills/instagram-dark-mode.md](Skills/instagram-dark-mode.md) — **only when the user explicitly asks** for "modo oscuro" / "dark mode" / "convierte este post a modo oscuro". Defines the warm-dark palette (background `#17140F`, text `#F5F2ED`) and the conversion rules. Coral and yellow accents stay unchanged. Default is always light — never volunteer dark mode unprompted.
-
-Also, **mandatory before any new post** (see root [CLAUDE.md](../../CLAUDE.md) section 1.5):
-- Review at least 2 reference images from [Inspiracion/](Inspiracion/), prioritizing ones I haven't viewed in recent jobs
-- Review **all** images currently inside [Favoritos_Claude_Generated/](Favoritos_Claude_Generated/) (the user's curated favorites from past sessions)
+**Mandatory before any new post** (see root [CLAUDE.md](../../CLAUDE.md) §1.5):
+- Open at least 2 reference PNGs from `Brand/Templates/Tutorial/{COLOR}/{STYLE}/{MODE}/` matching the user's choices
+- Review at least 2 images from [Inspiracion/](Inspiracion/), prioritizing ones not viewed in recent jobs
+- Review **all** images in [Favoritos_Claude_Generated/](Favoritos_Claude_Generated/)
 - Plan at least one structural variation vs. the most recent step-by-step post so the new one doesn't visually rhyme with the previous
 
 ---
 
 ## Type-specific non-negotiable rules
 
-(These extend the brand-wide rules in the root [CLAUDE.md](../../CLAUDE.md). They are step-by-step specific.)
+(These extend the brand-wide rules in the root [CLAUDE.md](../../CLAUDE.md) and Brand/brand-spec.md. They are step-by-step specific.)
 
-### Highlight rules
-- **Cover slides** → DOUBLE highlight by default: one keyword in coral, the other on yellow marker (user-confirmed preference, validated against 5 alternatives)
-- **Step slides** → SINGLE highlight only: one keyword in coral OR on yellow, never both
-- **Closing slide** → may use a single coral accent in the big text
+### Headline emphasis pattern
+- **Cover slide:** 1 word in Playfair Display Italic in the scheme highlight color
+- **Step slides:** 1 word in Playfair Display Italic in the scheme highlight color (same pattern, shorter overall headline)
+- **Closing slide:** typically a bold black/white primary text without italic emphasis (the visual + CTA pill carry the emphasis)
+- Never use 2 italic words in the same headline. Single emphasis only.
 
-### Slide indicator (mandatory)
-- Every slide in a carousel includes a **slide indicator** at the bottom: `N` small dots (one per slide), the current slide's dot bigger and coral, the rest small and grey `#D5D0C8`
-- See [Skills/instagram-post-design.md](Skills/instagram-post-design.md) section 4.5 for the full spec
-- Position: above `Desliza →` on slides 1..N-1; at the bottom of the closing slide (which has no `Desliza →`)
+### Eyebrow on step slides
+- Every step slide opens with `TUTORIAL · PASO 0X` (zero-padded 2-digit number) in the scheme highlight color, ALL CAPS, letter-spacing 2px
+- Covers do NOT have an eyebrow
+- Closing slides do NOT have an eyebrow
+
+### Handle position
+- `@lucianomusellaa` appears on the **cover and the closing slide only**
+- Interior step slides do NOT show the handle (saves vertical space for content)
+- This is a brand v2 change from the old "handle on every slide" rule
+
+### No page dots
+- Instagram adds carousel pagination natively. **Never add dot indicators** to slides. Per `feedback_no_page_dots.md`.
 
 ### File naming inside the post folder
-- `cover_v{n}_{descriptor}.html` for cover variations (always generate 3+)
-- `paso_{n}_{descriptor}.html` for step slides
+- `cover_v{n}_{descriptor}.html` for cover variations (generate 2-3)
+- `paso_{n}_{descriptor}.html` for step slides (e.g. `paso_1_instala.html`)
 - `cierre_cta.html` for the closing slide
 
 ---
 
-## Standard workflow (10 steps)
+## Standard workflow (11 steps)
 
-### Step 0 — Confirm post type (MANDATORY)
-Before anything else, **always ask the user to confirm** that this is a step-by-step post (not news, not informativo). Phrasings can be ambiguous. Never assume — even if the trigger phrase is obvious. See root [CLAUDE.md](../../CLAUDE.md) section 1 for the exact question.
+### Step 0 -- Confirm post type + color + mode (MANDATORY)
+Per root [CLAUDE.md §1](../../CLAUDE.md), ask the user to confirm three things: post type, color scheme (AMARILLO / ROJO / AZUL), and mode (LIGHT / DARK). Never assume.
 
-### Step 1 — Re-anchor visually (silent, fast — but MANDATORY)
-- Read the 3 skill files listed above
-- **List `Inspiracion/`** to catch any newly added references; open at least 2 (preferring ones not viewed in recent jobs)
-- **List and read every image in `Favoritos_Claude_Generated/`** — these are the user's curated past favorites and the strongest signal of what works
-- **List `Logos/` (project root)** so I know which real brand assets are available for any brand the post mentions. See root [CLAUDE.md](../../CLAUDE.md) section 3.5.1 — never fabricate a brand logo.
-- Check `memory/MEMORY.md` for any user preferences I should know
-- Plan at least one structural variation vs. the most recent step-by-step post (different cover layout, different visual element, different hook structure) so the new post doesn't visually rhyme with the previous one. **Variety is essential.**
+### Step 1 -- Re-anchor visually (silent, fast -- but MANDATORY)
+- Read the skills listed above
+- **Open `Brand/Templates/Tutorial/{COLOR}/{STYLE}/{MODE}/`** for the user's choices and read at least 2 PNGs
+- **List `Inspiracion/`** and open at least 2 reference images
+- **List and read every image in `Favoritos_Claude_Generated/`** (the user's curated past favorites)
+- **List `Logos/` (project root)** so I know which real brand assets are available
+- Plan at least one structural variation vs. the most recent step-by-step post
 
-### Step 2 — Gather context (ask the user only what's missing)
-Ask, in one message, only the questions whose answers I don't already have:
+### Step 2 -- Gather context (ask only what's missing)
+In one message, only ask the questions whose answers I don't already have:
 1. **How many slides?** (Default: cover + 4 pasos + closing = 6 slides)
-2. **Source material?** Is there a URL / doc / paste-in I should base the steps on? (If yes, fetch it now)
-3. **Any specific keyword(s)** the user wants highlighted in the cover headline?
-4. **Are there real screenshots / logos** in `Assets/` or `Logos/` I should use, or should I recreate UIs in HTML?
+2. **Source material?** URL / doc / paste-in?
+3. **Specific italic emphasis word** the user wants in the cover headline?
+4. **Real screenshots / logos** in `Assets/` or `Logos/` I should use?
 5. **Tone / angle**: instructional (default), bold claim, case study, opinion?
 
-If the user already gave me a URL or all this info upfront, **don't re-ask** — go to step 3.
-
-### Step 3 — Propose the breakdown in plain text (DO NOT render yet)
+### Step 3 -- Propose the breakdown in plain text (DO NOT render yet)
 Write the full carousel breakdown as text:
-- For the cover: 3 headline variants with the exact double-highlight keywords for each
-- For each step: PASO N + headline (with keyword in `**bold**`) + subtitle (or "none — visual carries it") + mockup description
+- For the cover: 2-3 headline variants with the exact italic emphasis word for each + optional "en X pasos" pill
+- For each step: `PASO 0X` + headline (with `**italic-word**`) + body subtitle (or "none -- visual carries it") + visual hook description
 - For the closing: pre-text + big text + CTA pill word + caption
 
-Then ask: *"¿Apruebas el desglose o ajustamos algo antes de generar?"*
+Ask: *"¿Apruebas el desglose o ajustamos algo antes de generar?"*
 
-### Step 4 — Wait for approval
-Do not write any HTML until the user approves. If they want changes, iterate on the text breakdown.
+### Step 4 -- Wait for approval
+Do not write any HTML until the user approves.
 
-### Step 5 — Create the output folder
+### Step 5 -- Create the output folder (dated)
 ```bash
-mkdir -p "PostTypes/step-by-step/Outputs/{topic-slug}"
+mkdir -p "PostTypes/step-by-step/Outputs/$(date +%Y-%m-%d)_{topic-slug}"
 ```
-The slug must be kebab-case, ≤4 words.
+Slug: kebab-case, ≤4 words. **Folder MUST start with `YYYY-MM-DD_` prefix** (today's date) so the auto-prune step can sort and keep only the last 5 posts per type. See root CLAUDE.md §3.6.
 
-### Step 6 — Write the HTML files
+### Step 6 -- Generate any missing logos via Higgsfield MCP
+If a brand mentioned in the post lacks a logo in `Logos/`, generate it via `mcp__higgsfield__generate_image`. Save to `Logos/` after user review. See root CLAUDE.md §3.5.
+
+### Step 7 -- Write the HTML files
 - Use the scaffolds from the skills as starting points
-- Inline all CSS in each file (no external stylesheets — Chrome headless renders these standalone)
-- Include the slide indicator footer on every slide (with the correct dot active)
-- Use Inter via Google Fonts CDN, JetBrains Mono for any code
+- Inline all CSS in each file (no external stylesheets)
+- Use the `@font-face` block from `Brand/brand-spec.md §2` -- local TTFs, no Google Fonts CDN
+- NO page dots
+- Match palette tokens to the user's chosen scheme + mode
 
-### Step 7 — Render with `./render.sh`
+### Step 8 -- Render with `./render.sh`
 ```bash
 ./render.sh PostTypes/step-by-step/Outputs/{topic-slug}
 ```
-This converts every `.html` in the folder to a `.png` of the same name.
 
-### Step 8 — Verify each PNG visually
-Read each rendered `.png` with the Read tool to confirm:
-- Username is `@lucianomusellaa`
-- Spanish is Colombian (no `á` at end of imperatives)
-- Slide indicator has the correct dot active
-- No layout overflow / clipping
-- Highlights match the breakdown
+### Step 9 -- Verify each PNG visually (Visual QA -- mandatory)
+Read each rendered `.png` to confirm fonts loaded (Roboto + Playfair Italic, not fallback), palette matches scheme/mode, Colombian Spanish, no page dots, no layout overflow.
 
-### Step 9 — Present to the user
-Show the carousel as a sequence (cover → paso 1 → ... → cierre) using markdown links to each PNG. Offer iterations: copy tweaks, layout swaps, color adjustments.
+### Step 10 -- Present to the user
+Show the carousel as a sequence (cover → paso 01 → ... → cierre). Offer iterations.
 
-### Step 10 — Iterate slide by slide until ready
-Each iteration should be the **smallest possible change**. Re-render only the affected slide(s), not the whole carousel.
-
-### Step 11 — Capture favorites (MANDATORY)
-Once the user is happy with the final post, **always ask**:
+### Step 11 -- Capture favorites (MANDATORY)
+Once the user is happy:
 
 > *"¿Cuáles imágenes de este post son tus favoritas? Las guardo en `Favoritos_Claude_Generated/` para usar como referencia en posts futuros."*
 
-For each image the user names:
 ```bash
 cp "PostTypes/step-by-step/Outputs/{topic-slug}/{slide_name}.png" \
    "PostTypes/step-by-step/Favoritos_Claude_Generated/{topic-slug}_{slide_name}.png"
 ```
-- **Always `cp`, never `mv`** — the original outputs stay where they are.
-- Prefix the destination filename with the topic slug so it's clear which post it came from.
-- If the user says "ninguna" or skips, don't save anything but still ask. The answer is data either way.
+
+- **Always `cp`, never `mv`**
+- Prefix destination with the topic slug
+- If "ninguna" or skip, don't save anything but still ask
+
+### Step 12 -- Prune old outputs (MANDATORY, after favorites)
+```bash
+python Brand/prune_outputs.py step-by-step
+```
+Keeps the 5 most-recent dated folders, deletes older ones. Favorites already copied in Step 11 survive (they live in `Favoritos_Claude_Generated/`, which is never pruned). Historical pre-migration folders without a date prefix are also never touched. See root CLAUDE.md §3.6.

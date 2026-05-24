@@ -1,97 +1,86 @@
 ---
 name: instagram-post-design
-description: BASE visual system for all Instagram posts in this project. Defines the shared design language (canvas, colors, fonts, anti-patterns, render pipeline) used by both instagram-cover-design and instagram-step-slide-design. Read this first whenever working on any post — the layout-specific skills extend this foundation.
+description: BASE visual system for step-by-step Instagram posts (tutorials, how-tos, paso-a-paso). Defines the shared design language, headline patterns, Colombian Spanish rules, and HTML scaffolds. The two sibling skills (instagram-cover-design, instagram-step-slide-design) extend this base. Read this first whenever building a step-by-step post.
 type: skill
 ---
 
-# Instagram Post Design — Base System
+# Instagram Step-by-Step Post Design -- Base System
 
-> **Project root:** `c:/Visual_posts/`. The autoloaded **[`CLAUDE.md`](../../../CLAUDE.md)** at the project root contains the trigger phrases and routes to per-type workflows. The step-by-step workflow lives in [`../README.md`](../README.md). Read those for the *process*; read this skill for the *visual system*.
+> **Project root:** `c:/Trabajo_AI/Visual_posts/`. The autoloaded [CLAUDE.md](../../../CLAUDE.md) is the master router. The step-by-step workflow lives in [../README.md](../README.md). The **brand visual system lives in [Brand/brand-spec.md](../../../Brand/brand-spec.md)** -- this skill builds on top of it.
 
-This is the **foundation skill**. It defines the shared visual language used across every slide in the project. Two specialized skills extend this base:
+This is the **foundation skill** for the step-by-step (tutorial) post type. Two specialized skills extend it:
 
-- **[instagram-cover-design.md](instagram-cover-design.md)** — for the cover / thumbnail / first slide of a carousel
-- **[instagram-step-slide-design.md](instagram-step-slide-design.md)** — for the step-by-step slides that come after the cover
+- **[instagram-cover-design.md](instagram-cover-design.md)** -- the cover / first slide of the carousel
+- **[instagram-step-slide-design.md](instagram-step-slide-design.md)** -- the step slides + closing slide
 
-When the user asks me to make a post, I should:
-1. Read **this** skill first (visual system, palette, fonts, render pipeline)
-2. Then read the **layout-specific** skill that matches what they want (cover or step)
-3. Then re-open `Inspiracion/` to re-anchor visually
-
-## Brand handle
-
-The Instagram handle that appears at the top of **every** slide is **`@lucianomusellaa`** (note the double "a"). This is the project owner. The reference creator `@ramiro.cubria` shown in the `Inspiracion/` images is only the *visual style* inspiration — never put their handle on a generated post.
-
-Reference examples live in [Inspiracion/](../Inspiracion/) — always re-read them at the start of a new post job to ground myself visually. The username in those reference images is wrong for our purposes; ignore it and use `@lucianomusellaa`.
+When the user asks for a tutorial post, I:
+1. Read **brand-spec.md** (canonical palette, fonts, slide patterns)
+2. Read **this** skill (step-by-step workflow + Colombian Spanish + scaffolds)
+3. Read the layout-specific sibling skill (cover or step)
+4. Re-anchor visually -- start with `Brand/Templates/Tutorial/{COLOR}/{STYLE}/{MODE}/`, then `Inspiracion/`, then `Favoritos_Claude_Generated/`
 
 ---
 
-## 1. Canvas & format
+## 1. Brand fundamentals (delegated to brand-spec.md)
 
-| Property | Value |
-|---|---|
-| Aspect ratio | **4:5 portrait** (Instagram feed optimal) |
-| Resolution | **1080 × 1350 px** |
-| Safe margins | ~80 px on all sides; nothing critical inside the outer 60 px |
-| Background | Warm off-white **#F5F2ED** (cream / bone), NOT pure white |
-| Background texture | **Subtle square grid** overlay, lines ~#E8E4DD, 1 px, 40 px spacing, very low contrast — barely visible. Adds editorial / blueprint feel |
+All visual rules -- palette, fonts, `@font-face` block, color mappings per scheme/mode -- live in [Brand/brand-spec.md](../../../Brand/brand-spec.md). **Read it once at session start.** This skill does NOT duplicate that content.
 
----
+### Quick reference for tutorials specifically
 
-## 2. Color palette
-
-Use sparingly. The whole post should feel ~85% neutral, ~15% accent.
-
-| Role | Hex | Use |
-|---|---|---|
-| Background | `#F5F2ED` | Canvas |
-| Grid lines | `#E8E4DD` | Background grid |
-| Primary text | `#0E0E0E` | Headlines, body |
-| Secondary text | `#8A8780` | Username, captions, "PASO X" labels |
-| **Accent coral** | `#E85D3C` | Highlighted keywords, brand circles, arrows |
-| **Highlight yellow** | `#FFE45C` | Background highlight behind 1-2 words (like a marker) |
-| Soft shadow | `rgba(14,14,14,0.08)` | Behind UI mockups / cards |
-
-**Rule:** never use more than **two** accent colors per slide. Default to coral. Yellow is for one specific highlighted word/phrase only.
+- **Canvas:** 1080 × 1350 px (4:5 portrait)
+- **Color scheme + mode:** asked at the start of every post (AMARILLO / ROJO / AZUL × LIGHT / DARK)
+- **Background:** brand-spec `bg-primary` for the chosen mode (e.g. `#efedec` for LIGHT, `#11191b` for DARK)
+- **Body text:** brand-spec `text-primary` for the mode
+- **Highlights:** the chosen scheme's `highlight-primary` token (e.g. `#ffb050` for AMARILLO)
+- **Fonts:** Roboto (body) + Playfair Display Italic (emphasis only)
+- **Handle:** `@lucianomusellaa` in orange small caps at top of every slide (this is the step-by-step rule -- news does NOT use the handle)
 
 ---
 
-## 3. Typography
+## 2. Headline rules (specific to step-by-step)
 
-- **Family:** A modern geometric/grotesque sans-serif. Preferred order: `Inter`, `Söhne`, `Aeonik`, `Manrope`, fallback `system-ui, -apple-system, sans-serif`.
-- **Headline weight:** 700 (Bold) or 800 (ExtraBold)
-- **Body weight:** 500 (Medium)
-- **Username/labels:** 500–600, tracked +2%
+Headlines on tutorial slides follow strict rules so the carousel feels coherent:
 
-### Hierarchy (for 1080×1350 canvas)
+### 2.1 Cover headline
 
-| Element | Size | Weight | Color | Notes |
-|---|---|---|---|---|
-| `@username` (top) | 26 px | 500 | `#8A8780` | Centered, ~70 px from top |
-| `PASO X` label | 24 px | 600 | `#8A8780` | UPPERCASE, letter-spacing +8%, only on step slides |
-| **Headline** | 56–68 px | 800 | `#0E0E0E` | 2–3 lines max, centered, line-height 1.15 |
-| Body / subtitle | 28 px | 500 | `#3A3A38` | Optional, only when needed |
-| `Deslizá →` (bottom) | 26 px | 700 | `#0E0E0E` | Centered, ~80 px from bottom |
+- **Length:** 5-10 words, 2-3 lines max
+- **Emphasis:** **1 word** in Playfair Display Italic in the scheme's highlight color. This is the new "double highlight" -- a single italic-serif word that adds editorial character vs. surrounding Roboto Bold.
+- **Optional accent:** a solid-color pill (e.g. "en 4 pasos") with white text in the scheme's `solid` token. Single pill per cover, not multiple.
 
-### Headline rules (CRITICAL — this is what makes it catchy)
+Examples (AMARILLO scheme):
+- "Crea tu propio agente de IA con *Claude Code*" + pill "en 4 pasos"
+- "Configura *MCPs* en Claude Code paso a paso"
+- "Arma tu primer *agente* de Claude en 5 minutos"
 
-1. Keep it **short**: 5–10 words total.
-2. **Highlight 1–2 key words** in a different style:
-   - Option A — color: paint the word in **coral `#E85D3C`** (most common).
-   - Option B — yellow marker: place the word on a **yellow `#FFE45C`** rounded-rectangle background (radius 6 px, padding 8 px horizontal, slight tilt 0°).
-   - Option C — both for *huge* emphasis (rare, only on covers).
-3. Highlighted words should be **nouns or product names** (e.g. "Claude", "Gemini", "ManyChat", "TRÁFICO", "$100k/mes").
-4. **Colombian Spanish only** — see section 3.5 below. NEVER Argentinian voseo, even though the visual reference creator (@ramiro.cubria) writes that way.
+### 2.2 Step slide headline
+
+- **Length:** 4-8 words, 1-2 lines max
+- **Eyebrow above headline:** `TUTORIAL · PASO 0X` in orange small caps, letter-spacing 2px, font-size 18-20px
+- **Emphasis:** **1 word** in Playfair Display Italic in scheme highlight color (same pattern as cover, but shorter headline)
+- Examples:
+  - "Instala Claude Code en tu *terminal*"
+  - "Configura el *MCP* en tu proyecto"
+  - "Delega tareas pesadas a *subagentes*"
+
+### 2.3 Closing slide
+
+The last slide drives engagement (follow, save, DM). Pattern:
+- Friendly mascot/icon (sparkle, agent icon, cursor) ~140-160 px tall
+- Big primary text in lowercase: "sígueme para más.", "guarda este post.", "no te vayas todavía."
+- Thin divider line
+- Small grey label: "comenta" / "envía" / "responde"
+- **CTA pill** (white-on-dark or solid-color background) with a ONE-WORD trigger in ALL CAPS: `"AGENTE"`, `"PROMPTS"`, `"SISTEMA"`
+- Caption below CTA: "y te envío la guía completa", "para recibir el setup"
 
 ---
 
-### 3.5. Spanish grammar — Colombian, NOT Argentinian (CRITICAL)
+## 3. Colombian Spanish -- CRITICAL
 
-The visual reference creator @ramiro.cubria writes in Argentinian Spanish ("Creá", "Usá", "Deslizá", "vos"). **We do NOT copy that grammar.** The user's audience is Colombian — Argentinian forms sound foreign and break the connection. We copy his *visual style only*.
+The visual reference creator @ramiro.cubria writes in Argentinian Spanish ("Creá", "Usá", "Deslizá", "vos"). **We do NOT copy that grammar.** The user's audience is Colombian -- Argentinian forms sound foreign.
 
-**Use the `tú` form, never `vos`:**
+### Use the `tú` form, never `vos`:
 
-| ❌ Argentinian (forbidden) | ✅ Colombian (use this) |
+| Argentinian (forbidden) | Colombian (use this) |
 |---|---|
 | Creá tu agente | Crea tu agente |
 | Definí las reglas | Define las reglas |
@@ -113,7 +102,7 @@ The visual reference creator @ramiro.cubria writes in Argentinian Spanish ("Cre�
 **Reflexive imperatives keep the accent on the verb stem:**
 - `instálalo` (instala + lo), `arráncalo`, `guárdalo`, `créalo`
 
-**Neutral Latin American Colombian** is the target — avoid both Spain Spanish (`vosotros`, `coger`, `ordenador`) and hyper-local Colombian slang (`parcero`, `bacano`) unless the user explicitly asks for slang.
+**Neutral Latin American Colombian** is the target -- avoid both Spain Spanish (`vosotros`, `coger`, `ordenador`) and hyper-local Colombian slang (`parcero`, `bacano`) unless the user explicitly asks for slang.
 
 **Verification step (mandatory):** before exporting any slide, scan every Spanish word for these forbidden markers and rewrite if any appear:
 - `á` at the end of an imperative verb (creá, usá, deslizá, etc.)
@@ -121,119 +110,52 @@ The visual reference creator @ramiro.cubria writes in Argentinian Spanish ("Cre�
 
 ---
 
-## 4. Layout patterns
+## 4. Composition rules
 
-Layout-specific design (logos, mockups, PASO labels, chevrons, etc.) lives in the two specialized skills:
-
-- **Cover layouts** → see [instagram-cover-design.md](instagram-cover-design.md)
-- **Step slide layouts** → see [instagram-step-slide-design.md](instagram-step-slide-design.md)
-
-Always read the matching specialized skill before designing a slide. This base skill only owns the *system* (canvas, palette, fonts, render pipeline, anti-patterns).
-
----
-
-## 4.5. Slide indicator (mandatory on all carousel slides)
-
-Every slide in a carousel must show a **slide indicator** at the bottom — a row of small circles, one per slide, where the current slide's dot is highlighted in coral and bigger. This gives the viewer a clear sense of progress.
-
-**Position:** stacked directly above the `Desliza →` footer text. On the closing slide (which has no `Desliza →`), the indicator goes at the bottom of the center block.
-
-**Style spec:**
-
-| Property | Value |
-|---|---|
-| Inactive dot | 9 × 9 px circle, fill `#D5D0C8` (slightly darker than the grid lines, visible but quiet) |
-| Active dot | 13 × 13 px circle, fill coral `#E85D3C` (bigger than inactive, draws the eye) |
-| Gap between dots | 12 px |
-| Vertical gap from indicator to `Desliza →` | 18 px |
-| Number of dots | One per slide in the carousel (6 slides → 6 dots, etc.) |
-| Active dot position | Always matches the slide's index in the carousel (slide 1 → first dot active, slide 4 → fourth dot active, etc.) |
-
-**HTML pattern:**
-
-```html
-<style>
-  .footer { display: flex; flex-direction: column; align-items: center; gap: 18px; }
-  .indicator { display: flex; gap: 12px; align-items: center; }
-  .dot { width: 9px; height: 9px; border-radius: 50%; background: #D5D0C8; }
-  .dot.active { width: 13px; height: 13px; background: #E85D3C; }
-</style>
-
-<!-- replace the bare .swipe with this footer block: -->
-<div class="footer">
-  <div class="indicator">
-    <div class="dot"></div>
-    <div class="dot active"></div>  <!-- the active one matches this slide's index -->
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-  </div>
-  <div class="swipe">Desliza →</div>
-</div>
-```
-
-**Rules:**
-- Always include the indicator on every slide in a carousel — not just the cover
-- The total number of dots must equal the total number of slides in the carousel (no extras, no missing)
-- Only **one** dot is active per slide
-- For the **closing slide** (no `Desliza →`), the indicator sits at the bottom of the center-block instead, with `margin-top: 18px` from the previous element
-- For single standalone posts (not a carousel), skip the indicator
+- **Vertical rhythm:** username (top) → eyebrow/headline (upper-mid) → visual hook (center) → "Desliza" pill (bottom). Always this order.
+- **Centering:** everything center-aligned horizontally. No left-aligned text on these.
+- **No page dots.** Instagram adds carousel pagination natively. Do NOT add dot indicators to slides -- per `feedback_no_page_dots.md`.
+- **Whitespace:** ~15-30% of the canvas should be empty background. Resist filling space.
+- **One focal point per slide.** Eye lands on headline first, then visual.
+- **Slide spacing rules apply** -- see [Skills/slide-spacing.md](../../../Skills/slide-spacing.md). Content fills ~70-85% of usable canvas; never leave >150px empty in the middle or >120px at the bottom.
 
 ---
 
-## 5. Composition rules
+## 5. Anti-patterns (step-by-step)
 
-- **Vertical rhythm:** username (top) → label/headline (upper third) → visual (center) → "Deslizá" (bottom). Always this order.
-- **Centering:** everything is **center-aligned horizontally**. No left-aligned text on these.
-- **Whitespace is sacred:** at least 25% of the canvas should be empty cream background. Resist the urge to fill space.
-- **One focal point per slide.** The eye should land on the headline first, then the visual.
-- **No more than 2 visual elements** besides text per slide.
-
----
-
-## 6. What to AVOID (anti-patterns)
-
-- ❌ Pure white `#FFFFFF` background — too sterile, breaks the warmth
-- ❌ Gradients, glows, or 3D effects
-- ❌ More than 2 accent colors
-- ❌ Drop shadows on text
-- ❌ Stock-photo backgrounds
-- ❌ Emojis inside the headline (small icons OK as visual elements)
+- ❌ More than 1 italic emphasis word in a single headline (use only 1)
+- ❌ Mixing accent colors from different schemes (a yellow post should not have red highlights)
+- ❌ Page dots / carousel indicators -- IG adds them natively
+- ❌ Gradients, glows, 3D effects (unless using a GRADIENTES template variant)
+- ❌ Emojis inside the headline (small inline icons OK as visual elements)
 - ❌ Centered text wider than 80% of canvas width
 - ❌ More than 12 words in a headline
-- ❌ Sans-serif "techy" fonts like Orbitron / Audiowide
+- ❌ Sans-serif "techy" fonts like Orbitron / Audiowide -- only Roboto for body, Playfair Italic for emphasis
 - ❌ Generic AI-art aesthetic (neon, cyberpunk, holographic)
+- ❌ Colombian Spanish violations (creá, usá, deslizá, vos, tenés)
 
 ---
 
-## 7. My workflow when the user asks for a post
+## 6. Workflow when building a step-by-step post
 
-When the user asks me to make a post / carousel, I will:
+When the user triggers a tutorial post (after I've already collected type + color + mode per CLAUDE.md §1):
 
-1. **Re-open `Inspiracion/`** and view at least 2 reference images to re-anchor visually.
-2. **Ask the user (only if missing):**
-   - What's the topic / message?
-   - Is it a single cover or a full carousel? How many slides?
-   - Any specific keyword(s) to highlight?
-   - Should I include a screenshot/mockup, and if so do they have an asset or should I mock one up?
-3. **Propose the slide breakdown** in text first (slide 1: cover, slide 2: paso 1, etc.) with the headline and highlighted word for each. Wait for approval before generating images.
-4. **Generate the slide(s) via HTML + headless render to PNG.**
-   - Write a self-contained `.html` file using the template in section 8 (inline ALL CSS — no external stylesheets, no relative imports)
-   - Render to 1080×1350 PNG using **`./render.sh {folder}`** from the project root. The script wraps headless Chrome with all the right flags and handles Git Bash → Windows path conversion. Do NOT call Chrome manually.
-   - Example: `./render.sh PostTypes/step-by-step/Outputs/agentes-claude-code` renders every `.html` in that folder to a PNG of the same name.
-   - Single-file mode also works: `./render.sh PostTypes/step-by-step/Outputs/agentes-claude-code/cover_v1.html`
-   - **Viewport bug note (2026-04-16):** Chrome headless on Windows subtracts ~96px from `--window-size` for window chrome. `render.sh` uses `--window-size=1098,1550` (with extra headroom) and crops to 1080×1350 via PIL. This ensures content near the bottom of the canvas (dots, pills, footers at y>1272) renders correctly. If bottom elements appear cut off, verify `render.sh` has the correct window size.
-
-   For slides that need illustrations or imagery that HTML/CSS can't build, recreate them with elaborate inline SVG inside the HTML template. This is the only image-generation method used in this project — no external APIs.
-5. **Save outputs** to [Outputs/](../Outputs/) with naming `post_{topic-slug}_{slide-number}.png`.
-6. **Show the result** and offer iterations (color tweak, headline rewrite, layout swap).
+1. **Re-anchor visually** -- open `Brand/Templates/Tutorial/{COLOR}/{STYLE}/{MODE}/` and read at least 2 PNGs. Then `Inspiracion/` and `Favoritos_Claude_Generated/`.
+2. **Ask only missing context:** topic, number of slides (default cover + 4 pasos + closing = 6), source material URL/doc if any, specific keywords to italicize, real screenshots in `Assets/`?
+3. **Propose the slide breakdown** in plain text (slide 1: cover with headline + italic word; slide 2: paso 1 with eyebrow + headline + visual; etc.). Wait for approval.
+4. **Generate any missing logos via Higgsfield MCP** -- only if a needed brand logo is missing from `Logos/`. Save to `Logos/` after user review.
+5. **Create output folder:** `PostTypes/step-by-step/Outputs/{topic-slug}/`
+6. **Write each slide's HTML** using the scaffold from §7 below + the layout-specific sibling skill's recipes.
+7. **Render** with `./render.sh PostTypes/step-by-step/Outputs/{topic-slug}` -- batch renders all HTMLs in the folder.
+8. **Mandatory Visual QA** ([Skills/visual-qa.md](../../../Skills/visual-qa.md)) -- read every PNG, check fonts loaded, palette correct, Colombian Spanish, no page dots, layout proportions.
+9. **Present the carousel** as a sequence (cover → paso 1 → ... → closing).
+10. **Ask for favorites** (CLAUDE.md §1.6) -- copy chosen slides to `Favoritos_Claude_Generated/`.
 
 ---
 
-## 8. Reusable HTML/CSS template
+## 7. Reusable HTML scaffold (canonical starting point)
 
-Use this as the starting point for every slide. Adjust per slide type.
+Use this as the starting point for every tutorial slide. Adjust the inner content per slide type. The `@font-face` block is the SAME across all slides -- it's what makes Roboto + Playfair Italic render.
 
 ```html
 <!DOCTYPE html>
@@ -241,83 +163,90 @@ Use this as the starting point for every slide. Adjust per slide type.
 <head>
 <meta charset="UTF-8">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap');
+  /* @font-face block -- canonical, see Brand/brand-spec.md §2 */
+  @font-face { font-family: 'Roboto'; src: url('../../../../Brand/Fonts/Roboto/static/Roboto-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: block; }
+  @font-face { font-family: 'Roboto'; src: url('../../../../Brand/Fonts/Roboto/static/Roboto-Medium.ttf')  format('truetype'); font-weight: 500; font-style: normal; font-display: block; }
+  @font-face { font-family: 'Roboto'; src: url('../../../../Brand/Fonts/Roboto/static/Roboto-Bold.ttf')    format('truetype'); font-weight: 700; font-style: normal; font-display: block; }
+  @font-face { font-family: 'Roboto'; src: url('../../../../Brand/Fonts/Roboto/static/Roboto-Black.ttf')   format('truetype'); font-weight: 900; font-style: normal; font-display: block; }
+  @font-face { font-family: 'Playfair Display'; src: url('../../../../Brand/Fonts/PlayfairDisplay/static/PlayfairDisplay-Italic.ttf') format('truetype'); font-weight: 400; font-style: italic; font-display: block; }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; }
   body {
-    width: 1080px; height: 1350px;
-    background: #F5F2ED;
-    background-image:
-      linear-gradient(#E8E4DD 1px, transparent 1px),
-      linear-gradient(90deg, #E8E4DD 1px, transparent 1px);
-    background-size: 40px 40px;
-    font-family: 'Inter', system-ui, sans-serif;
-    color: #0E0E0E;
+    /* CHANGE per mode: LIGHT bg #efedec | DARK bg #11191b (or gradient to navy) */
+    background: #efedec;
+    font-family: 'Roboto', system-ui, sans-serif;
+    /* CHANGE per mode: LIGHT text #0c1314 | DARK text #ffffff */
+    color: #0c1314;
     display: flex; flex-direction: column;
     align-items: center; justify-content: space-between;
-    padding: 70px 80px;
+    padding: 70px 80px 90px;
   }
-  .username { font-size: 26px; font-weight: 500; color: #8A8780; }
-  .step-label {
-    font-size: 24px; font-weight: 600; color: #8A8780;
-    text-transform: uppercase; letter-spacing: 0.08em;
-    margin-bottom: 20px;
+  /* @lucianomusellaa handle -- always orange-ish small caps top-center */
+  .handle {
+    /* CHANGE per scheme: AMARILLO #ffb050 | ROJO #e60000 | AZUL #0056a6 */
+    color: #ffb050;
+    font-size: 22px; font-weight: 500;
+    letter-spacing: 0.5px;
   }
+  /* Headline -- Roboto Bold, scale per content length per slide-spacing.md */
   .headline {
-    font-size: 62px; font-weight: 800; line-height: 1.15;
-    text-align: center; max-width: 880px;
+    font-size: 72px; font-weight: 700; line-height: 1.08;
+    text-align: center; max-width: 900px; letter-spacing: -0.02em;
   }
-  .accent-coral { color: #E85D3C; }
-  .accent-yellow {
-    background: #FFE45C; padding: 4px 12px; border-radius: 6px;
+  /* Emphasis word -- Playfair Italic in scheme highlight color */
+  .emphasis {
+    font-family: 'Playfair Display'; font-style: italic; font-weight: 400;
+    color: #ffb050; /* match scheme */
   }
-  .center-block { display: flex; flex-direction: column; align-items: center; gap: 40px; flex: 1; justify-content: center; }
-  .swipe { font-size: 26px; font-weight: 700; }
-  .mockup {
-    border-radius: 18px;
-    box-shadow: 0 12px 40px rgba(14,14,14,0.08);
-    max-width: 720px;
+  /* Solid pill (e.g. "en 4 pasos") */
+  .pill-solid {
+    background: #ff9d00; /* scheme solid token */
+    color: #ffffff;
+    padding: 18px 46px;
+    font-size: 44px; font-weight: 500;
+    border-radius: 4px;
   }
-  .logo-row { display: flex; align-items: center; gap: 32px; }
-  .logo-bubble {
-    width: 130px; height: 130px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 8px 24px rgba(14,14,14,0.08);
+  /* Desliza pill (outline) */
+  .swipe-pill {
+    border: 2px solid #0c1314; /* text-primary */
+    color: #0c1314;
+    padding: 14px 56px;
+    font-size: 28px; font-weight: 500;
+    border-radius: 999px;
+    background: transparent;
   }
-  .logo-bubble.white { background: #FFFFFF; }
-  .logo-bubble.coral { background: #E85D3C; }
-  .connector { width: 80px; height: 2px; background: #0E0E0E; position: relative; }
-  .connector::after {
-    content: ''; width: 28px; height: 28px; border-radius: 50%;
-    background: #FFFFFF; border: 2px solid #0E0E0E;
-    position: absolute; left: 50%; top: 50%;
-    transform: translate(-50%, -50%);
+  /* Center block holds the slide's main stack */
+  .center-block {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 50px; flex: 1; justify-content: center; width: 100%;
   }
 </style>
 </head>
 <body>
-  <div class="username">@lucianomusellaa</div>
+  <div class="handle">@lucianomusellaa</div>
   <div class="center-block">
-    <!-- optional: <div class="step-label">Paso 1</div> -->
-    <h1 class="headline">¿Cómo agendar llamadas<br>de venta con <span class="accent-coral">Claude</span> y ManyChat?</h1>
-    <!-- slot for visual element: logo-row, mockup img, etc. -->
+    <h1 class="headline">Crea tu propio agente de IA con <span class="emphasis">Claude Code</span></h1>
+    <div class="pill-solid">en 4 pasos</div>
+    <!-- slot for visual hook: terminal mockup, illustration, orgchart -->
   </div>
-  <div class="swipe">Deslizá →</div>
+  <div class="swipe-pill">Desliza</div>
 </body>
 </html>
 ```
 
+**Where to find the exact tokens per scheme/mode:** see [Brand/brand-spec.md §1](../../../Brand/brand-spec.md). Swap the marked values when building a slide for a different scheme/mode.
+
 ---
 
-## 9. Quick reference checklist (run before exporting any slide)
+## 8. Quick reference checklist (run before exporting any slide)
 
-- [ ] Canvas is 1080×1350, cream `#F5F2ED` with subtle grid
-- [ ] Username at top in small grey
-- [ ] Headline is ≤10 words with 1–2 highlighted keywords
-- [ ] Highlight color is coral OR yellow (not both unless cover)
-- [ ] One focal visual, centered, with soft shadow
-- [ ] "Deslizá →" at bottom
-- [ ] At least 25% empty whitespace
-- [ ] No gradients, no emojis in headline, no pure white
-- [ ] **Colombian Spanish only** — no `creá`, `usá`, `deslizá`, `vos`, `tenés`, `querés` (see section 3.5)
-- [ ] **Slide indicator** present at bottom (6 dots for 6-slide carousel, etc.) with the correct dot active (see section 4.5)
-- [ ] Saved to `Outputs/` with descriptive name
+- [ ] Canvas is 1080×1350
+- [ ] `@font-face` block uses the canonical Brand/Fonts paths -- no Google Fonts CDN
+- [ ] Background matches chosen mode; text color contrasts with bg
+- [ ] Headline has 1 word in Playfair Italic in scheme highlight color
+- [ ] No page dots / carousel indicators
+- [ ] `@lucianomusellaa` in scheme highlight color at top
+- [ ] **Colombian Spanish only** -- no `creá`, `usá`, `deslizá`, `vos`, `tenés`, `querés`
+- [ ] Saved to `Outputs/{topic-slug}/` with descriptive name
+- [ ] Slide-spacing rules satisfied (content fills 70-85% of canvas)

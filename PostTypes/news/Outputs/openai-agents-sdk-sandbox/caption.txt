@@ -1,2 +1,0 @@
-OpenAI actualizó el Agents SDK con ejecución en sandbox: los agentes corren en entornos aislados y las credenciales nunca tocan el código que genera el modelo.
-El primer update del SDK pensado para llevar agentes a producción empresarial real.

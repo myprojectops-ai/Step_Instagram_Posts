@@ -1,22 +1,24 @@
-﻿# Visual_posts â€” Project Instructions
+# Visual_posts -- Project Instructions
 
-This project generates **catchy Instagram posts** for **@lucianomusellaa** using a defined visual system inspired by AI content creators (reference: @ramiro.cubria â€” visual style only, NOT his handle, NOT his Spanish dialect).
+This project generates **catchy Instagram posts** for **@lucianomusellaa** using the brand visual system documented in [Brand/brand-spec.md](Brand/brand-spec.md). The reference creator @ramiro.cubria is the *visual style inspiration only* -- NOT his handle, NOT his Spanish dialect.
 
 You are operating inside this project. Read this file first whenever a session starts here. Everything below is binding.
 
+> **Brand v2 migration completed 2026-05-22.** The previous cream + coral + Inter visual system was retired. The new brand system (Roboto + Playfair Display Italic, dual-mode palette with three color schemes) lives in [Brand/brand-spec.md](Brand/brand-spec.md). **All `PostTypes/*/Outputs/` from before that date are historical and immutable -- do not re-render them.**
+
 ---
 
-## 1. Three post types â€” pick the right one
+## 1. Three post types -- pick the right one
 
 This project supports **three different kinds of posts**, each with its own skills, references, and workflow. Every job belongs to exactly one of these types. Before doing anything else, identify which type the user is asking for, then read **that type's README** to load its workflow.
 
 | Type | Folder | When to use |
 |---|---|---|
-| **Step-by-step** (paso a paso) | [PostTypes/step-by-step/](PostTypes/step-by-step/) | Tutorials, how-tos, "X pasos para Y", anything where the carousel walks the viewer through a sequence of actions. **This is the most mature type â€” its skills are complete.** |
-| **News** (noticias de IA) | [PostTypes/news/](PostTypes/news/) | News posts about AI announcements, model releases, industry events, breaking AI updates. **Skills are ready** â€” single-image dark editorial style with real person photos. |
-| **Informativos** (hacks / tips) | [PostTypes/informativos/](PostTypes/informativos/) | Standalone informative posts: AI hacks, prompts, tips, lists, infographics, tier lists, cheatsheets. **Skills are ready** â€” dense infographic style with 7 layout patterns (numbered list, grid cards, tier list, mind map, cheatsheet, hero card, comparison). |
+| **Step-by-step** (paso a paso) | [PostTypes/step-by-step/](PostTypes/step-by-step/) | Tutorials, how-tos, "X pasos para Y", anything where the carousel walks the viewer through a sequence of actions. **This is the most mature type.** |
+| **News** (noticias de IA) | [PostTypes/news/](PostTypes/news/) | News posts about AI announcements, model releases, industry events, breaking AI updates. **4-slide carousel** with dark or light editorial photo + headline aesthetic. |
+| **Informativos** (hacks / tips) | [PostTypes/informativos/](PostTypes/informativos/) | Standalone informative posts: AI hacks, prompts, tips, lists, infographics, tier lists, cheatsheets. **7 layout patterns** (numbered list, grid cards, tier list, mind map, cheatsheet, hero card, comparison) -- composition + HTML text overlay. |
 
-### Trigger phrases â€” how the user kicks off a new post
+### Trigger phrases -- how the user kicks off a new post
 
 The user signals their intent with phrases like these (or similar):
 
@@ -25,67 +27,75 @@ The user signals their intent with phrases like these (or similar):
 - "post paso a paso de {tema}" / "tutorial de {tema}"
 
 **News:**
-- "post de noticia: {titular}" / "carrusel de la noticia de {evento}" / "hagamos un post sobre la noticia de {tema}" / "esto saliÃ³ hoy: {url}"
+- "post de noticia: {titular}" / "carrusel de la noticia de {evento}" / "hagamos un post sobre la noticia de {tema}" / "esto salió hoy: {url}"
 
 **Informativos:**
 - "post informativo de {tema}" / "post de hacks de {tema}" / "post de tips para {tema}" / "post tipo lista sobre {tema}"
 
 ### MANDATORY first move when the user asks for a post
 
-> **ALWAYS ask the user to confirm the post type before starting any work**, even when the trigger phrase strongly suggests one type. Phrasings can be ambiguous and the wrong type wastes a whole job. This is non-negotiable.
+> **ALWAYS ask the user to confirm three things before starting any work: post type, color scheme, and mode.** Phrasings can be ambiguous and the wrong combination wastes a whole job. This is non-negotiable.
 
 The exact question I ask, in one short message:
 
-> *"Â¿QuÃ© tipo de post hacemos? **(1)** step-by-step (tutorial paso a paso), **(2)** news (noticia de IA), o **(3)** informativo (hack/tip/lista)."*
+> *"Para arrancar necesito tres cosas:*
+> *(a) Tipo de post: **(1)** step-by-step (tutorial), **(2)** news (noticia de IA), o **(3)** informativo (hack/tip/lista).*
+> *(b) Esquema de color: **AMARILLO** (highlights naranjas), **ROJO** (highlights rojos), o **AZUL** (highlights azules).*
+> *(c) Modo: **LIGHT** (fondos crema/blanco) o **DARK** (fondos negro/navy)."*
 
-Only after the user confirms the type, I proceed with the workflow:
-1. **Read that type's `README.md`** for the workflow and the list of skills to load.
-2. **Read the skill files** that the README points to.
-3. **MANDATORY visual re-anchoring** (see section 1.5 below) â€” review inspiration AND past favorites before generating anything.
-4. **Follow the workflow** for that type â€” never improvise the order, never skip steps.
+The brand visual system lives in [Brand/brand-spec.md](Brand/brand-spec.md) -- color tokens for each scheme/mode and typography rules are documented there. **Read brand-spec.md once at the start of every session.**
+
+Only after the user confirms type + color + mode, I proceed with the workflow:
+1. **Read [Brand/brand-spec.md](Brand/brand-spec.md)** -- canonical palette, fonts, slide patterns.
+2. **Read that type's `README.md`** for the workflow and the list of skills to load.
+3. **Read the skill files** that the README points to.
+4. **MANDATORY visual re-anchoring** (see section 1.5 below) -- review templates in `Brand/Templates/{Tutorial|Noticias}/`, plus inspiration AND past favorites before generating anything.
+5. **Follow the workflow** for that type -- never improvise the order, never skip steps.
 
 ---
 
-## 1.5 Visual re-anchoring â€” MANDATORY before EVERY post (all types)
+## 1.5 Visual re-anchoring -- MANDATORY before EVERY post (all types)
 
-> **Before generating any HTML for any post, regardless of type, I must always review BOTH of the following folders for the post type at hand:**
+> **Before generating any HTML for any post, regardless of type, I must always review THREE sources:**
 >
-> - **`PostTypes/{type}/Inspiracion/`** â€” external references the user has dropped in (creators they admire, layouts they want me to learn from). **Always check for new images here vs. what I've seen before.**
-> - **`PostTypes/{type}/Favoritos_Claude_Generated/`** â€” slides I generated in past sessions that the user explicitly marked as favorites. These are the strongest signal of "this works for me."
+> - **`Brand/Templates/{Tutorial|Noticias}/{COLOR}/{MODE}/`** -- canonical brand templates that match the user's chosen color + mode. **These are the visual ground truth** -- read at least 2 PNGs that match the exact color+mode combo.
+> - **`PostTypes/{type}/Inspiracion/`** -- external references the user has dropped in. **Always check for new images here vs. what I've seen before.**
+> - **`PostTypes/{type}/Favoritos_Claude_Generated/`** -- slides I generated in past sessions that the user explicitly marked as favorites. Strongest signal of "this works for me."
 
 ### Why this is mandatory
 
-The whole point of having both folders is to keep posts feeling **fresh but on-brand**. Without re-anchoring, my outputs converge on the same patterns over and over and the feed feels repetitive. The user has been explicit: posts should follow the same aesthetic but should NOT all look the same. Variety is **essential**, not optional.
+The whole point of having three sources is to keep posts feeling **fresh but on-brand**. Without re-anchoring, my outputs converge on the same patterns over and over and the feed feels repetitive. The user has been explicit: posts should follow the same aesthetic but should NOT all look the same. Variety is **essential**, not optional.
 
 ### What "review" means in practice
 
 For every new post:
-1. **Inspiracion** â€” list the folder (catch any newly added references), then read at least 2 images. Prefer images I haven't viewed in recent jobs to maximize the spread of patterns I'm pulling from.
-2. **Favoritos_Claude_Generated** â€” list the folder, then read every image inside (it's the user's curated "best of" list). If empty, that's fine â€” just note it.
-3. **Synthesize** â€” explicitly hold both inputs in mind while drafting the breakdown. Vary at least one structural element vs. the most recent post in the same type (different cover layout, different visual element, different hook structure, etc.) so the new post doesn't visually rhyme with the previous one.
+1. **Brand/Templates/** -- always start here. Open the subfolder matching the user's choice and read at least 2 PNGs. These define spacing, font sizing, layout proportions for the chosen variant.
+2. **Inspiracion** -- list the folder (catch any newly added references), then read at least 2 images. Prefer images I haven't viewed in recent jobs to maximize the spread of patterns I'm pulling from.
+3. **Favoritos_Claude_Generated** -- list the folder, then read every image inside. If empty, that's fine -- just note it.
+4. **Synthesize** -- explicitly hold all three inputs in mind while drafting the breakdown. Vary at least one structural element vs. the most recent post in the same type so the new post doesn't visually rhyme with the previous one.
 
 ### When I'm allowed to skip
 
-Never. Even for tiny iterations on an existing post (re-rendering one slide), I don't need to re-review â€” but for any **new** post I do.
+Never. Even for tiny iterations on an existing post (re-rendering one slide), I don't need to re-review -- but for any **new** post I do.
 
 ---
 
-## 1.6 After every post â€” capture user favorites
+## 1.6 After every post -- capture user favorites
 
 > **At the end of every post run, I must ask the user which generated images are their favorites and save them to `Favoritos_Claude_Generated/` for that post type.**
 
 ### Exact question to ask
 
-After presenting the rendered carousel (step 9 of the step-by-step workflow, or the equivalent in other types), I always ask:
+After presenting the rendered carousel, I always ask:
 
-> *"Â¿CuÃ¡les imÃ¡genes de este post son tus favoritas? Las guardo en `Favoritos_Claude_Generated/` para usar como referencia en posts futuros."*
+> *"¿Cuáles imágenes de este post son tus favoritas? Las guardo en `Favoritos_Claude_Generated/` para usar como referencia en posts futuros."*
 
 ### What to do with the answer
 
-- If the user names specific slides (e.g. "el cover v1 y el paso 3"), **copy** those PNGs from `PostTypes/{type}/Outputs/{topic-slug}/` to `PostTypes/{type}/Favoritos_Claude_Generated/`. Use a descriptive filename: `{topic-slug}_{original-name}.png` so it's clear what post it came from.
-- If the user says "ninguna" or skips, that's fine â€” don't save anything, but still ask. Their answer is data either way.
+- If the user names specific slides (e.g. "el cover v1 y el paso 3"), **copy** those PNGs from `PostTypes/{type}/Outputs/{topic-slug}/` to `PostTypes/{type}/Favoritos_Claude_Generated/`. Filename pattern: `{topic-slug}_{original-name}.png`.
+- If the user says "ninguna" or skips, that's fine -- don't save anything, but still ask.
 - If the user says "todas", copy all the rendered PNGs of that post.
-- **Use `cp` (copy), not `mv` (move)** â€” the original outputs stay in their folder; favorites are an additive curated library.
+- **Use `cp` (copy), not `mv` (move)** -- originals stay in their folder; favorites are an additive curated library.
 
 ---
 
@@ -93,161 +103,187 @@ After presenting the rendered carousel (step 9 of the step-by-step workflow, or 
 
 ```
 Visual_posts/
-â”œâ”€â”€ CLAUDE.md                          â† this file (autoloaded â€” the router)
-â”œâ”€â”€ README.md                          â† project intro
-â”œâ”€â”€ Skills/                            â† global skills (apply to ALL post types)
-â”‚   â”œâ”€â”€ visual-qa.md                   â† MANDATORY post-render QA â€” verify every PNG before presenting
-â”‚   â””â”€â”€ slide-spacing.md               â† MANDATORY spacing/layout rules â€” content must fill ~70-85% of canvas, never leave large empty zones
-â”œâ”€â”€ PostTypes/
-â”‚   â”œâ”€â”€ step-by-step/                  â† tutorial / how-to carousels (mature)
-â”‚   â”‚   â”œâ”€â”€ README.md                  â† workflow + triggers + folder rules for this type
-â”‚   â”‚   â”œâ”€â”€ Skills/
-â”‚   â”‚   â”‚   â”œâ”€â”€ instagram-post-design.md       â† BASE visual system (read FIRST)
-â”‚   â”‚   â”‚   â”œâ”€â”€ instagram-cover-design.md      â† cover/thumbnail layouts
-â”‚   â”‚   â”‚   â””â”€â”€ instagram-step-slide-design.md â† step slides + closing slide
-â”‚   â”‚   â”œâ”€â”€ Inspiracion/               â† external visual references (drop new ones here)
-â”‚   â”‚   â”œâ”€â”€ Favoritos_Claude_Generated/ â† past slides the user marked as favorites
-â”‚   â”‚   â””â”€â”€ Outputs/                   â† rendered carousels (one folder per post)
-â”‚   â”œâ”€â”€ news/                          â† AI news posts (ready)
-â”‚   â”‚   â”œâ”€â”€ README.md
-â”‚   â”‚   â”œâ”€â”€ Skills/
-â”‚   â”‚   â”‚   â””â”€â”€ news-post-design.md    â† visual system for dark editorial news posts
-â”‚   â”‚   â”œâ”€â”€ Inspiracion/               â† (empty â€” drop reference images here)
-â”‚   â”‚   â”œâ”€â”€ Favoritos_Claude_Generated/ â† (empty â€” populated as user marks favorites)
-â”‚   â”‚   â””â”€â”€ Outputs/
-â”‚   â””â”€â”€ informativos/                  â† hacks / tips / infographics (ready)
-â”‚       â”œâ”€â”€ README.md                  â† workflow + triggers + layout patterns
-â”‚       â”œâ”€â”€ Skills/
-â”‚       â”‚   â””â”€â”€ informativo-post-design.md â† visual system (7 layouts, scaffolds, palette)
-â”‚       â”œâ”€â”€ Inspiracion/               â† 13 external visual references
-â”‚       â”œâ”€â”€ Favoritos_Claude_Generated/ â† past slides the user marked as favorites
-â”‚       â””â”€â”€ Outputs/                   â† rendered informativo posts
-â”œâ”€â”€ Logos/                             â† shared brand assets across all post types
-â”‚   â”œâ”€â”€ Claude_AI_symbol.svg
-â”‚   â”œâ”€â”€ Alta_Studio_logo.png           â† Alta Studio logo (dark version)
-â”‚   â””â”€â”€ Alta_Studio_Logo_fondoneutro.png â† Alta Studio logo (blue/glow version)
-â”œâ”€â”€ Assets/                            â† shared user-provided screenshots / images
-â”‚   â””â”€â”€ Personas/                      â† real person photos (CEOs, founders) â€” global
-â”œâ”€â”€ Errors/                            â† user marks visual bugs here for me to fix
-â”œâ”€â”€ render.sh                          â† HTMLâ†’PNG batch renderer (use this, not raw chrome)
-â””â”€â”€ memory/                            â† persistent user/feedback memories (auto-loaded)
+|-- CLAUDE.md                          <- this file (autoloaded, the router)
+|-- README.md                          <- project intro
+|-- Brand/                             <- CANONICAL brand system (v2)
+|   |-- brand-spec.md                  <- single source of truth: palette, fonts, slide patterns
+|   |-- Colores/COLORES.pdf            <- visual palette reference (PDF)
+|   |-- Fonts/
+|   |   |-- Roboto/                    <- primary font (TTFs, loaded via @font-face)
+|   |   `-- PlayfairDisplay/           <- emphasis font (Italic only)
+|   `-- Templates/
+|       |-- Tutorial/                  <- 45 reference PNGs by color x style x mode
+|       `-- Noticias/                  <- 24 reference PNGs by color x mode
+|-- Skills/                            <- global skills (apply to ALL post types)
+|   |-- visual-qa.md                   <- MANDATORY post-render QA
+|   |-- slide-spacing.md               <- MANDATORY spacing/layout rules
+|   `-- informativo-visual-iteration.md <- self-iteration loop for informativo compositions
+|-- PostTypes/
+|   |-- step-by-step/                  <- tutorial / how-to carousels
+|   |   |-- README.md                  <- workflow + triggers + folder rules
+|   |   |-- Skills/
+|   |   |   |-- instagram-post-design.md       <- BASE visual system (read FIRST)
+|   |   |   |-- instagram-cover-design.md      <- cover/thumbnail layouts
+|   |   |   |-- instagram-step-slide-design.md <- step slides + closing slide
+|   |   |   `-- instagram-dark-mode.md         <- dark mode palette overrides
+|   |   |-- Inspiracion/               <- external visual references
+|   |   |-- Favoritos_Claude_Generated/ <- past slides the user marked as favorites
+|   |   `-- Outputs/                   <- rendered carousels (one folder per post)
+|   |-- news/                          <- AI news posts (4-slide carousel)
+|   |   |-- README.md
+|   |   |-- Skills/
+|   |   |   `-- news-post-design.md    <- 4-slide news carousel visual system
+|   |   |-- Inspiracion/
+|   |   |-- Favoritos_Claude_Generated/
+|   |   `-- Outputs/
+|   `-- informativos/                  <- hacks / tips / infographics
+|       |-- README.md                  <- workflow + triggers + layout patterns
+|       |-- Skills/
+|       |   `-- informativo-post-design.md <- 7-layout visual system
+|       |-- Inspiracion/
+|       |-- Favoritos_Claude_Generated/
+|       `-- Outputs/
+|-- Logos/                             <- shared brand assets
+|   |-- Claude_AI_symbol.svg
+|   |-- Alta_Studio_logo.png           <- Alta Studio logo (use on LIGHT mode)
+|   |-- Alta_Studio_logo_white.png     <- white variant (use on DARK mode)
+|   `-- (OpenAI, Perplexity, SAP, Amazon, etc. third-party logos)
+|-- Assets/
+|   |-- Fonts/                         <- LEGACY (Inter family) -- not used by v2 brand
+|   `-- Personas/                      <- real person photos (CEOs, founders)
+|-- Errors/                            <- user marks visual bugs here for me to fix
+|-- render.sh                          <- HTML->PNG batch renderer (use this, not raw chrome)
+`-- (persistent memories at ~/.claude/projects/c--Trabajo-AI-Visual-posts/memory/)
 ```
 
 ---
 
 ## 3. Brand-wide non-negotiable rules (apply to ALL post types)
 
-These are project-wide invariants. They live across every post type, every slide, every iteration. Each post type's skills extend these rules with type-specific patterns â€” they never contradict them.
+These are project-wide invariants. Each post type's skills extend these rules with type-specific patterns -- they never contradict them.
 
 ### 3.1 Brand handle
-- The handle on top of every slide is **`@lucianomusellaa`** (double "a")
-- Never `@ramiro.cubria` â€” that's only the visual reference creator
+- The handle on top of every slide (when applicable -- e.g. tutorial covers and informativos bottom) is **`@lucianomusellaa`** (double "a")
+- Never `@ramiro.cubria` -- that's only the visual reference creator
+- **News posts do NOT use the handle AND do NOT use any logo.** The top-left corner is intentionally empty -- editorial magazine look. The brand identity comes through typography (Roboto + Playfair Italic) and color scheme.
 
 ### 3.2 Spanish dialect
-- **Colombian Spanish, `tÃº` form** â€” never Argentinian voseo
-- âœ… Crea, Define, Instala, Convierte, Delega, Desliza, Guarda, Usa, tÃº, tienes, quieres
-- âŒ CreÃ¡, DefinÃ­, InstalÃ¡, ConvertÃ­, DelegÃ¡, DeslizÃ¡, GuardÃ¡, UsÃ¡, vos, tenÃ©s, querÃ©s
-- Reflexive imperatives keep the accent: `instÃ¡lalo`, `arrÃ¡ncalo`, `guÃ¡rdalo`
-- Full conversion table is in [PostTypes/step-by-step/Skills/instagram-post-design.md](PostTypes/step-by-step/Skills/instagram-post-design.md) section 3.5
+- **Colombian Spanish, `tú` form** -- never Argentinian voseo
+- Yes: Crea, Define, Instala, Convierte, Delega, Desliza, Guarda, Usa, tú, tienes, quieres
+- No: Creá, Definí, Instalá, Convertí, Delegá, Deslizá, Guardá, Usá, vos, tenés, querés
+- Reflexive imperatives keep the accent: `instálalo`, `arráncalo`, `guárdalo`
+- Full conversion table is in [PostTypes/step-by-step/Skills/instagram-post-design.md](PostTypes/step-by-step/Skills/instagram-post-design.md)
 
-### 3.3 Visual system (cream + coral + yellow + grid)
-- Background: cream `#F5F2ED` (NOT pure white) with subtle grid `#E8E4DD`
-- Primary text: `#0E0E0E`
-- Accent coral: `#E85D3C`
-- Highlight yellow: `#FFE45C`
-- Canvas: 1080Ã—1350 px (4:5 portrait)
-- Font: Inter (500/600/700/800), JetBrains Mono for code
+### 3.3 Visual system
+
+**All color, typography, and slide-pattern decisions live in [Brand/brand-spec.md](Brand/brand-spec.md).** Read that file at the start of every session. The TL;DR:
+
+- **Canvas:** 1080 × 1350 px (4:5 portrait, Instagram feed optimal)
+- **Color schemes:** AMARILLO (orange highlights), ROJO (red), AZUL (blue) -- ask user per post.
+- **Modes:** LIGHT (cream/white bg) or DARK (black/navy bg) -- ask user per post.
+- **Fonts:** Roboto (400/500/700/900) for body+headings; Playfair Display **Italic only** for 1-2 emphasis words per headline.
+- **No page dots** -- Instagram adds them natively for carousels. Do not add dot indicators to slides.
+
+If a skill contradicts brand-spec.md, brand-spec.md wins -- update the skill.
 
 ### 3.4 Render pipeline
 - Use **`./render.sh {folder}`** to convert all HTMLs in a folder to PNGs. The folder path is relative to the project root, e.g. `./render.sh PostTypes/step-by-step/Outputs/agentes-claude-v2`.
 - Single-file mode also works: `./render.sh PostTypes/step-by-step/Outputs/agentes-claude-v2/cover_v1_delega.html`
-- Do NOT manually script Chrome headless commands â€” use `render.sh`
-- The script handles all the flags (window size, virtual time budget, scale factor) and Git Bash â†’ Windows path conversion
-- **Viewport bug fix (2026-04-16):** Chrome headless on Windows subtracts ~96px from `--window-size` height for window chrome decorations. `render.sh` uses `--window-size=1098,1550` (200px extra headroom) and then crops to exact 1080Ã—1350 via PIL. This ensures content near the bottom of the canvas (dots, pills, taglines at y>1272) renders correctly. If bottom elements appear cut off in renders, verify `render.sh` has the correct window size.
-- **After every render, run the [Visual QA skill](Skills/visual-qa.md)** â€” open and inspect every PNG before presenting it to the user. This is mandatory for ALL post types. Never describe a feature you can't visually confirm in the rendered output.
-- **Before writing any slide's HTML AND during QA, apply the [Slide Spacing skill](Skills/slide-spacing.md)** â€” content must fill ~70â€“85% of the usable canvas. Never leave >150px empty in the middle of a slide or >120px at the bottom outside the safe zone. Scale fonts up for short content; use flex `justify-content: space-between` for multi-element slides. This applies to ALL post types.
+- Do NOT manually script Chrome headless commands -- use `render.sh`.
+- The script handles all the flags (window size, virtual time budget, scale factor) and Git Bash -> Windows path conversion.
+- **Viewport bug fix:** Chrome headless on Windows subtracts ~96px from `--window-size` height. `render.sh` uses `--window-size=1098,1550` and crops to exact 1080×1350 via PIL. Content at y>1272 (footer pills, taglines) will be cut off if the viewport is too small. Always verify bottom elements render.
+- **After every render, run the [Visual QA skill](Skills/visual-qa.md)** -- open and inspect every PNG before presenting it to the user. Mandatory for ALL post types. Never describe a feature you can't visually confirm in the rendered output.
+- **Before writing any slide's HTML AND during QA, apply the [Slide Spacing skill](Skills/slide-spacing.md)** -- content fills ~70-85% of usable canvas, never leave >150px empty in the middle or >120px at the bottom outside safe zone.
 
-### 3.5 Image generation â€” hybrid approach (by post type)
+### 3.5 Image generation -- Higgsfield MCP (sole image generator)
 
-This project uses **two image generation methods** depending on the post type:
+> **As of brand v2 migration (2026-05-22), all AI image generation goes through the Higgsfield MCP.** The previous Codex/gpt-image-1 path is deprecated. Do not reference, call, or attempt to use any other image generator.
 
-| Post type | Method | Visual assets (logos, personas, backgrounds) |
-|---|---|---|
-| **Step-by-step** | HTML + CSS + inline SVG | Logos from `Logos/`; **Codex image tool ONLY for missing logos** â€” nothing else |
-| **News** | **Codex image tool photos per slide** + HTML overlay | 5-slide carousel. Codex image tool generates ONE photo per slide that needs one (cover + body slides); HTML adds all text, tweet cards, stat cards, dots, Alta Studio. **No PIL anywhere.** |
-| **Informativos** | **Codex image tool full composition** + HTML text overlay | Codex image tool generates the COMPLETE visual (background, layout structure, icons, logos, decorative elements â€” NO text); HTML overlay adds all text |
+**Setup (one-time per machine):**
+```
+claude mcp add --transport http --scope user higgsfield https://mcp.higgsfield.ai/mcp
+```
+First tool invocation opens browser-based OAuth -- log in with the existing paid Higgsfield account.
 
-#### Step-by-step posts (Codex image tool ONLY for missing logos)
-- All slides are **HTML + CSS + inline SVG**, rendered to PNG via `render.sh`.
-- If a slide needs imagery beyond text, recreate it with elaborate inline SVG.
-- Logos come from `Logos/` (real assets uploaded by the user).
-- **If a needed logo is NOT in `Logos/`** â†’ generate it with Codex image tool with Codex's integrated image tool, save to `Logos/`, and present to the user for review before using it.
-- **Codex image tool is strictly limited to logo generation in this post type.** Do NOT use it for backgrounds, illustrations, person photos, or any other asset â€” that would violate the no-local-paid-image rule. Everything else stays HTML + CSS + inline SVG.
+**Tools exposed (typical MCP naming):**
+- `mcp__higgsfield__generate_image` -- single image generation (Soul 2.0 / Nano Banana Pro / Flux 2 / etc.)
+- `mcp__higgsfield__generate_video` -- video generation (not used in this project today)
+- `mcp__higgsfield__balance` -- check remaining credits
+- (verify exact names after authentication; the prefix `mcp__higgsfield__` is conventional)
 
-#### News posts (5-slide carousel, Codex image tool photos + HTML overlay)
-- **News is a carousel**, not a single image. 5 slides default (4â€“7 allowed). The old single-image + long-caption format is **deprecated**.
-- **Slide structure:** (1) cover with photo + headline, (2) tweet/official announcement, (3) text+photo, (4) text+photo OR white-card stat, (5) closer (reaction tweet, stat card, or takeaway).
-- **Codex image tool generates one photo per slide that needs one** â€” cover photo, body-slide supporting photos, optional tweet avatars. No text or logos inside the images.
-- **HTML + render.sh handles everything else** â€” headlines with coral/yellow keyword highlights, tweet cards, white stat cards, page dots, Alta Studio logo, SWIPE pill. **PIL is no longer used for news.**
-- **Tweet ethics (mandatory):** real official tweets are researched and reproduced faithfully; reaction/commentary tweets use invented handles with generated avatars; **never fabricate a quote attributed to a real person.** See `PostTypes/news/Skills/news-post-design.md` Â§11.
-- **Photos are 100% generative** â€” no `--reference` with real person photos per user preference.
-- **Alta Studio logo** appears in ONE top corner per slide (not both). **No `@lucianomusellaa`** on news. **No bottom-right watermark.**
-- **Workflow for news carousels:**
-  1. Visual re-anchor (`Inspiracion/` + `Favoritos_Claude_Generated/`)
-  2. Draft the 5-slide outline â†’ user approves structure
-  3. Propose 2â€“3 cover headline variations (Colombian Spanish, keyword highlights) â†’ user approves
-  4. Research real tweets for slide 2 via WebSearch (if official announcement)
-  5. Generate photos with Codex's integrated image tool, save the approved assets locally, and use the required ratios (4:5 cover, 16:9 body photos, 1:1 avatars).
-  6. Present photos to user â€” only regenerate if rejected
-  7. Build HTML for all slides â†’ `./render.sh PostTypes/news/Outputs/{topic-slug}`
-  8. Visual QA on every PNG
-  9. Short caption (1â€“3 lines) saved as `caption.txt`
-  10. Present full carousel + caption, ask which slides are favorites
-- See `PostTypes/news/Skills/news-post-design.md` for the complete visual system, HTML scaffolds, prompt guidelines, and tweet ethics.
+**When to use it (by post type):**
 
-#### Informativos posts (Codex image tool FULL COMPOSITION + HTML text overlay)
-- **Codex image tool generates the complete visual composition** â€” background, layout structure (cards, tiers, grids, mind-map nodes), decorative elements, icons, brand logos â€” all as ONE cohesive image. This replaced the old HTML+CSS+SVG approach, which couldn't achieve the editorial richness of the inspiration images.
-- **HTML is used ONLY for text** â€” titles, item names, descriptions, numbers, handle, footer. HTML uses the composition as `background-image` and positions text to align with the visual structure.
-- **Workflow for informativos compositions:**
-  1. Choose layout pattern (Aâ€“G) and craft a detailed composition prompt (see skill file section 4)
-  2. Check `Logos/` and `Assets/` for existing brand assets (use `--reference` if available)
-  3. Generate ONE composition with Codex's integrated image tool and save it as `composition.png`
-  4. Present composition to user for review â€” only regenerate if rejected
-  5. Generate HTML text overlay on top of the approved composition
-  6. Render via `render.sh`
-- See `PostTypes/informativos/Skills/informativo-post-design.md` section 4 for detailed prompting guidelines and layout templates.
-- **Generation tool:** Codex's integrated image tool. Do not use local scripts, local credentials, or project-level paid image paths. Save generated assets locally at the intended ratio: 1080x1080 (1:1), 1080x1350 (4:5), or 1080x608 (16:9).`r`n- **âš ï¸ Content policy:** OpenAI's image policy rejects named real public figures (CEOs, politicians, researchers) more aggressively than Gemini did. If the script fails with `content_policy_violation`, rephrase the prompt as "a person who looks like X", describe the role/setting without the name, or use a user-provided reference photo in `Assets/Personas/`.
+| Post type | Image generation use |
+|---|---|
+| **Step-by-step** | Only for missing logos. All other slide content is HTML+CSS+inline SVG (Tutorial templates require precise layout, terminal mockups, code, etc.). |
+| **News** | **Single-step generation per slide, 100% Higgsfield.** Prompt `nano_banana_pro` at `resolution: "2k"` with ALL text, stats, headlines, eyebrows, bullet dots, comparison cards, layout structure baked into the prompt. **News slides have NO Alta Studio logo and NO `@lucianomusellaa` handle.** Each prompt explicitly instructs "the top-left corner MUST be completely empty -- no logo, no symbol, no mark". After generation: download + resize to 1080×1350 (PIL LANCZOS) and that's the final deliverable. No HTML overlay, no PIL paste, no post-processing of any kind. Verify spelling on every slide; regenerate if typos appear. ~8 credits per 4-slide carousel. |
+| **Informativos** | **Single-step generation, 100% Higgsfield.** nano_banana_pro at 2k with ALL text baked into the prompt (title, item names, descriptions, `@lucianomusellaa` handle at bottom). No HTML overlay, no PIL paste. ~2 credits per post. |
 
-#### Prompt guidelines for Codex image tool
-- **Logos:** be specific about the brand, style, and background. E.g. "Official OpenAI logo, clean vector style, white background, high resolution"
-- **Person photos:** describe the person and context. E.g. "Professional headshot of Sam Altman, CEO of OpenAI, wearing a grey t-shirt, neutral background, editorial photography style"
-- **Backgrounds/textures:** describe the mood and palette. E.g. "Abstract dark background with subtle blue circuit patterns, futuristic AI aesthetic, 1080x1350"
-- **Illustrations:** describe the concept clearly. E.g. "Minimalist illustration of a brain connected to a neural network, clean lines, coral and cream color palette"
+**Prompt anatomy (Higgsfield Soul 2.0 favors descriptive long-form prompts):**
+```
+[SUBJECT — specific noun + adjectives]
+[STYLE — editorial / cinematic / minimalist / photoreal etc.]
+[COMPOSITION — framing, depth, angle]
+[LIGHTING — natural, studio, dramatic, golden hour, etc.]
+[PALETTE — limit to brand-friendly tones; avoid colors that clash with the chosen mode]
+[NEGATIVE — "no text", "no logos", "no watermarks"]
+[ASPECT RATIO — explicit, e.g. --ar 4:5, --ar 16:9, --ar 1:1]
+[SEED — same seed across slides of one carousel for stylistic consistency]
+```
 
-### 3.5.1 Brand logos and person photos â€” sourcing hierarchy
+Full prompt templates and per-slot recipes live in [Brand/brand-spec.md §4](Brand/brand-spec.md).
 
-For **step-by-step** posts, logos MUST come from the `Logos/` folder first. If a logo is missing â†’ generate it with Codex image tool with Codex's integrated image tool, save to `Logos/`, and present for user review. **Codex image tool is ONLY allowed for logos in step-by-step â€” never for backgrounds, illustrations, or any other asset.**
+**Anti-patterns:**
+- Do NOT ask Higgsfield to render text inside an image (typography is HTML's job).
+- Do NOT ask for a logo of a real brand if it's already in `Logos/` -- use the existing file.
+- Do NOT use prompts under 15 words -- Soul produces generic results.
+- Do NOT fall back to any other image API silently. If Higgsfield is unreachable, ask the user.
+
+### 3.5.1 Brand logos and person photos -- sourcing hierarchy
+
+For **step-by-step** posts, logos MUST come from the `Logos/` folder first. If a logo is missing, generate it with Higgsfield, save to `Logos/`, and present for user review before using.
 
 For **news and informativos** posts, follow this order:
-1. **Check `Logos/` and `Assets/Personas/` first** â€” if the real asset exists, always prefer it
-2. **If not available â†’ generate with Codex image tool** with Codex's integrated image tool
-3. **Save generated logos** to `Logos/` and **generated person photos** to `Assets/Personas/` so they're reusable across future posts
-4. **Present to user for review** â€” they approve before it goes into the slide
-5. **Never silently skip a visual asset** â€” either use an existing one or generate one. Every brand/person mentioned in the post should have its visual.
+1. **Check `Logos/` and `Assets/Personas/` first** -- if the real asset exists, always prefer it.
+2. **If not available -> generate with Higgsfield MCP.**
+3. **Save generated logos** to `Logos/` and **generated person photos** to `Assets/Personas/` so they're reusable across future posts.
+4. **Present to user for review** -- they approve before it goes into the slide.
+5. **Never silently skip a visual asset** -- either use an existing one or generate one.
 
-**SVG embedding tip (for existing assets):** for `.svg` files in `Logos/`, prefer inlining the `<svg>...</svg>` content directly into the HTML â€” this avoids path resolution issues with headless Chrome and gives full CSS control over fill/stroke colors.
+**SVG embedding tip:** for `.svg` files in `Logos/`, prefer inlining the `<svg>...</svg>` content directly into the HTML -- this avoids path resolution issues with headless Chrome and gives full CSS control over fill/stroke colors.
 
-### 3.6 Output folder structure
-- **Every post lives in its own folder** under its type's `Outputs/`, e.g. `PostTypes/step-by-step/Outputs/{topic-slug}/`
-- The slug is kebab-case, descriptive but short: `agentes-claude-code`, `claude-manychat-tutorial`, `flujos-meta-ads`
-- Each folder contains the `.html` source files AND the rendered `.png` files side by side
+**Content policy note:** Higgsfield's Soul 2.0 handles named real people more permissively than gpt-image-1 did, but the same legal/ethics rules apply. For news photos of public figures, generate generic-looking imagery and lean on context, OR use a real photo from `Assets/Personas/` when available.
+
+### 3.6 Output folder structure (dated + auto-pruned to last 5 per type)
+
+- **Every post lives in its own folder** under its type's `Outputs/`, named **`YYYY-MM-DD_{topic-slug}/`**. The date prefix is mandatory.
+- Example: `PostTypes/news/Outputs/2026-05-24_opus-4-7/`, `PostTypes/step-by-step/Outputs/2026-05-24_agentes-claude-code/`.
+- Slug part: kebab-case, descriptive but short (≤4 words).
+- Each folder contains the rendered `.png` files (and any source files like `.html` for step-by-step, `caption.txt`, etc.) side by side.
 - Never reuse a folder for a different topic. Never dump outputs into the root of `Outputs/`.
-- Per-type naming conventions live in each type's `README.md`.
+
+**Auto-prune to last 5 posts per type:**
+- After creating a new post folder (and after the user has confirmed favorites), run:
+  ```
+  python Brand/prune_outputs.py {step-by-step|news|informativos}
+  ```
+- The script keeps the 5 most-recent dated folders and **deletes the rest** (`rm -rf`). This prevents `Outputs/` from accumulating indefinitely.
+- The script uses lexicographic sort on the `YYYY-MM-DD_` prefix → newest first → keep top 5 → delete tail.
+- **Folders WITHOUT a date prefix are NEVER touched** by the prune. This protects historical pre-migration outputs (e.g. `agentes-claude-code/`, `allbirds-pivote-ia/`) and the `Favoritos_Claude_Generated/` folder.
+- If the user marks a post as favorite (CLAUDE.md §1.6), the favorites are copied to `Favoritos_Claude_Generated/` BEFORE the prune runs. So a favorited slide is preserved even when its source `Outputs/` folder gets pruned later.
+- To change the keep limit for a one-off: `python Brand/prune_outputs.py news 10` keeps the last 10 instead of 5. Default stays at 5.
 
 ### 3.7 GitHub pushes require explicit approval
 - I can `git init`, stage, commit locally, write READMEs, and configure remotes freely.
-- I **must NOT** run `git push` (or any equivalent that publishes to a remote) until the user explicitly tells me to push in the current conversation ("haz el push", "sÃºbelo", "publÃ­calo", etc.).
-- A prior approval to push does NOT carry over â€” every push needs its own green light.
+- I **must NOT** run `git push` (or any equivalent that publishes to a remote) until the user explicitly tells me to push in the current conversation ("haz el push", "súbelo", "publícalo", etc.).
+- A prior approval to push does NOT carry over -- every push needs its own green light.
+
+### 3.8 Outputs lifecycle (dated naming + last-5 rolling window)
+
+- All historical pre-migration outputs were cleaned on 2026-05-24. The Outputs/ tree now contains only posts created under brand v2.
+- **New convention:** every post lives in `PostTypes/{type}/Outputs/YYYY-MM-DD_{topic-slug}/`. See §3.6 for the dated-folder rule.
+- **Auto-prune** keeps only the 5 most-recent dated folders per type. Favorites are saved separately in `Favoritos_Claude_Generated/` BEFORE the prune runs, so they survive deletion of their source folder.
+- If a user wants to revisit an older post and it's been pruned, recovery options: (a) check `Favoritos_Claude_Generated/` if any slide was favorited, (b) check `git log` to find the commit when it was generated and restore from there, (c) re-generate from scratch using the original brief if available.
 
 ---
 
@@ -255,7 +291,7 @@ For **news and informativos** posts, follow this order:
 
 If the user mentions something is wrong with a slide (or puts marked-up images in `Errors/`):
 1. Read the marked images from `Errors/` to see what they circled
-2. Identify the root cause in the HTML (don't guess â€” find the actual SVG/CSS line)
+2. Identify the root cause in the HTML (don't guess -- find the actual SVG/CSS line)
 3. Fix it
 4. Re-render only the affected slide
 5. Verify the fix visually
@@ -265,21 +301,19 @@ If the user mentions something is wrong with a slide (or puts marked-up images i
 ## 5. When the user gives feedback that should outlive this session
 
 If the user says something like *"siempre haz X"* or *"nunca uses Y"* or corrects me on a recurring pattern:
-1. Save it as a `feedback` memory in `memory/` (see auto-memory instructions in the system prompt)
-2. **Also** update the relevant skill file(s) so the rule lives in two places: memory (cross-session) AND skill (operational)
-3. Add a one-line entry to `memory/MEMORY.md`
+1. Save it as a `feedback` memory in `~/.claude/projects/c--Trabajo-AI-Visual-posts/memory/`
+2. **Also** update the relevant skill file(s) -- and if it's a brand-level rule, update `Brand/brand-spec.md`
+3. Add a one-line entry to `~/.claude/projects/c--Trabajo-AI-Visual-posts/memory/MEMORY.md`
 
-This is what we did with: Colombian Spanish, double highlight on covers, slide indicator, closing slide pattern.
+Examples of feedback already captured: Colombian Spanish, no page dots, color+mode per post, Higgsfield as sole image generator, Outputs/ immutable.
 
 ---
 
-## 6. The skills are the spec â€” don't improvise
+## 6. The skills are the spec -- don't improvise
 
-Each post type's skill files are the operational ground truth for that type's design decisions. If a user request seems to conflict with a skill, **flag the conflict** before deviating. Example:
+Skill files and `Brand/brand-spec.md` are the operational ground truth. If a user request seems to conflict with a skill or the brand spec, **flag the conflict** before deviating. Example:
 
 > *User: "haz el cover sin highlight"*
-> *Me: "El skill dice que los covers usan double highlight por defecto (preferencia tuya validada). Â¿Quieres que lo saltemos solo en este post o cambiamos la regla en el skill?"*
+> *Me: "El brand-spec dice que los covers llevan 1-2 palabras en Playfair Italic accent. ¿Lo saltamos solo en este post o cambiamos la regla en el spec?"*
 
-The skills are alive â€” they should evolve with the user's preferences, but only deliberately.
-
-
+The skills are alive -- they should evolve with the user's preferences, but only deliberately.

@@ -1,105 +1,100 @@
-﻿# News posts â€” AI noticias
+# News posts -- AI noticias (brand v2)
+
+> **Skills:** see [`Skills/news-post-design.md`](Skills/news-post-design.md) for the full visual system and the Higgsfield prompt structure per slide. The brand visual system lives in [`Brand/brand-spec.md`](../../Brand/brand-spec.md).
 
 ## What this type is for
 
-Posts about AI announcements, model releases, breaking news, industry events. **5-slide carousel** (4â€“7 allowed) with a dark editorial feel â€” Codex image tool photos + HTML text overlay. The hook is **timeliness + a bold headline + a real source tweet + digestible body slides** that replace the old long caption.
+Posts about AI announcements, model releases, breaking news, industry events. **4-slide carousel** generated 100% via Higgsfield single-step (one image per slide with all text + visuals baked into the prompt) under brand v2 (Roboto + Playfair Italic, scheme/mode-aware). Mode (LIGHT/DARK) and color scheme (AMARILLO/ROJO/AZUL) asked at the start of every post.
 
 ## Trigger phrases
 
 - "post de noticia: {titular}"
 - "carrusel de la noticia de {evento}"
 - "hagamos un post sobre la noticia de {tema}"
-- "esto saliÃ³ hoy: {url}"
+- "esto salió hoy: {url}"
 
 ## Skills to load (in order)
 
-1. **[Skills/news-post-design.md](Skills/news-post-design.md)** â€” the complete visual system for news carousels (5-slide taxonomy, cover layout, tweet/text/card templates, Codex image tool prompting, tweet ethics, Colombian Spanish rules, HTML scaffolds)
+1. [Brand/brand-spec.md](../../Brand/brand-spec.md) -- canonical palette, fonts, slide patterns
+2. [Skills/news-post-design.md](Skills/news-post-design.md) -- 4-slide news visual system + prompt structures
 
-## The 5-slide default structure
+Plus the global mandatory skill:
+- [../../Skills/visual-qa.md](../../Skills/visual-qa.md) -- mandatory post-render verification
+
+## The 4-slide default structure
 
 | # | Slide type | Purpose |
 |---|---|---|
-| 1 | **Cover** | Codex image tool photo + bold headline with coral/yellow keyword highlights + SWIPE pill |
-| 2 | **Tweet** | Real official tweet from the company/CEO (researched) OR quote card |
-| 3 | **Text + photo** | What happened â€” short text block + Codex image tool supporting photo |
-| 4 | **Text + photo** OR **white card** | Why it matters â€” explanation with photo, OR punchline stat on white card |
-| 5 | **Closer** | Reaction tweet (invented commentator handle) OR stat card OR key takeaway |
+| 1 | **Cover** | Full-bleed editorial photo + gradient + headline (Roboto Black ALL CAPS with Playfair Italic emphasis words) + subtitle |
+| 2 | **Body** | Text top with stats inline (numbers in Playfair Italic highlight) + 16:9 concept photo zone bottom |
+| 3 | **Stat card** | White/light card on dark bg with huge Roboto Black number + `%` in Playfair Italic + comparison cards |
+| 4 | **Verdict** | White/light card with synthesis headline + 3 semaphore bullets (green/orange/red dots) + BOTTOM LINE closer |
 
-Flexibility: 4 slides for simple news (skip slide 4), 6â€“7 for complex news. Never fewer than 4.
+Flexibility: 3 slides (drop stat or verdict) for ultra-simple news; 5-6 for complex news.
 
 ## Workflow when the user triggers a news post
 
-1. **Read the skill:** load [`Skills/news-post-design.md`](Skills/news-post-design.md)
-2. **Mandatory visual re-anchoring:** review [`Inspiracion/`](Inspiracion/) AND [`Favoritos_Claude_Generated/`](Favoritos_Claude_Generated/) (see root [CLAUDE.md](../../CLAUDE.md) Â§1.5). **Look at carousel patterns, not just covers.**
-3. **Understand the news:** what happened, who's involved, what's the data.
-4. **If only a title was given â†’ WebSearch** for the full story. Extract: who, what, when, how, numbers, impact, source.
-5. **Draft the 5-slide outline:** propose the breakdown (cover hook, tweet angle, body slide 1 angle, body slide 2 angle, closer angle). Wait for user approval of the structure.
-6. **Propose 2â€“3 cover headline variations** in Colombian Spanish with keyword highlights marked. Wait for approval.
-7. **Research real tweets** if slide 2 is an official announcement â€” use WebSearch, reproduce the real tweet text faithfully (see skill Â§11).
-8. **Generate photos with Codex image tool** â€” ONE per slide that needs one (cover + 1â€“2 body slides + optional closer/avatar). Cover at `--aspect-ratio 4:5`, body slides at `16:9`. The script crops + resizes internally to exact dimensions â€” no separate resize step needed.
-9. **Present photos to user for review.** Only regenerate if rejected.
-10. **Build the HTML for all slides** â€” cover, tweet, text+photo, (optional) white card, closer. Save each as `slide{N}_{descriptor}.html` in the post's output folder.
-11. **Render via `./render.sh PostTypes/news/Outputs/{topic-slug}`** â€” renders all slides at once.
-12. **MANDATORY Visual QA** â€” open every PNG (see [`Skills/visual-qa.md`](../../Skills/visual-qa.md)). Verify: no artifacts, text readable, photos positioned correctly, dots correct per slide, Alta Studio visible, SWIPE pill only on cover.
-13. **Draft the short caption** (1â€“3 lines only) â†’ save as `caption.txt` in the output folder.
-14. **Present the complete carousel** â€” all slide PNGs in order + caption.
-15. **Ask which slides are favorites** â†’ copy to [`Favoritos_Claude_Generated/`](Favoritos_Claude_Generated/).
+1. **Confirm type + color + mode** (per root CLAUDE.md §1)
+2. **Read** [Brand/brand-spec.md](../../Brand/brand-spec.md), then [Skills/news-post-design.md](Skills/news-post-design.md)
+3. **Mandatory visual re-anchoring:** open `Brand/Templates/Noticias/{COLOR}/{MODE}/` and read at least 2 PNGs. Then [Inspiracion/](Inspiracion/) and [Favoritos_Claude_Generated/](Favoritos_Claude_Generated/).
+4. **Understand the news:** what happened, who's involved, what's the data
+5. **If only a title was given → WebSearch** for the full story. Extract: who, what, when, how, numbers, impact, source.
+6. **Draft the 4-slide outline** -- propose breakdown for each slide angle. Wait for user approval.
+7. **Propose the cover headline (single best option, no variants)** in Colombian Spanish with Playfair Italic emphasis words marked. Wait for approval. Per memory `feedback_pick_the_best_headline.md`: don't ask which headline is preferred -- pick the best one.
+8. **Create the dated output folder:**
+   ```bash
+   mkdir -p "PostTypes/news/Outputs/$(date +%Y-%m-%d)_{topic-slug}"
+   ```
+   The `YYYY-MM-DD_` prefix is mandatory -- enables auto-prune (see step 14).
+9. **Generate each of the 4 slides via Higgsfield MCP** -- one call per slide. Model: `nano_banana_pro`, `aspect_ratio: "4:5"`, `resolution: "2k"`. Each prompt includes ALL text content + the mandatory line "The top-left corner MUST BE COMPLETELY EMPTY. No logo, no symbol, no mark." See [Skills/news-post-design.md §9](Skills/news-post-design.md) for the per-slide prompt structure.
+10. **Download + resize each result** from native ~1856×2304 to 1080×1350 via PIL LANCZOS. Save as `slide{N}_{descriptor}.png` in the dated folder. Delete the raw download.
+11. **Mandatory Visual QA** ([../../Skills/visual-qa.md](../../Skills/visual-qa.md)) -- open every PNG. Verify Spanish spelling (no `MENOS MENOS` duplications, no `Verifed` missing letters), all numerical stats, italic emphasis on right words, semaphore dot order (green/red/orange), empty top-left corner. **If any error → regenerate that slide with a refined Higgsfield prompt. Do NOT patch via HTML or PIL.**
+12. **Draft the short caption** (1-3 lines) → save as `caption.txt`
+13. **Present the complete carousel** + caption to the user
+14. **Ask which slides are favorites** → `cp` to [Favoritos_Claude_Generated/](Favoritos_Claude_Generated/) with `{topic-slug}_{slide_name}.png` naming
+15. **Run auto-prune (MANDATORY):**
+    ```bash
+    python Brand/prune_outputs.py news
+    ```
+    Keeps the 5 most-recent dated folders, deletes older ones. Favorites already saved in step 14 survive (they live in a separate folder). Historical pre-migration folders without a date prefix are never touched. See root CLAUDE.md §3.6.
 
 ## Brand-wide rules that apply
 
-From the root [CLAUDE.md](../../CLAUDE.md):
-
-- **Always ask the user to confirm the post type** before starting (Â§1)
-- **Mandatory visual re-anchoring** before generating anything (Â§1.5)
-- **After every post, ask which images are favorites** (Â§1.6)
-- **Colombian Spanish, tÃº form** â€” never Argentinian voseo
-- **NO `@lucianomusellaa` on news** â€” Alta Studio logo in ONE top corner replaces it
-- **No bottom-right watermark** â€” just the single Alta Studio logo
-- **Photos are 100% generative** (no `--reference`, no real person compositing)
-- **Fabricated quotes attributed to real people are forbidden** â€” see skill Â§11 for tweet ethics
-
-## What changed vs. the old system
-
-The old news system was a **single image with a long caption**. That approach is deprecated. The new carousel format was adopted after reviewing inspiration from accounts like Bridgemind â€” they break the story into digestible slides that people actually read, which outperforms a long caption that gets skipped.
-
-| | Old | New |
-|---|---|---|
-| Format | Single image + 6â€“10 paragraph caption | 5-slide carousel + 1â€“3 line caption |
-| Text compositing | PIL (Python) | HTML + render.sh |
-| Photos | Generated (often with `--reference`) | Codex image tool only, no reference |
-| Alta Studio | Fixed top-right every time | One corner per slide (composition-dependent) |
+From [CLAUDE.md](../../CLAUDE.md):
+- Always ask the user to confirm type + color + mode (§1)
+- Mandatory visual re-anchoring (§1.5)
+- After every post, ask which images are favorites (§1.6)
+- Colombian Spanish, `tú` form -- never voseo
+- **No `@lucianomusellaa` handle AND no Alta Studio logo on news.** Top-left corner is intentionally empty (editorial magazine look). Every Higgsfield prompt must include the mandatory empty-corner instruction.
+- **No SWIPE pill on cover, no page dots** -- IG handles pagination
+- Image generation 100% via Higgsfield MCP (`nano_banana_pro` at `resolution: "2k"`)
+- Tweet ethics ([Skills/news-post-design.md §8](Skills/news-post-design.md)) -- never fabricate quotes attributed to real people
+- Auto-prune to keep last 5 posts per type (§3.6)
 
 ## Folder layout
 
 ```
 PostTypes/news/
-â”œâ”€â”€ README.md                     â† this file
-â”œâ”€â”€ Skills/
-â”‚   â””â”€â”€ news-post-design.md       â† visual system + HTML scaffolds + tweet ethics
-â”œâ”€â”€ Inspiracion/                  â† external visual references (carousel patterns)
-â”œâ”€â”€ Favoritos_Claude_Generated/   â† past slides the user marked as favorites
-â””â”€â”€ Outputs/                      â† rendered news carousels (one folder per news item)
-    â””â”€â”€ {topic-slug}/
-        â”œâ”€â”€ composition.png              â† cover photo (Codex image tool)
-        â”œâ”€â”€ slide3_photo.png             â† body slide photo
-        â”œâ”€â”€ slide4_photo.png             â† (optional)
-        â”œâ”€â”€ slide5_photo.png             â† (optional, if closer is Template A)
-        â”œâ”€â”€ tweet_avatar.png             â† (optional, invented commentator avatar)
-        â”œâ”€â”€ slide1_cover.html
-        â”œâ”€â”€ slide1_cover.png
-        â”œâ”€â”€ slide2_tweet.html
-        â”œâ”€â”€ slide2_tweet.png
-        â”œâ”€â”€ slide3_text.html
-        â”œâ”€â”€ slide3_text.png
-        â”œâ”€â”€ slide4_{text|card}.html
-        â”œâ”€â”€ slide4_{text|card}.png
-        â”œâ”€â”€ slide5_closer.html
-        â”œâ”€â”€ slide5_closer.png
-        â””â”€â”€ caption.txt                  â† 1â€“3 lines for Instagram
+├── README.md                          ← this file
+├── Skills/
+│   └── news-post-design.md            ← visual system + per-slide Higgsfield prompts + tweet ethics
+├── Inspiracion/                       ← external visual references (carousel patterns)
+├── Favoritos_Claude_Generated/        ← past slides the user marked as favorites (NEVER pruned)
+└── Outputs/                           ← rendered news carousels, auto-pruned to last 5 dated folders
+    ├── 2026-05-24_opus-4-7/           ← NEW format: YYYY-MM-DD_topic-slug
+    │   ├── slide1_cover.png
+    │   ├── slide2_body.png
+    │   ├── slide3_stat.png
+    │   ├── slide4_verdict.png
+    │   └── caption.txt
+    └── allbirds-pivote-ia/            ← LEGACY (pre-migration, no date prefix → exempt from prune)
+        └── ...
 ```
 
-## Naming convention for `{topic-slug}`
+## Naming convention
 
-- kebab-case, descriptive, short: `anthropic-lideres-religiosos`, `altman-ataques-casa`, `perplexity-billion-build`, `claude-opus-4-7`
-- Never reuse a folder for a different news item
-
+- **Folder:** `YYYY-MM-DD_{topic-slug}/` where the date is the creation date and the slug is kebab-case, ≤4 words. Examples: `2026-05-24_opus-4-7`, `2026-05-24_anthropic-religiosos`, `2026-05-25_perplexity-billion`.
+- **Slide files:** `slide{N}_{descriptor}.png` (e.g. `slide1_cover.png`, `slide2_body.png`, `slide3_stat.png`, `slide4_verdict.png`).
+- **Caption:** `caption.txt` in the same folder.
+- Never reuse a folder for a different news item.
+- Folders without a `YYYY-MM-DD_` prefix are treated as historical archive and exempt from auto-prune.
