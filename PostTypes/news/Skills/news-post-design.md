@@ -16,22 +16,52 @@ This skill defines the visual language for **AI news posts**: a **4-slide Instag
 
 ---
 
-## 1. The 4-slide carousel structure (canonical from templates)
+## 1. Slide library + recipe-driven structure (added 2026-05-25)
 
-Every news post follows this 4-slide skeleton (variations require user approval):
+> **Why this changed:** the old "always cover/body/stat/verdict" produced visually-rhyming posts. User feedback 2026-05-25: *"no siempre tienen que ser esos 3 slides después del cover los mismos. Puedes poner tweets relevantes, jugar con el orden, a veces 5 slides en vez de 4, cambiar visualmente los slides de información."* New system: 7 slide types in a library, 4 recipes that pick from it, and 2-3 visual variants per info slide. The cover is fixed (slide 1, always); everything after rotates. See `[[feedback-news-slide-recipes-variety]]`.
 
-| # | Slide type | Purpose | Visual core |
-|---|---|---|---|
-| **1** | **Cover** | Hook: Higgsfield photo (4:5 full-bleed) + bold headline | Photo + dark gradient overlay + headline with Playfair Italic emphasis words |
-| **2** | **Body text** | What happened -- key facts with statistical emphasis | Text top (~55%) with stats inline (`%`, numbers highlighted), then dark photo zone bottom (16:9 Higgsfield) |
-| **3** | **Stat card** | Punchline -- one killer number + comparison | White card with huge Roboto Black number, `%` in Playfair Italic, comparison cards |
-| **4** | **Verdict** | Synthesis -- bullet list with semaphore dots | White card with headline + 3 bullet points (green/orange/red dots) |
+### 1.1 The slide library (7 types)
 
-### When to deviate from 4 slides
+| Type | Purpose | Default visual core |
+|---|---|---|
+| **Cover** | Hook (ALWAYS slide 1) | Full-bleed photo + subject company logo + headline (Playfair Italic emphasis) + subtitle |
+| **Body text** | What happened — key facts with stats inline | Text + stats inline, paired with concept photo (see variants in §1.4) |
+| **Stat card** | Punchline — killer number(s) on a card | Huge Roboto Black number + Playfair Italic unit (see variants in §1.4) |
+| **Verdict** | Synthesis / closer | Semaphore bullets OR pull-quote OR Q&A (see variants in §1.4) |
+| **Tweet card** | Real reaction / official announcement quote | Twitter UI mock with avatar + handle + tweet text. Mandatory: follow §8 tweet ethics (never fabricate quotes from real people) |
+| **Quote pull** | Editorial typographic quote (no Twitter UI) | Big italic Playfair quote, attribution line below, source eyebrow above. For pulled lines from CEOs / journalists / fuente |
+| **Comparison split** | Before/after, X vs Y, two-column contrast | Two stacked or side-by-side cards with same structure (label + value/photo) — one in highlight color, one in neutral |
 
-- **3 slides** -- ultra-simple news (single fact, no stat). Drop slide 3 OR slide 4.
-- **5-6 slides** -- complex news (multiple distinct angles). Add a second body slide between 2 and 3, or a tweet/quote slide.
-- **Never less than 3** -- a 2-slide news post feels thin.
+### 1.2 The 4 recipes (pick ONE per news post, rotate vs the last 2 posts)
+
+| Recipe | Slides | When |
+|---|---|---|
+| **A — Standard** | Cover → Body → Stat → Verdict | Factual news with a strong number. The default if nothing else fits. |
+| **B — Reaction** | Cover → Body → **Tweet/Quote** → Stat → Verdict (5) | When there's a public voice that matters (CEO statement, official tweet, expert reaction) |
+| **C — Comparison** | Cover → Body → **Comparison** → Verdict | Strategy pivots, before/after, X vs competition (e.g. Allbirds pivot, model vs model) |
+| **D — Photo essay** | Cover → Body → **Quote Pull** → Stat → Verdict (5) | More narrative/human news. The quote pull adds editorial weight between data points. |
+
+**Rotation rule:** check the last 2 dated folders in `PostTypes/news/Outputs/`. Don't repeat the same recipe two posts in a row, and try not to repeat 3 in a row. If you're forced to (because nothing else fits), document the reason in the outline message.
+
+**Length limits:** never fewer than 3 slides (feels thin), never more than 6 (loses punch). 4 is the sweet spot; 5 is fine when a tweet/quote earns its place.
+
+### 1.3 Outline workflow change
+
+When proposing the outline (per [README.md](../README.md) step 6), I now propose:
+1. **Recipe + reason** ("Receta B porque hay un tweet real de Zeb Evans que da voz a la noticia")
+2. **Per-slide breakdown** (slide-by-slide content angle, same as before)
+3. **Visual variant per info slide** ("body variante (b) split porque la foto es vertical")
+4. **Wait for user approval before generating.**
+
+Variant choices and recipe pick are part of the same outline message — don't ask separately.
+
+### 1.4 Visual variants per info slide type
+
+So that body/stat/verdict don't look identical between posts, each has 2-3 documented layout variants. Pick a different variant than the most recent post used. Variants live in their respective slide sections below:
+
+- **Body slide:** (a) text-top + photo-bottom · (b) photo-left + text-right · (c) full-bleed photo + text overlaid on gradient — see §4
+- **Stat card:** (a) one huge number · (b) dashboard 2–3 numbers in a row · (c) stat + sparkline/icon — see §5
+- **Verdict:** (a) 3 semaphore bullets · (b) pull-quote synthesis · (c) Q&A "Y entonces?" — see §6
 
 ---
 
@@ -60,23 +90,24 @@ All palette, typography, and slide-pattern rules live in [Brand/brand-spec.md](.
 ```
 ┌─ 1080 × 1350 ────────────────────────────────────────┐
 │                                                       │ ← full-bleed photo (Higgsfield)
-│  [Alta Studio]                                        │   takes ~55-60% of canvas
+│                                                       │   takes ~58% of canvas
 │                                                       │
+│                                                       │   TOP-LEFT MUST BE EMPTY (no
+│                  Higgsfield PHOTO (4:5)               │   Alta Studio, no @handle)
 │                                                       │
-│                                                       │   gradient overlay: photo top →
-│                  Higgsfield PHOTO (4:5)               │   transparent middle → dark/cream
-│                                                       │   gradient at bottom transition
-│                  subject in upper 60%                 │
-│                                                       │
-│            IMAGEN — hardware / servidor               │ ← image caption (small caps, gray)
-│                                                       │
+│                  subject in upper 58%                 │   gradient overlay: photo top →
+│                                                       │   transparent middle → dark/cream
+│                                                       │   at bottom transition
 │ ════════════════════════════════════════════════════  │ ← gradient/dark zone begins
-│ ANTHROPIC LANZÓ                                        │ ← Roboto Black ALL CAPS, white (DARK) / black (LIGHT)
-│ ╱OPUS╲ 4.7: MÁS CÓDIGO,                                │ ← Playfair Italic + scheme highlight
-│ MENOS ╱MEMORIA╲                                        │ ← Playfair Italic + scheme highlight
-│ — ¿VALE EL ╱PRECIO╲?                                   │ ← Playfair Italic + scheme highlight
+│              ▲                                         │ ← subject company logo (centered,
+│         [ClickUp logo]                                 │   ~280px wide, real brand colors)
+│              ─────────────                             │ ← thin divider line (~60% width)
+│ CLICKUP DESPIDIÓ                                       │ ← Roboto Black ALL CAPS, white
+│ AL 22% — Y LOS                                         │
+│ REEMPLAZÓ POR                                          │
+│ ╱3.000 AGENTES╲ DE IA                                  │ ← Playfair Italic + scheme highlight
 │                                                        │
-│ EL MODELO QUE PROMETÍA MÁS Y LLEGÓ CON SORPRESAS      │ ← subtitle, gray small caps
+│ EL FUTURO DEL TRABAJO LLEGÓ ANTES DE LO ESPERADO      │ ← subtitle, gray small caps
 │                                                        │
 └────────────────────────────────────────────────────────┘
 ```
@@ -85,15 +116,16 @@ All palette, typography, and slide-pattern rules live in [Brand/brand-spec.md](.
 
 ### Cover rules
 
-- **Photo:** 4:5 Higgsfield generation. Subject in upper 60% (will be visible). Bottom 40% will be darkened by gradient for headline readability.
+- **Photo:** 4:5 Higgsfield generation. Subject in upper ~58% (will be visible). Bottom ~42% will be darkened by gradient for the logo + headline + subtitle stack.
 - **Gradient overlay (DARK mode):** `linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.88) 8%, rgba(0,0,0,0.72) 22%, rgba(0,0,0,0.35) 42%, transparent 62%)`
 - **Gradient overlay (LIGHT mode):** invert with cream tones, `linear-gradient(to top, rgba(239,237,236,0.95) 0%, rgba(239,237,236,0.85) 10%, rgba(239,237,236,0.4) 30%, transparent 55%)`
-- **Image caption** ("IMAGEN — descriptor"): small caps, gray, sits just above the headline at ~y=720
-- **Headline:** Roboto Black 64-72px, ALL CAPS, 3-4 lines. 1-3 keywords rendered in Playfair Display Italic in the scheme highlight color. Position: headline starts at `top:820px`, extends down.
-- **Subtitle:** 17-19px Roboto Medium, ALL CAPS, letter-spacing 0.08em, color `rgba(255,255,255,0.55)` (DARK) or `rgba(12,19,20,0.55)` (LIGHT). Position: bottom at ~y=1270.
-- **No Alta Studio logo, no `@lucianomusellaa` handle.** The top-left corner is intentionally empty (editorial magazine look). The Higgsfield prompt must include the mandatory line "The top-left corner MUST BE COMPLETELY EMPTY. No logo, no symbol, no mark, no triangle."
-- **Headline and subtitle MUST be separate absolute-positioned elements** -- never nest them. Chrome headless clips child content that extends beyond parent's rendered height (caused the SWIPE pill bug in v1).
-- **No SWIPE pill on the cover** -- the templates don't use one; IG's swipe affordance is enough.
+- **Subject company logo (MANDATORY, added 2026-05-25):** every news cover MUST include the subject company's logo (the company the news is about — e.g. ClickUp, OpenAI, Anthropic) rendered inside the Higgsfield prompt. Placement: centered horizontally in the dark gradient zone, top of the typography stack, just above a thin divider line. Size ~280px wide × 60–80px tall. Use the company's actual brand colors (wordmark + icon if it has one). The model won't be pixel-perfect — that's fine; brand recognition + visual hook is the goal. The image caption ("IMAGEN — descriptor") is REPLACED by this logo on covers. See `[[feedback-news-cover-company-logo]]`.
+- **Divider line:** 1px warm-gray (`#3a4044`), ~60% width, centered, sits between the logo and the headline with small vertical breathing room.
+- **Headline:** Roboto Black 64–84px, ALL CAPS, 3–4 lines. 1–3 keywords rendered in Playfair Display Italic in the scheme highlight color. Left-aligned with 60px left padding.
+- **Subtitle:** 17–19px Roboto Medium, ALL CAPS, letter-spacing 0.08em, color `rgba(255,255,255,0.55)` (DARK) or `rgba(12,19,20,0.55)` (LIGHT). Centered near the bottom edge.
+- **No Alta Studio logo, no `@lucianomusellaa` handle.** The top-left corner is intentionally empty (editorial magazine look). The Higgsfield prompt must include the mandatory line "The top-left corner MUST BE COMPLETELY EMPTY. No logo, no symbol, no mark, no triangle." The ONLY logo on the cover is the centered subject-company logo in the dark zone.
+- **Body / stat / verdict slides (2, 3, 4) do NOT carry the company logo.** Logo is cover-only.
+- **No SWIPE pill on the cover** — the templates don't use one; IG's swipe affordance is enough.
 
 ### Higgsfield prompt structure (cover photo)
 
@@ -208,6 +240,14 @@ Save as `slide1_cover.html` in the post's output folder. The Higgsfield-generate
 - **Photo zone (16:9):** Higgsfield `--ar 16:9` → 1080×608. Subject is concept-reinforcing (not portrait). Sits at the bottom of the canvas.
 - **Image caption:** small caps over the dark/black zone above the photo, centered
 
+### Body visual variants (pick one — vary vs the last post)
+
+- **(a) Text-top + photo-bottom** (default, shown in the diagram above). Use when the photo is horizontal and the text needs ~55% of canvas.
+- **(b) Photo-left + text-right** (or right + left). Splits the canvas vertically ~50/50. Use when the photo is vertical (portrait of a CEO, building) or when you want the text to feel more focused/quoted.
+- **(c) Full-bleed photo + text overlaid on gradient** (cover-style for the body). Use when the photo is hero-grade (dramatic editorial shot) and the text is short — eyebrow + 2–3 short paragraphs max. Subtle dark gradient bottom-up so text stays legible.
+
+Translate the chosen variant into the Higgsfield prompt as a layout description ("UPPER 60% photo, LOWER 40% text" / "LEFT 50% photo, RIGHT 50% text" / "Full-bleed photo, text overlaid with gradient at bottom").
+
 ### Body slide HTML scaffold (DARK + AMARILLO)
 
 ```html
@@ -285,6 +325,12 @@ The Higgsfield photo (16:9, generic concept-reinforcing imagery) is generated se
 - **Comparison cards:** 3 small white/gray boxes in a row, each with a comparison value. Roboto Bold inside. The leading value (the slide's "winner") is also in Playfair Italic highlight color.
 - **Source line:** 16px Roboto Medium, text-subtle color
 
+### Stat card visual variants (pick one — vary vs the last post)
+
+- **(a) One huge number** (default, shown above). Use when there's ONE killer stat that carries the slide. Body paragraph + optional 3 comparison cards underneath.
+- **(b) Dashboard 2–3 numbers in a row** — split the card top zone into 2 or 3 equal columns, each with its own caption + huge Roboto Black number + unit in Playfair Italic. Use when the news has multiple parallel stats that gain meaning side-by-side (e.g. revenue / users / valuation). Body paragraph stays underneath.
+- **(c) Stat + sparkline / icon** — one huge number on the left/top, a stylized simple chart (sparkline, bar, donut) or symbolic icon on the right/bottom in the highlight color. Use when the trend or shape of the number matters (growth curve, market share slice). The "chart" is described into the Higgsfield prompt as geometric shapes — keep it abstract, not data-accurate.
+
 ### Stat card HTML scaffold (LIGHT + AMARILLO)
 
 ```html
@@ -359,6 +405,12 @@ The Higgsfield photo (16:9, generic concept-reinforcing imagery) is generated se
   - 🔴 RED `#e60000` -- negative finding
 - **Bullets:** Roboto Bold 26-30px for the headline of each bullet, italic gray 18-22px for the parenthetical detail below
 
+### Verdict visual variants (pick one — vary vs the last post)
+
+- **(a) 3 semaphore bullets** (default, shown above). Synthesis as positive/neutral/negative findings with dot colors. Use when there's a clear pro/con read.
+- **(b) Pull-quote synthesis** — drop the bullets, render the verdict as ONE big italic Playfair Display quote (50–60px) centered or left-aligned in the card, with a small attribution / source line below ("— @lucianomusellaa" or "Lectura editorial"). Use when one synthesized sentence says everything.
+- **(c) Q&A format** — two paragraphs: "**¿Y entonces?**" header in highlight color + answer paragraph in white/text-primary; optionally a second "**¿Qué viene ahora?**" + answer below. Use when the news has a clear question-the-reader-is-asking and you want to land the answer cleanly.
+
 ### Verdict HTML scaffold (LIGHT + AMARILLO)
 
 ```html
@@ -414,6 +466,138 @@ The Higgsfield photo (16:9, generic concept-reinforcing imagery) is generated se
 
 ---
 
+## 6.5 Slide type -- Tweet card (Recipe B)
+
+**When:** the news has a public statement worth showing in its original voice — an official company tweet, a CEO quote, a journalist's hot take. Insert between Body and Stat (or replace Stat in shorter recipes).
+
+**Mandatory:** follow §8 tweet ethics. Never fabricate a quote attributed to a real person. Official tweets must be reproduced verbatim from a real source; commentary tweets from invented personas are OK if clearly fictional.
+
+### Layout
+
+```
+┌─ 1080 × 1350 ────────────────────────────────────────┐
+│                                                       │
+│  LA REACCIÓN                                          │ ← eyebrow scheme highlight color
+│                                                       │
+│                                                       │
+│  ┌─────────────────────────────────────────────┐     │
+│  │ ◯  Zeb Evans ✓                              │     │ ← avatar circle + name + verified
+│  │    @zebevans                                │     │ ← handle, muted gray
+│  │                                             │     │
+│  │ "Most savings from this change will        │     │ ← tweet text, Roboto 28-32px
+│  │  flow directly back into the people        │     │   1-3 short paragraphs
+│  │  who stay. Million-dollar salary bands."   │     │
+│  │                                             │     │
+│  │  ───────────────                            │     │ ← divider
+│  │ 3:42 PM · 22 may 2026 · CEO ClickUp         │     │ ← timestamp + source, small grey
+│  └─────────────────────────────────────────────┘     │
+│                                                       │
+│  ─────                                                │ ← thin divider
+│  LA LECTURA                                           │ ← optional bottom row eyebrow
+│  El ahorro no va a la utilidad — va a los que       │ ← editorial 1-line take
+│  ╱se quedan╲.                                         │ ← italic emphasis
+└───────────────────────────────────────────────────────┘
+```
+
+**Card styling:** white card (LIGHT mode) or `#e6ecee` very-light card (DARK mode), border-radius 22px, padding 50px 50px. Tweet body in dark text. Twitter UI affordances are decorative — keep them subtle and editorial-feeling (small avatar circle, verified checkmark if real, handle + timestamp).
+
+**Higgsfield prompt anatomy:**
+- Describe the card geometry (rounded white card on dark/cream bg, padding, drop shadow)
+- Avatar: "small circular avatar at top-left of card, [describe person or a generic editorial portrait at 50px diameter]"
+- Name + verified mark + handle (real if public account, invented if commentary persona)
+- Tweet body text rendered in Roboto Medium black/dark, exactly as the prompt provides — no rephrasing
+- Timestamp + source line, muted gray
+- Optional bottom "LA LECTURA" row with editorial take below the card
+
+**Source verification:** if quoting a real public tweet, WebSearch the actual URL/handle and reproduce verbatim. If unverifiable, use Quote Pull (§6.6) instead — no Twitter UI = no false-attribution risk.
+
+---
+
+## 6.6 Slide type -- Quote pull (Recipe D, or anywhere)
+
+**When:** a single line from the news, the CEO, or the journalist deserves editorial weight without the Twitter UI baggage. Pure typographic moment.
+
+### Layout
+
+```
+┌─ 1080 × 1350 ────────────────────────────────────────┐
+│                                                       │
+│  LA FRASE                                             │ ← eyebrow scheme highlight color
+│                                                       │
+│                                                       │
+│        "The people that                               │
+│         ╱automate their jobs╲                         │ ← Playfair Display Italic
+│         with AI will always                           │   60-80px, italic, dark/light text
+│         have a job."                                  │   highlight in scheme color
+│                                                       │
+│         ─────                                         │ ← small horizontal divider
+│         Zeb Evans                                     │ ← attribution name, Roboto Bold 22px
+│         CEO de ClickUp                                │ ← role, Roboto Regular 18px gray
+│                                                       │
+└───────────────────────────────────────────────────────┘
+```
+
+**Styling:**
+- Background: mode background (dark `#11191b` or cream `#efedec`), NO card. Pure canvas.
+- Quote: Playfair Display Italic 60-80px, line-height 1.18, centered or left-aligned with 80-100px padding. 2-4 lines max. Open with `"` (curly typographic quote).
+- 1-3 keywords inside the quote in scheme highlight color (still Playfair Italic).
+- Attribution block below the quote, separated by a thin divider line.
+- Optional: a small symbolic icon (quotation mark, abstract geometric shape) in the highlight color as visual anchor — not mandatory.
+
+**Higgsfield prompt anatomy:**
+- Describe the canvas as "mostly empty editorial canvas, [mode] background"
+- The quote text rendered in Playfair Display Italic SERIF font with the keyword tokens in scheme highlight color
+- Attribution name + role below
+- No card, no Twitter UI, no avatar — just typography
+- TOP-LEFT MUST BE EMPTY mandatory line
+
+**Ethics:** the quote must come from a real verifiable source (article, official statement). Cite the source in the attribution. Same rules as tweet cards (see §8).
+
+---
+
+## 6.7 Slide type -- Comparison split (Recipe C)
+
+**When:** the news has a strong before/after, X vs Y, or strategy pivot. Two parallel realities benefit from side-by-side framing.
+
+### Layout
+
+```
+┌─ 1080 × 1350 ────────────────────────────────────────┐
+│                                                       │
+│  EL CAMBIO                                            │ ← eyebrow scheme highlight color
+│                                                       │
+│  ┌────────────────┐  ┌────────────────┐              │
+│  │  ANTES         │  │  AHORA         │              │ ← left/right labels, small caps
+│  │                │  │                │              │
+│  │   78%          │  │   ╱32%╲        │              │ ← big numbers; right side in highlight italic
+│  │   memoria      │  │   memoria      │              │ ← descriptor
+│  │                │  │                │              │
+│  │   IMAGEN /     │  │   IMAGEN /     │              │ ← small concept photo per side
+│  │   icono        │  │   icono        │              │   (optional)
+│  └────────────────┘  └────────────────┘              │
+│                                                       │
+│  ─────                                                │
+│  La memoria cayó ╱46 puntos╲ entre v1 y v2.          │ ← synthesis line below, italic emphasis
+└───────────────────────────────────────────────────────┘
+```
+
+**Styling:**
+- Two equal cards side-by-side (split 50/50 with ~20px gap). Each card has the mode-card background (white in LIGHT, very-light gray in DARK).
+- Same internal structure on both sides: small caps label at top + big number/image in the middle + descriptor + optional small concept photo or icon.
+- Visual asymmetry: the "after" / "new" / "winner" card gets the highlight color treatment (Playfair Italic number, accent border, or filled background); the "before" card stays neutral (gray).
+- Below the cards: synthesis line in Roboto Medium with 1-2 Playfair Italic emphasis tokens.
+
+**Alternative: vertical comparison (stacked top/bottom).** Same idea but cards stack vertically (one half / one half). Use when the "before" and "after" each have a horizontal photo that needs width.
+
+**Higgsfield prompt anatomy:**
+- Describe the canvas as two cards side-by-side (or stacked) with explicit padding/gap
+- Each card's exact text and number, with the right side getting Playfair Italic + scheme highlight
+- Optional concept icons described as simple geometric shapes (not photo)
+- Synthesis line below with explicit italic tokens
+- TOP-LEFT MUST BE EMPTY mandatory line
+
+---
+
 ## 7. Headline writing rules
 
 ### Language
@@ -456,7 +640,9 @@ Fabricated quotes attributed to real people are misinformation. These rules prot
 
 ---
 
-## 9. Generation pipeline (single-step Higgsfield, no logo, no overlays)
+## 9. Generation pipeline (single-step Higgsfield, no overlays)
+
+> **Logo policy:** the **subject company's logo** (the company the news is about) is included ON THE COVER ONLY, described inside the Higgsfield prompt and rendered baked-in (no HTML overlay). Body / stat / verdict slides have no logo. No Alta Studio mark anywhere, no `@lucianomusellaa` handle.
 
 ### Per-slide workflow
 
@@ -485,9 +671,10 @@ The prompt must include EVERY text element with explicit styling:
 - Bullet dots with explicit colors and order ("GREEN circle (#22c55e), then RED (#e60000), then ORANGE (#ffb050), in that order top to bottom")
 - Sub-card labels and values
 - Subtitle text below the headline
+- **COVER ONLY — subject company logo:** describe the company wordmark (spelling, weight, geometric icon if any) + actual brand colors (e.g. ClickUp = pink-magenta `#FF1F8E` → violet `#7B68EE` → cyan `#49CCF9` gradient). Place centered horizontally in the dark gradient zone above a thin divider line and above the headline. Size ~280px wide × 60–80px tall. End the logo description with: "The ONLY logo on the entire canvas is the centered [Company] wordmark in the dark gradient zone."
 - **MANDATORY line in EVERY prompt:** "The top-left corner of the canvas MUST BE COMPLETELY EMPTY. No logo, no symbol, no mark, no triangle. Leave that area clean."
 
-Without that mandatory line, the model fills the top-left with an invented "Alta Studio-style" triangular placeholder. With it, the corner stays clean.
+Without that mandatory line, the model fills the top-left with an invented "Alta Studio-style" triangular placeholder. With it, the corner stays clean. On the cover, this rule coexists with the centered subject-company logo — the model treats top-left and the dark-zone center as independent regions.
 
 ### Step 2 -- Resize to canvas dimensions
 
@@ -513,15 +700,17 @@ Since the model renders all text, **read every slide PNG with the Read tool and 
 - All Spanish accents preserved
 - No word duplications (e.g. "MENOS MENOS MEMORIA" was a real bug)
 - No missing letters (e.g. "Verifed" instead of "Verified")
+- No styling-instruction leakage into the rendered text (e.g. "Roboto Medium Italic, ALL CAPS: LA APUESTA" was a real bug — fix by separating styling from text labels in the prompt; see slide 2/3 regen notes in the brand v2 ClickUp post)
 - All stats numerically correct
 - Italic emphasis on the right words
 - Semaphore dot colors in the right order
 - Top-left corner clean (no invented logo)
+- **Cover only:** subject company logo present, centered in dark zone, identifiable, in correct brand colors
 
 If anything is wrong, **regenerate that slide with a more explicit prompt** (e.g. "the word X appears exactly one time" or "X spelled L-E-T-T-E-R-S"). Do not patch via HTML or PIL.
 
 ### Prompt anti-patterns
-- Don't mention any logo or brand mark in the prompt (the model will draw one)
+- Don't mention the Alta Studio mark, the `@lucianomusellaa` handle, or any unrelated logo in the prompt (the model will draw one). The subject company logo on the cover is the ONLY exception.
 - Don't name real public figures directly (describe by role/features)
 - Don't use prompts under 15 words
 - Don't trust the model with critical numbers without explicit spelling instructions

@@ -188,27 +188,35 @@ Last slide. Same layout as a step but content is recap + call-to-action ("guarda
 ```
 ┌─ 1080 × 1350 ────────────────────────────────────────┐
 │                                                       │ ← full-bleed photo (Higgsfield)
-│  ╲                                            ╱       │   takes top ~55% of canvas
-│   ╲                                          ╱        │
-│    ╲                                        ╱         │
-│     ╲                                      ╱          │   gradient overlay: photo →
-│      ╲                                    ╱           │   transparent → dark gradient
-│       ╲                                  ╱            │   at the bottom transition
-│        ╲                                ╱             │
-│         ╲     IMAGEN — hardware…       ╱              │ ← image label (small caps, gray)
-│          ╲                            ╱               │
-│ ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  │
-│ ANTHROPIC LANZÓ                                        │ ← Roboto Black ALL CAPS, white
-│ ╱OPUS╲ 4.7: MÁS CÓDIGO,                                │ ← "OPUS" in Playfair Italic highlight color
-│ MENOS ╱MEMORIA╲                                        │ ← "MEMORIA" in Playfair Italic highlight color
-│ — ¿VALE EL ╱PRECIO╲?                                   │ ← "PRECIO" in Playfair Italic highlight color
+│                                                       │   takes top ~58% of canvas
+│                                                       │
+│                                                       │   TOP-LEFT MUST BE EMPTY
+│                                                       │   (no Alta Studio, no @handle)
+│                                                       │
+│                                                       │   gradient overlay: photo →
+│                                                       │   transparent → dark gradient
+│                                                       │   at the bottom transition
+│ ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  │
+│              ▲    [ClickUp]                            │ ← subject company logo
+│              ────────────────                          │   (centered, ~280px wide, brand colors)
+│                                                        │ ← thin divider line
+│ CLICKUP DESPIDIÓ                                       │ ← Roboto Black ALL CAPS, white
+│ AL 22% — Y LOS                                         │
+│ REEMPLAZÓ POR                                          │
+│ ╱3.000 AGENTES╲ DE IA                                  │ ← Playfair Italic + scheme highlight
 │                                                        │
-│ EL MODELO QUE PROMETÍA MÁS Y LLEGÓ CON SORPRESAS      │ ← subtitle, gray small caps
-│                                                        │
+│ EL FUTURO DEL TRABAJO LLEGÓ ANTES DE LO ESPERADO      │ ← subtitle, gray small caps
 └────────────────────────────────────────────────────────┘
 ```
 
-The "X" diagonal cross visible in template PNGs is a **placeholder marker only** — never render it in the final output. The Higgsfield photo replaces that zone entirely.
+**Cover-specific rules (brand v2, updated 2026-05-25):**
+- The "X" diagonal cross in template PNGs is a **placeholder marker only** — never render it in the final output. The Higgsfield photo replaces that zone entirely.
+- **The subject company's logo is MANDATORY on every news cover** — described inside the Higgsfield prompt (single-step, no overlay), centered in the dark gradient zone above the headline with a thin divider line between. Use the company's actual brand colors. Body/stat/verdict slides have NO logo.
+- The top-left rule (no Alta Studio mark, no triangle, no `@handle`) still applies and coexists with the centered company logo — independent regions of the canvas.
+
+### News structure — 4 recipes + 7-type library (added 2026-05-25)
+
+News is no longer a fixed cover/body/stat/verdict skeleton. The library has **7 slide types**: Cover (always slide 1), Body text, Stat card, Verdict, **Tweet card**, **Quote pull**, **Comparison split**. Each post picks one of **4 recipes** (A Standard / B Reaction / C Comparison / D Photo essay), rotating vs the last 2 posts. Info slides (body/stat/verdict) each have 2–3 visual variants so layouts don't rhyme between posts. Full library, recipe table, and per-slide variants live in [`PostTypes/news/Skills/news-post-design.md §1`](../PostTypes/news/Skills/news-post-design.md). Length limits: 3 minimum, 6 maximum, 4–5 sweet spot.
 
 ### News body slide (text + photo split)
 
